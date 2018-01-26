@@ -1,24 +1,9 @@
-# README
+# IskoExchange
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is the repository for the code of IskoExchange. The CS 191 repository containing documentation can be found [here](https://github.com/ivanbalingit/IskoExchange).
 
-Things you may want to cover:
+About the app:
+* Rails version: 5.1.4
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Helpful links to get started:
+* [Setting up the database](https://github.com/ivanbalingit/iskoexchange_app/commit/2b2d57896b7ade0cf5c2253d6eca8544b87c541a#commitcomment-27120016)
