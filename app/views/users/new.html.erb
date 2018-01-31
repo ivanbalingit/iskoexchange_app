@@ -1,0 +1,18 @@
+<h1>Signup form</h1>
+
+<% if @user.errors.any? %>
+<ul>
+  <% @user.errors.each do |err| %>
+    <li><%= err %></li>
+  <% end %>
+</ul>
+<% end %>
+
+<%= form_for @user, url: signup_path do |f| %>
+	<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+	Email: <%= f.text_field :email %><br>
+	Display name: <%= f.text_field :display_name %><br>
+	Password: <%= f.password_field :password %><br>
+	Confirm password: <%= f.password_field :password_confirmation %><br>
+	<%= f.submit %>
+<% end %>
