@@ -1,7 +1,12 @@
 <h1>Sessions#new</h1>
+
+<% if @notice %>
+  <h2><%= @notice %></h2>
+<% end %>
+
 <p>Find me in app/views/sessions/new.html.erb</p>
 <%= form_for(:session, url: login_path) do |f| %>
-	<%= f.label :email %><%= f.text_field :email, class: "form-control", placeholder: "Email" %><br>
+	<%= f.label :email %><%= f.text_field :email, class: "form-control", placeholder: "Email", value: @email || "" %><br>
 	<%= f.label :password %><%= f.password_field :password, class: "form-control", placeholder: "Password" %><br>
 	<%= f.submit "Login", class: "btn btn-primary" %>
 <% end -%>
