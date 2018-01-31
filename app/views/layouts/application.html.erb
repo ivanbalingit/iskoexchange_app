@@ -34,7 +34,30 @@
           </li>
         </ul>
         <!-- Right side -->
-        
+        <ul class="navbar-nav">
+          <!-- Search form -->
+          <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+          <% if current_user %>
+            <!-- When logged in -->
+            &nbsp;&nbsp;
+            <span class="navbar-text">Logged in as: <strong><%= current_user.display_name %></strong>.</span>
+            &nbsp;&nbsp;
+            <%= link_to "Log Out", logout_url, method: :delete, class: "btn btn-outline-danger" %>
+          <% else %>
+            <!-- If no one is logged in -->
+            &nbsp;
+            <li class="nav-item">
+              <%= link_to "Log In", login_url, class: "btn btn-outline-secondary" %>
+            </li>
+            &nbsp;
+            <li class="nav-item">
+              <%= link_to "Sign Up", signup_url, class: "btn btn-outline-primary" %>
+            </li>
+          <% end -%>
+        </ul>
       </div>
     </nav>
     
