@@ -1,12 +1,14 @@
-<h1>Sessions#new</h1>
+<h1>Login</h1><hr>
 
-<% if @notice %>
-  <h2><%= @notice %></h2>
-<% end %>
-
-<p>Find me in app/views/sessions/new.html.erb</p>
-<%= form_for(:session, url: login_path) do |f| %>
-	<%= f.label :email %><%= f.text_field :email, class: "form-control", placeholder: "Email", value: @email || "" %><br>
-	<%= f.label :password %><%= f.password_field :password, class: "form-control", placeholder: "Password" %><br>
-	<%= f.submit "Login", class: "btn btn-primary" %>
-<% end -%>
+<div class="row">
+  <div class="col-6 offset-3">
+    <% if @notice %>
+      <div class="alert alert-danger"><%= @notice %></div>
+    <% end %>
+    <%= form_for(:session, url: login_path) do |f| %>
+    	<%= f.label :email %><%= f.text_field :email, class: "form-control", placeholder: "Email", value: @email || "" %><br>
+    	<%= f.label :password %><%= f.password_field :password, class: "form-control", placeholder: "Password" %><br>
+    	<%= f.submit "Login", class: "btn btn-primary" %>
+    <% end -%>
+  </div>
+</div>
