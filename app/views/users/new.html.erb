@@ -1,11 +1,11 @@
 <h1>Signup form</h1>
 
 <% if @user.errors.any? %>
-<ul>
-  <% @user.errors.each do |err| %>
-    <li><%= err %></li>
-  <% end %>
-</ul>
+	<ul>
+	  <% @user.errors.messages.each do |err| %>
+	    <li><%= err[0].to_s.gsub("_"," ").capitalize %> <%= err[1][0].to_s %>.</li>
+	  <% end %>
+	</ul>
 <% end %>
 
 <%= form_for @user, url: signup_path do |f| %>
