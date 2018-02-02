@@ -28,6 +28,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap', '~> 4.0.0'
 # The jquery-rails gem is needed by Boostrap
 gem 'jquery-rails'
+# Use validates_email_format_of for validation of email
+gem 'validates_email_format_of'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
