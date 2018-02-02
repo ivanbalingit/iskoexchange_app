@@ -6,6 +6,12 @@ class ApplicationController < ActionController::Base
   def logged_in?
     !session[:email].nil?
   end
+  
+  def logged_in_user
+    unless logged_in?
+      redirect_to '/login'
+    end
+  end
 
   def current_user
     User.where(email: session[:email]).first
