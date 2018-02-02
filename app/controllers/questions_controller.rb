@@ -1,27 +1,29 @@
 class QuestionsController < ApplicationController
-    before_action :logged_in_user, except: :index
-    def index
-      @question = Question.all
+  before_action :logged_in_user, except: :index
+  
+  def index
+    @question = Question.all
+  end
+  
+  def new
+    @question = Question.new   
+  end
+  
+  def show
+    @question = Question.find(params[:id])
+  end
+  
+  def create   
+    @question = Question.new(question_params)
+    if @question.save
+      redirect_to @question
+    else
+      render 'new'
     end
-    def new
-      @question = Question.new   
+  end
+  
+  private
+    def question_params
+      params.require(:question).permit(:title, :content, :user_id)
     end
-    def show
-      @question = Question.find(params[:id])
-    end
-    def create
-    
-      @question = Question.new(question_params)
-      
-      if @question.save
-        redirect_to @question
-      else
-        render 'new'
-      end
-      puts @question.user
-    end
-    private
-      def question_params
-        params.require(:question).permit(:title, :content, :user_id)
-      end
-  end  
+end  
