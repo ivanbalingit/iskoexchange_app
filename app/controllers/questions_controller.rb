@@ -1,8 +1,8 @@
 class QuestionsController < ApplicationController
-  before_action :logged_in_user, except: :index
+  before_action :logged_in_user, except: [:index, :show]
   
   def index
-    @question = Question.all
+    @questions = Question.all
   end
   
   def new

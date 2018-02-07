@@ -1,0 +1,8 @@
+<h2>Questions</h2><hr>
+
+<% @questions.each do |question| %>
+    <div><%= link_to question.title, question %></div>
+    <div><%= question.user.display_name %></div>
+    <div><%= question.content.truncate(128) %></div>
+    <hr>
+<% end %>
