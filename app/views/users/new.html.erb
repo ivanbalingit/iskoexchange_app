@@ -1,34 +1,23 @@
-<style>
-.center {
-	text-align: center;
-	margin: auto;
-	width: 30%;
-	border: 1px solid #dddbdb;
-	padding: 15px;
-}
-</style>
+<h1 class="text-center">
+	Create your own IskoExchange account for free.
+</h1><br>
 
-<h1 style="text-align:center;"><br>Create your own IskoExchange account for free.<br><br></h1>
+<div class="row">
+	<div class="col-6 offset-3">
+		<% if @user.errors.any? %>
+			<% @user.errors.messages.each do |err| %>
+				<div class="alert alert-danger"><%= err[0].to_s.gsub("_"," ").capitalize %> <%= err[1][0].to_s %>.</div>
+			<% end %>
+		<% end %>
 
-<% if @user.errors.any? %>
-	<ul>
-	  <% @user.errors.messages.each do |err| %>
-	    <li><%= err[0].to_s.gsub("_"," ").capitalize %> <%= err[1][0].to_s %>.</li>
-	  <% end %>
-	</ul>
-<% end %>
-
-
-<%= form_for @user, url: signup_path do |f| %>
-	<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-<div class="center">
-	<b><%= f.label :email %><%= f.text_field :email, class: "form-control", value: @email || "" %><br>
-	<%= f.label :display_name %><%= f.text_field :display_name, class: "form-control", value: @display_name || "" %><br>
-	<%= f.label :password %><%= f.password_field :password, class: "form-control", value: @password || "" %><br>
-	<%= f.label :password_confirmation %><%= f.password_field :password_confirmation, class: "form-control", value: @email || "" %><br>
-	
-	<%= f.submit %>
+		<%= form_for @user, url: signup_path do |f| %>
+			<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+			<%= f.label :email %><%= f.text_field :email, class: "form-control", value: @email || "" %><br>
+			<%= f.label :display_name %><%= f.text_field :display_name, class: "form-control", value: @display_name || "" %><br>
+			<%= f.label :password %><%= f.password_field :password, class: "form-control", value: @password || "" %><br>
+			<%= f.label :password_confirmation %><%= f.password_field :password_confirmation, class: "form-control", value: @email || "" %><br>
+			<%= f.submit "Register", class: "btn btn-primary" %>
+		<% end %>		
+	</div>
 </div>
-<% end %>
 
-<br>

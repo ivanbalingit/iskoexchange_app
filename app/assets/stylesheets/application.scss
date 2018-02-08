@@ -44,20 +44,18 @@ input[type=search] {
   transition: all .5s;
 }
 
+.navbar-brand { font-color: #FFF444; }
 
-.navbar-brand {
-	font-color: #FFF444;
-}
+.nav-item{ color: #FFFFFF; }
 
-.nav-item{
-	color: #FFFFFF;
-}
-nav{
+nav {
 	background-color: #000000;
 	font-color: #FFFFFF;
 }
 
+.flex-grow { flex: 1; }
 
-.flex-grow {
-   flex: 1;
+#iskoexchange-logo {
+	width: 180px;
+	height: 30px;
 }
