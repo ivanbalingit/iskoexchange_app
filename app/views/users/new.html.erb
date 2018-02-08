@@ -1,4 +1,14 @@
-<h1>Signup form</h1>
+<style>
+.center {
+	text-align: center;
+	margin: auto;
+	width: 30%;
+	border: 1px solid #dddbdb;
+	padding: 15px;
+}
+</style>
+
+<h1 style="text-align:center;"><br>Create your own IskoExchange account for free.<br><br></h1>
 
 <% if @user.errors.any? %>
 	<ul>
@@ -8,11 +18,17 @@
 	</ul>
 <% end %>
 
+
 <%= form_for @user, url: signup_path do |f| %>
 	<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-	Email: <%= f.text_field :email %><br>
-	Display name: <%= f.text_field :display_name %><br>
-	Password: <%= f.password_field :password %><br>
-	Confirm password: <%= f.password_field :password_confirmation %><br>
+<div class="center">
+	<b><%= f.label :email %><%= f.text_field :email, class: "form-control", value: @email || "" %><br>
+	<%= f.label :display_name %><%= f.text_field :display_name, class: "form-control", value: @display_name || "" %><br>
+	<%= f.label :password %><%= f.password_field :password, class: "form-control", value: @password || "" %><br>
+	<%= f.label :password_confirmation %><%= f.password_field :password_confirmation, class: "form-control", value: @email || "" %><br>
+	
 	<%= f.submit %>
+</div>
 <% end %>
+
+<br>
