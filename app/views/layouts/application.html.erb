@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!--FONT-->
+    <link href="https://fonts.googleapis.com/css?family=Hero:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <title>IskoexchangeApp</title>
     <%= csrf_meta_tags %>
 
@@ -12,7 +14,7 @@
 
   <body class="d-flex flex-column">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-custom fixed-top">
       <!-- Navbar brand -->
       <%= link_to "IskoExchange", root_url, class: "navbar-brand" %>
       <!-- Collapse toggle button -->
@@ -65,8 +67,9 @@
     
     <!-- Main content -->
     <div class="container flex-grow" id="main-content">
-      <br><%= yield %>  
+      <br><br><br><br><%= yield %>  
     </div>
+
     
     <!-- Footer -->
     <footer class="bg-dark text-white mt-4">

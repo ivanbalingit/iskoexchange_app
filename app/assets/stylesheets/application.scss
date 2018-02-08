@@ -14,8 +14,11 @@
 @import "bootstrap";
 
 body {
-  min-height: 100vh; 
+  min-height: 100vh;
+  background-color: #fafafa;
+  font-family: 'Hero'; 
 }
+
 
 .flex-grow {
    flex: 1;
