@@ -19,6 +19,44 @@ body {
   font-family: 'Hero'; 
 }
 
+form {
+  position: relative;
+  display: block;
+  margin-top: 0em;
+}
+
+input {
+  outline: none;
+}
+
+input[type=search] {
+  background: #ededed url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
+  border: solid 1px #ccc;
+  padding: 5px 6px 5px 32px;
+  width: 45px;
+	
+  -webkit-border-radius: 10em;
+  -moz-border-radius: 10em;
+  border-radius: 10em;
+	
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  transition: all .5s;
+}
+
+
+.navbar-brand {
+	font-color: #FFF444;
+}
+
+.nav-item{
+	color: #FFFFFF;
+}
+nav{
+	background-color: #000000;
+	font-color: #FFFFFF;
+}
+
 
 .flex-grow {
    flex: 1;
