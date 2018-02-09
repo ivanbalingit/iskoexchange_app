@@ -29,7 +29,7 @@ class QuestionsController < ApplicationController
   # 2/2/18
   # For the index view of Question
   def index
-    @question = Question.all
+    @questions = Question.all
   end
   
   # 2/2/18
