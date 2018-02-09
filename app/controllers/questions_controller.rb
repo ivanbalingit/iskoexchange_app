@@ -25,7 +25,8 @@
 =end
 
 class QuestionsController < ApplicationController
-  before_action :logged_in_user, except: :index
+  before_action :logged_in_user, except: [:index, :show]
+  
   # 2/2/18
   # For the index view of Question
   def index
