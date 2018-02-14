@@ -28,3 +28,22 @@
 <h2><%= @question.title %></h2>
 <h5>Asked by <%= @question.user.display_name %> on <%= @question.created_at %>.</h5><hr>
 <div><%= @question.content %></div>
+<br>
+
+<br>
+<hr>
+<h4>Answers</h4>
+<% @question.answers.each do |answer| %>
+  <div><strong><%= answer.user.display_name %></strong></div>
+  <div><%= answer.created_at %></div>
+  <div><%= answer.content %></div>
+<% end %>
+<br />
+<br />
+<br /> 
+<%= form_for(@answer) do |f| %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.hidden_field :question_id, value:  @question.id %>
+    <%= f.label :content  %><%= f.text_area :content, :placeholder => "Answer here", rows: "10", cols: "80", class: "form-control" %><br>
+    <%= f.submit "Answer question", class: "btn btn-primary" %>
+<% end %>	

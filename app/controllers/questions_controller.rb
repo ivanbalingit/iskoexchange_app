@@ -43,6 +43,7 @@ class QuestionsController < ApplicationController
   # For the show view of Question
   def show
     @question = Question.find(params[:id])
+    @answer = Answer.new
   end
   
   # 2/2/18
