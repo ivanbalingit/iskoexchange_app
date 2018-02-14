@@ -1,4 +1,4 @@
 class Question < ApplicationRecord
   belongs_to :user
-  validates :title, presence: true, length: { minimum: 5 }
+  validates :title, :content, presence: true, length: { minimum: 15 }
 end
