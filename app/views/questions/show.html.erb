@@ -19,6 +19,8 @@
      Ivan Balingit 2/9/18 - Fix frontend for this view
      Luis Tan 2/9/18 - Added License
      Ivan Balingit 2/14/18 - Add link to user
+     Luis Tan 2/14/18 - Create Answer form
+     Ivan Balingit 2/14/18 - Hide answer form when not logged-in
 
      File created on: 1/26/18
      Developer: Ivan Balingit & Luis Tan
@@ -39,12 +41,12 @@
   <div><%= answer.created_at %></div>
   <div><%= answer.content %></div>
 <% end %>
-<br />
-<br />
-<br /> 
-<%= form_for(@answer) do |f| %>
+<br><br><br>
+<% if current_user %>
+  <%= form_for(@answer) do |f| %>
     <%= f.hidden_field :user_id, value: current_user.id %>
     <%= f.hidden_field :question_id, value:  @question.id %>
     <%= f.label :content  %><%= f.text_area :content, :placeholder => "Answer here", rows: "10", cols: "80", class: "form-control" %><br>
     <%= f.submit "Answer question", class: "btn btn-primary" %>
-<% end %>	
+  <% end %>
+<% end %>
