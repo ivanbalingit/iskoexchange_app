@@ -17,6 +17,7 @@
      *CHANGELOG*
      Ivan Balingit 2/2/18 - Initial Source Code and Generated all the methods. 
      Ivan Balingit 2/9/18 - Added License
+     Ivan Balingit 2/14/18 - Add show method
 
      File created on: 1/26/18
      Developer: 
@@ -38,6 +39,11 @@ class UsersController < ApplicationController
     else
       render action: 'new'
     end
+  end
+  
+  # GET /users/:id
+  def show
+    @user = User.find(params[:id])
   end
   
   private

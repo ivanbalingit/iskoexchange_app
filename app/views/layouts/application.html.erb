@@ -17,6 +17,7 @@
      *CHANGELOG*
      Ivan Balingit 2/2/18 - Initial Source Code and content. 
      Ivan Balingit 2/9/18 - Added License
+     Ivan Balingit 2/14/18 - Add link to user
 
      File created on: 1/26/18
      Developer: 
@@ -63,7 +64,7 @@
           <% if current_user %>
             <!-- When logged in -->
             &nbsp;&nbsp;
-            <span class="navbar-text text-white">Logged in as: <strong><%= current_user.display_name %></strong>.</span>
+            <span class="navbar-text text-white">Logged in as: <strong><%= link_to current_user.display_name, current_user %></strong>.</span>
             &nbsp;&nbsp;
             <%= link_to "Log Out", logout_url, method: :delete, class: "btn btn-outline-danger" %>
           <% else %>

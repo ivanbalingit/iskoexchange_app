@@ -18,6 +18,7 @@
      Luis Tan 2/2/18 - Initial Source Code and content. 
      Ivan Balingit 2/9/18 - Fix frontend for this view
      Luis Tan 2/9/18 - Added License
+     Ivan Balingit 2/14/18 - Add link to user
 
      File created on: 1/26/18
      Developer: Ivan Balingit & Luis Tan
@@ -26,7 +27,7 @@
 -->
 
 <h2><%= @question.title %></h2>
-<h5>Asked by <%= @question.user.display_name %> on <%= @question.created_at %>.</h5><hr>
+<h5>Asked by <%= link_to @question.user.display_name, @question.user %> on <%= @question.created_at %>.</h5><hr>
 <div><%= @question.content %></div>
 <br>
 
@@ -34,7 +35,7 @@
 <hr>
 <h4>Answers</h4>
 <% @question.answers.each do |answer| %>
-  <div><strong><%= answer.user.display_name %></strong></div>
+  <div><strong><%= link_to answer.user.display_name, answer.user %></strong></div>
   <div><%= answer.created_at %></div>
   <div><%= answer.content %></div>
 <% end %>
