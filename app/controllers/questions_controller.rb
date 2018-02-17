@@ -17,6 +17,7 @@
      **CHANGELOG**
      Luis Tan 2/2/18 - Inital Source Code and Generated all the methods. 
      Luis Tan 2/9/18 - Added License
+     Ivan Balingit 2/17/18 - Add action for search questions
 
      File created on: 1/26/18
      Developer: Luis Tan
@@ -25,7 +26,7 @@
 =end
 
 class QuestionsController < ApplicationController
-  before_action :logged_in_user, except: [:index, :show]
+  before_action :logged_in_user, only: [:new, :create]
   
   # 2/2/18
   # For the index view of Question
@@ -55,6 +56,12 @@ class QuestionsController < ApplicationController
     else
       render 'new'
     end
+  end
+  
+  # GET /search
+  def search
+    @term = params[:q]
+    @questions = Question.where("lower(title) LIKE lower(?)", "%#{@term}%")
   end
   
   private
