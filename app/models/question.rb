@@ -29,5 +29,5 @@
 class Question < ApplicationRecord
   belongs_to :user
   has_many :answers, dependent: :destroy
-  validates :title, presence: true, length: { minimum: 15 }
+  validates :title, :content, presence: true, length: { minimum: 16 }
 end
