@@ -18,6 +18,7 @@
      Luis Tan 2/2/18 - Added routes for questions 
      Luis Tan 2/9/18 - Added License
      Ivan Balingit 2/14/18 - Add routes for showing user profiles
+     Ivan Balingit 2/17/18 - Add route for searching questions
 
      File created on: 1/26/18
      Developer: Ivan Balingit & Luis Tan
@@ -28,6 +29,8 @@ Rails.application.routes.draw do
   resources :questions
   resources :answers
   resources :users, only: :show
+
+  get '/search' => 'questions#search'
 
   get  '/signup' => 'users#new'
   post '/signup' => 'users#create'

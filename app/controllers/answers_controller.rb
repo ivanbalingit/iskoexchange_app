@@ -27,11 +27,9 @@ class AnswersController < ApplicationController
 
   def create
     @question = Question.find(params[:answer][:question_id])
-    puts "SUCC 1"
     @answer = Answer.new(answer_params)
     if @question.answers << @answer
-      puts "SUCC 2"
-      redirect_to(@question)
+      redirect_to @question
     else
       render "questions/:user_id"
     end
