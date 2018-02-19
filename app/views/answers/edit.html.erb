@@ -1,0 +1,29 @@
+<h2><%= @question.title %></h2>
+<h5>Asked by <%= link_to @question.user.display_name, @question.user %> on <%= @question.created_at %>.</h5><hr>
+<div><%= @question.content %></div>
+<br>
+<% if current_user %>
+  <% if current_user.id == @question.user_id %> 
+    <%= link_to "Edit", edit_question_path %>
+    <%= link_to "Destroy", question_path, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <% end %>
+<% end %>
+<br>
+<hr>
+<h4>Answers</h4>
+<% @question.answers.each do |answer| %>
+    <div><strong><%= link_to answer.user.display_name, answer.user %></strong></div>
+    <div><%= answer.created_at %></div>
+    <% if current_user and answer.id == @answer.id %>
+      <%= form_for(@answer) do |f| %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        <%= f.hidden_field :question_id, value:  @question.id %>
+        <%= f.label :content  %><%= f.text_area :content, value: @answer.content, rows: "10", cols: "80", class: "form-control" %><br>
+        <%= f.submit "Update answer", class: "btn btn-primary" %>
+      <% end %>
+    <% else %>
+     <%= answer.content %>
+    <% end %>
+<% end %>
+<br><br><br>
+

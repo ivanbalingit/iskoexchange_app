@@ -32,7 +32,12 @@
 <h5>Asked by <%= link_to @question.user.display_name, @question.user %> on <%= @question.created_at %>.</h5><hr>
 <div><%= @question.content %></div>
 <br>
-
+<% if current_user %>
+  <% if current_user.id == @question.user_id %> 
+    <%= link_to "Edit", edit_question_path %>
+    <%= link_to "Destroy", question_path, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <% end %>
+<% end %>
 <br>
 <hr>
 <h4>Answers</h4>
@@ -40,6 +45,12 @@
   <div><strong><%= link_to answer.user.display_name, answer.user %></strong></div>
   <div><%= answer.created_at %></div>
   <div><%= answer.content %></div>
+  <% if current_user %>
+    <% if current_user.id == answer.user_id %> 
+        <%= link_to "Edit", edit_answer_path(question_id: answer.question,answer_id: answer) %>
+        <%= link_to "Destroy", answer_path(question_id: answer.question,answer_id: answer), method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
+  <% end %>
 <% end %>
 <br><br><br>
 <% if current_user %>

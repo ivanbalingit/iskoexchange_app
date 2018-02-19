@@ -58,10 +58,31 @@ class QuestionsController < ApplicationController
     end
   end
   
+  def destroy
+    @question = Question.find(params[:id])
+    if @question.destroy
+      redirect_to root_path
+    else 
+      redirect to :back #CHANGE
+    end    
+  end
   # GET /search
   def search
     @term = params[:q]
     @questions = Question.where("lower(title) LIKE lower(?)", "%#{@term}%")
+  end
+
+  def edit
+    @question = Question.find(params[:id])
+  end
+
+  def update
+    @question = Question.find(params[:id])
+    if @question.update(question_params)
+        redirect_to @question
+    else
+        render 'edit'
+    end
   end
   
   private

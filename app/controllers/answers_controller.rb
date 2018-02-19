@@ -35,6 +35,31 @@ class AnswersController < ApplicationController
     end
   end
 
+  def destroy
+    @question = Question.find(params[:question_id])
+    @answer = @question.answers.find(params[:answer_id])
+    if @answer.destroy
+      redirect_to @question
+    else 
+      redirect_to @question #CHANGE
+    end
+  end
+
+  def edit
+    @question = Question.find(params[:question_id])
+    @answer = @question.answers.find(params[:answer_id])    
+  end
+
+  def update
+    @question = Question.find(params[:answer][:question_id])
+    @answer = @question.answers.find(params[:id])
+    if @answer.update(answer_params)
+        redirect_to @question
+    else
+        render 'edit'
+    end
+  end
+
   private
   # 2/2/18
   # For the parameters when finding the data
