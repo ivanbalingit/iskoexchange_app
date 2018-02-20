@@ -19,7 +19,8 @@
      Luis Tan 2/9/18 - Added License
      Ivan Balingit 2/14/18 - Add routes for showing user profiles
      Ivan Balingit 2/17/18 - Add route for searching questions
-
+     Luis Tan 2/14/18 - Added routes for answer
+    
      File created on: 1/26/18
      Developer: Ivan Balingit & Luis Tan
      Client: UP Diliman Students

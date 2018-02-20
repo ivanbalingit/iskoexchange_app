@@ -14,6 +14,10 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see https://www.gnu.org/licenses/.
 
+     *CHANGELOG*
+    Luis Tan 2/14/18 - Initial Source Code with Create and New method
+    Luis Tan 2/19/18 - Finished the CRUD functionality for Answer
+    
      File created on: 2/14/18
      Developer: Luis Tan
      Client: UP Diliman Students
@@ -21,10 +25,13 @@
 =end
 
 class AnswersController < ApplicationController
+  # 2/14/18
+  # For the new view of Question
   def new
     @question = Question.new
   end
-
+  # 2/14/18
+  # For the create function of Answer
   def create
     @question = Question.find(params[:answer][:question_id])
     @answer = Answer.new(answer_params)
@@ -34,7 +41,8 @@ class AnswersController < ApplicationController
       render "questions/:user_id"
     end
   end
-
+  # 2/19/18
+  # For the destroy function of Answer
   def destroy
     @question = Question.find(params[:question_id])
     @answer = @question.answers.find(params[:answer_id])
@@ -45,11 +53,15 @@ class AnswersController < ApplicationController
     end
   end
 
+  # 2/19/18
+  # For the edit function of Answer
   def edit
     @question = Question.find(params[:question_id])
     @answer = @question.answers.find(params[:answer_id])    
   end
 
+  # 2/19/18
+  # For the update function of Answer
   def update
     @question = Question.find(params[:answer][:question_id])
     @answer = @question.answers.find(params[:id])
@@ -59,9 +71,8 @@ class AnswersController < ApplicationController
         render 'edit'
     end
   end
-
   private
-  # 2/2/18
+  # 2/14/18
   # For the parameters when finding the data
   def answer_params
     params.require(:answer).permit(:content, :user_id, :question_id)
