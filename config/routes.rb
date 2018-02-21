@@ -20,6 +20,7 @@
      Ivan Balingit 2/14/18 - Add routes for showing user profiles
      Ivan Balingit 2/17/18 - Add route for searching questions
      Luis Tan 2/14/18 - Added routes for answer
+     Ivan Balingit 2/21/18 - Add routes for replies
     
      File created on: 1/26/18
      Developer: Ivan Balingit & Luis Tan
@@ -30,6 +31,7 @@ Rails.application.routes.draw do
   resources :questions
   resources :answers
   resources :users, only: :show
+  resources :replies
 
   get '/search' => 'questions#search'
 

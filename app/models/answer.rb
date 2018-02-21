@@ -13,7 +13,10 @@
     GNU General Public License for more details.
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see https://www.gnu.org/licenses/.
-
+    
+    *CHANGELOG*
+     Ivan Balingit 2/21/18 - Add relation for replies
+    
      File created on: 2/14/18
      Developer: Luis Tan
      Client: UP Diliman Students
@@ -23,4 +26,5 @@
 class Answer < ApplicationRecord
     belongs_to :user
     belongs_to :question
+    has_many   :replies
 end
