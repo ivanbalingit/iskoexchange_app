@@ -1,6 +1,6 @@
 <!--
-    Description : View file for show
-    Copyright (C) 2018  Luis Tan
+    Description : View file for edit answer
+    Copyright (C) 2018 Luis Tan
 
     This is a course requirement for CS 192 Software Engineering II under the supervision of Asst. Prof. Ma. Rowena C. Solamo of the Department of Computer Science, College of Engineering, University of the Philippines, Diliman for the AY 2015-2016
     This program is free software: you can redistribute it and/or modify
@@ -15,15 +15,9 @@
     along with this program.  If not, see https://www.gnu.org/licenses/.
 
      *CHANGELOG*
-     Luis Tan 2/2/18 - Initial Source Code and content. 
-     Ivan Balingit 2/9/18 - Fix frontend for this view
-     Luis Tan 2/9/18 - Added License
-     Ivan Balingit 2/14/18 - Add link to user
-     Luis Tan 2/14/18 - Create Answer form
-     Ivan Balingit 2/14/18 - Hide answer form when not logged-in
-     Luis Tan 2/19/18 - Modified the web page for the input form of Answers
+     Luis Tan 2/19/18 - Initial Source Code and content.
 
-     File created on: 1/26/18
+     File created on: 2/19/18
      Developer: Ivan Balingit & Luis Tan
      Client: UP Diliman Students
      IskoExchange is a platform for UP students to ask questions and share insights related to UP
@@ -43,22 +37,18 @@
 <hr>
 <h4>Answers</h4>
 <% @question.answers.each do |answer| %>
-  <div><strong><%= link_to answer.user.display_name, answer.user %></strong></div>
-  <div><%= answer.created_at %></div>
-  <div><%= answer.content %></div>
-  <% if current_user %>
-    <% if current_user.id == answer.user_id %> 
-        <%= link_to "Edit", edit_answer_path(question_id: answer.question,answer_id: answer) %>
-        <%= link_to "Destroy", answer_path(question_id: answer.question,answer_id: answer), method: :delete, data: { confirm: 'Are you sure?' } %>
+    <div><strong><%= link_to answer.user.display_name, answer.user %></strong></div>
+    <div><%= answer.created_at %></div>
+    <% if current_user and answer.id == @answer.id %>
+      <%= form_for(@answer) do |f| %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        <%= f.hidden_field :question_id, value:  @question.id %>
+        <%= f.label :content  %><%= f.text_area :content, value: @answer.content, rows: "10", cols: "80", class: "form-control" %><br>
+        <%= f.submit "Update answer", class: "btn btn-primary" %>
+      <% end %>
+    <% else %>
+     <%= answer.content %>
     <% end %>
-  <% end %>
 <% end %>
 <br><br><br>
-<% if current_user %>
-  <%= form_for(@answer) do |f| %>
-    <%= f.hidden_field :user_id, value: current_user.id %>
-    <%= f.hidden_field :question_id, value:  @question.id %>
-    <%= f.label :content  %><%= f.text_area :content, :placeholder => "Answer here", rows: "10", cols: "80", class: "form-control" %><br>
-    <%= f.submit "Answer question", class: "btn btn-primary" %>
-  <% end %>
-<% end %>
+
