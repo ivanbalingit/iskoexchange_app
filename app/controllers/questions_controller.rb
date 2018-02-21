@@ -18,6 +18,7 @@
      Luis Tan 2/2/18 - Inital Source Code and Generated all the methods. 
      Luis Tan 2/9/18 - Added License
      Ivan Balingit 2/17/18 - Add action for search questions
+     Luis Tan 2/19/18 - Finished the CRUD functionalities for Question
 
      File created on: 1/26/18
      Developer: Luis Tan
@@ -58,10 +59,38 @@ class QuestionsController < ApplicationController
     end
   end
   
+  # 2/19/18
+  # For the destroy function of Question
+  def destroy
+    @question = Question.find(params[:id])
+    if @question.destroy
+      redirect_to root_path
+    else 
+      redirect to :back #CHANGE
+    end    
+  end
+  # 2/18/18
   # GET /search
   def search
     @term = params[:q]
     @questions = Question.where("lower(title) LIKE lower(?)", "%#{@term}%")
+  end
+
+  # 2/19/18
+  # For the edit function of Question
+  def edit
+    @question = Question.find(params[:id])
+  end
+
+  # 2/19/18
+  # For the update function of Question
+  def update
+    @question = Question.find(params[:id])
+    if @question.update(question_params)
+        redirect_to @question
+    else
+        render 'edit'
+    end
   end
   
   private

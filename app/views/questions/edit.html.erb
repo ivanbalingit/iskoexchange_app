@@ -1,6 +1,6 @@
-=begin
-    Description : Routes file for the whole website
-    Copyright (C) 2018  Luis Tan & Ivan Balingit
+<!--
+    Description : View file for edit question
+    Copyright (C) 2018 Luis Tan
 
     This is a course requirement for CS 192 Software Engineering II under the supervision of Asst. Prof. Ma. Rowena C. Solamo of the Department of Computer Science, College of Engineering, University of the Philippines, Diliman for the AY 2015-2016
     This program is free software: you can redistribute it and/or modify
@@ -14,31 +14,30 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see https://www.gnu.org/licenses/.
 
-     **CHANGELOG**
-     Luis Tan 2/2/18 - Added routes for questions 
-     Luis Tan 2/9/18 - Added License
-     Ivan Balingit 2/14/18 - Add routes for showing user profiles
-     Ivan Balingit 2/17/18 - Add route for searching questions
-     Luis Tan 2/14/18 - Added routes for answer
-    
-     File created on: 1/26/18
+     *CHANGELOG*
+		 Luis Tan 2/19/18 - Initial Source Code and content.;
+		 
+     File created on: 2/19/18
      Developer: Ivan Balingit & Luis Tan
      Client: UP Diliman Students
      IskoExchange is a platform for UP students to ask questions and share insights related to UP
-=end
-Rails.application.routes.draw do
-  resources :questions
-  resources :answers
-  resources :users, only: :show
+-->
 
-  get '/search' => 'questions#search'
+<h2>Edit question</h2><hr>
 
-  get  '/signup' => 'users#new'
-  post '/signup' => 'users#create'
-
-  get    '/login',  to: 'sessions#new'
-  post   '/login',  to: 'sessions#create'
-  delete '/logout', to: 'sessions#destroy'
-
-  root 'home#index'
-end
+<div class="row">
+	<div class="col-6 offset-3">
+	    <% if @question.errors.any? %>
+			<% @question.errors.messages.each do |err| %>
+				<div class="alert alert-danger"><%= err[0].to_s.gsub("_"," ").capitalize %> <%= err[1][0].to_s %>.</div>
+			<% end %>
+		<% end %>
+	    
+		<%= form_for(@question) do |f| %>
+		  <%= f.hidden_field :user_id, value: current_user.id %>
+		  <%= f.label :title %><%= f.text_field :title, size: "81", class: "form-control", value: @question.title %><br>
+		  <%= f.label :content %><%= f.text_area :content, rows: "10", cols: "80", class: "form-control", value: @question.content %><br>
+		  <%= f.submit "Update question", class: "btn btn-primary" %>
+		<% end %>		
+	</div>
+</div>
