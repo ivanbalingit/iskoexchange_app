@@ -19,6 +19,7 @@
      Luis Tan 2/9/18 - Added License
      Ivan Balingit 2/17/18 - Add action for search questions
      Luis Tan 2/19/18 - Finished the CRUD functionalities for Question
+     Ivan Balingit 2/21/18 - Modify show action for replies
 
      File created on: 1/26/18
      Developer: Luis Tan
@@ -27,7 +28,7 @@
 =end
 
 class QuestionsController < ApplicationController
-  before_action :logged_in_user, only: [:new, :create]
+  before_action :logged_in_user, only: [:new, :create, :edit, :update]
   
   # 2/2/18
   # For the index view of Question
@@ -46,6 +47,7 @@ class QuestionsController < ApplicationController
   def show
     @question = Question.find(params[:id])
     @answer = Answer.new
+    @reply = Reply.new
   end
   
   # 2/2/18

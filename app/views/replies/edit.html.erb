@@ -1,0 +1,22 @@
+<h2><%= @question.title %></h2>
+<h5>Asked by <%= link_to @question.user.display_name, @question.user %> on <%= @question.created_at %>.</h5><hr>
+<div><%= @question.content %></div>
+<br>
+<hr>
+
+<h4>Edit reply to answer</h4>
+
+<!-- Answer contents-->
+<div><strong><%= link_to @answer.user.display_name, @answer.user %></strong></div>
+<div><%= @answer.created_at %></div>
+<div class="mb-1"><%= @answer.content %></div>
+
+<!-- Reply contents -->
+<div class="row">
+	<div class="offset-1">
+		<%= form_for @reply, html: { class: "form-inline" } do |f| %>
+			<%= f.text_field :content, placeholder: "Reply here", size: "40", class: "form-control mb-2 mr-sm-2" %>
+			<%= f.submit "Edit reply", class: "btn btn-primary mb-2" %>
+		<% end %>
+	</div>
+</div>
