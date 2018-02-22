@@ -18,6 +18,7 @@
      Ivan Balingit 2/2/18 - Initial Source Code and Generated all the methods. 
      Ivan Balingit 2/9/18 - Added License
      Ivan Balingit 2/14/18 - Add show method
+     Ivan Balingit 2/22/18 - Add edit and update methods
 
      File created on: 1/26/18
      Developer: 
@@ -46,9 +47,30 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
   
+  # GET /users/:id/edit
+  def edit
+    if !current_user
+      redirect_to login_path
+    elsif params[:id].to_i != current_user.id
+      redirect_to current_user
+    else
+      @user = current_user
+    end
+  end
+  
+  # PATCH /users/:id
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+        redirect_to @user
+    else
+        render 'edit'
+    end
+  end
+  
   private
     def user_params
       # Parameters required by the user: email, display_name, password, password_confirmation
-      params.require(:user).permit(:email, :display_name, :password, :password_confirmation)
+      params.require(:user).permit(:email, :display_name, :password, :password_confirmation, :description, :education_degree, :education_school, :show_education, :employment_position, :employment_company, :show_employment)
     end
 end

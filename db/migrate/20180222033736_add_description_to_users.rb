@@ -1,6 +1,6 @@
 =begin
-    Description : Routes file for the whole website
-    Copyright (C) 2018  Luis Tan & Ivan Balingit
+    Description : Migration file for additional columns of the User Model
+    Copyright (C) 2018  Ivan Balingit
 
     This is a course requirement for CS 192 Software Engineering II under the supervision of Asst. Prof. Ma. Rowena C. Solamo of the Department of Computer Science, College of Engineering, University of the Philippines, Diliman for the AY 2015-2016
     This program is free software: you can redistribute it and/or modify
@@ -15,33 +15,22 @@
     along with this program.  If not, see https://www.gnu.org/licenses/.
 
      **CHANGELOG**
-     Luis Tan 2/2/18 - Added routes for questions 
-     Luis Tan 2/9/18 - Added License
-     Ivan Balingit 2/14/18 - Add routes for showing user profiles
-     Ivan Balingit 2/17/18 - Add route for searching questions
-     Luis Tan 2/14/18 - Added routes for answer
-     Ivan Balingit 2/21/18 - Add routes for replies
-     Ivan Balingit 2/22/18 - Add routes for edit and update user
-    
-     File created on: 1/26/18
-     Developer: Ivan Balingit & Luis Tan
+     Ivan Balingit 2/22/18 - Inital Source Code
+
+     File created on: 2/22/18
+     Developer: Ivan Balingit
      Client: UP Diliman Students
      IskoExchange is a platform for UP students to ask questions and share insights related to UP
 =end
-Rails.application.routes.draw do
-  resources :questions
-  resources :answers
-  resources :users, only: [:show, :edit, :update]
-  resources :replies
 
-  get '/search' => 'questions#search'
-
-  get  '/signup' => 'users#new'
-  post '/signup' => 'users#create'
-
-  get    '/login',  to: 'sessions#new'
-  post   '/login',  to: 'sessions#create'
-  delete '/logout', to: 'sessions#destroy'
-
-  root 'home#index'
+class AddDescriptionToUsers < ActiveRecord::Migration[5.1]
+  def change
+    add_column :users, :description, :text
+    add_column :users, :education_degree, :string
+    add_column :users, :education_school, :string
+    add_column :users, :show_education, :boolean, default: true
+    add_column :users, :employment_position, :string
+    add_column :users, :employment_company, :string
+    add_column :users, :show_employment, :boolean, default: true
+  end
 end

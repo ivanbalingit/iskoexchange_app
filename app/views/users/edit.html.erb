@@ -1,0 +1,68 @@
+<!--
+    Description : View file for edit user
+    Copyright (C) 2018 Ivan Balingit
+
+    This is a course requirement for CS 192 Software Engineering II under the supervision of Asst. Prof. Ma. Rowena C. Solamo of the Department of Computer Science, College of Engineering, University of the Philippines, Diliman for the AY 2015-2016
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see https://www.gnu.org/licenses/.
+
+     *CHANGELOG*
+		 Ivan Balingit 2/22/18 - Initial Source Code and content
+		 
+     File created on: 2/22/18
+     Developer: Ivan Balingit & Luis Tan
+     Client: UP Diliman Students
+     IskoExchange is a platform for UP students to ask questions and share insights related to UP
+-->
+
+<h2><%= @user.display_name %></h2><hr>
+
+<div class="row">
+	<div class="col-6 offset-3">
+	    <% if @user.errors.any? %>
+			<% @user.errors.messages.each do |err| %>
+				<div class="alert alert-danger"><%= err[0].to_s.gsub("_"," ").capitalize %> <%= err[1][0].to_s %>.</div>
+			<% end %>
+		<% end %>
+	    
+		<%= form_for @user do |f| %>
+		  <%= f.hidden_field :user_id, value: current_user.id %>
+		  
+		  <%= f.label :description %><%= f.text_field :description, class: "form-control" %><br>
+		  
+		  <%= f.label :education %>
+		  <div class="row">
+		      <div class="col-5"><%= f.text_field :education_degree, class: "form-control" %></div>
+		      <div class="col-1">at</div>
+		      <div class="col-6"><%= f.text_field :education_school, class: "form-control" %></div>
+		  </div><br>
+		  
+		  <%= f.label :employment %>
+		  <div class="row">
+		      <div class="col-5"><%= f.text_field :employment_position, class: "form-control" %></div>
+		      <div class="col-1">at</div>
+		      <div class="col-6"><%= f.text_field :employment_company, class: "form-control" %></div>
+		  </div><br>
+		  
+		  <div class="form-check">
+		      <%= f.check_box :show_education, class: "form-check-input" %>
+		      <%= f.label :show_education, class: "form-check-label" %>
+		  </div>
+		  
+		  <div class="form-check">
+		      <%= f.check_box :show_employment, class: "form-check-input" %>
+		      <%= f.label :show_employment, class: "form-check-label" %>
+		  </div><br>
+		  
+		  <%= f.submit "Update profile", class: "btn btn-primary" %>
+		<% end %>		
+	</div>
+</div>
