@@ -58,8 +58,10 @@
 <br>
 
 <h4>Answers</h4><hr>
+
 <% @question.answers.each do |answer| %>
-<div class="row">
+  <div class="answer-reply-container">
+  <div class="row">
     <div class="col-10">
         <div class="answer-content"><div class="mb-1"><%= answer.content %></div></div>
     </div>
@@ -133,7 +135,7 @@
             </div>
           <% end %>
       </div>
-  <hr>
+  </div><hr>
 <% end %>
 <br>
 

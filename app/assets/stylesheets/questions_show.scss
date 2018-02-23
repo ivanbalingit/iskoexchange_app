@@ -34,6 +34,11 @@
 	float: right;
 }
 
+.answer-reply-container {
+	background-color: #F0F0F0;
+	border-radius: 5px;
+}
+
 .answer-content {
 	display: inline-block;
 	padding: 10px 10px 10px 10px;
@@ -43,7 +48,7 @@
 
 .reply-content {
 	//display: inline-block;
-	background-color: #F0F0F0;
+	background-color: #C4C5C6;
 	border-radius: 5px;
 	padding: 10px 10px 10px 10px;
 	//margin: 10px 10px 10px 10px;
