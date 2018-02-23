@@ -26,5 +26,5 @@
 class Answer < ApplicationRecord
     belongs_to :user
     belongs_to :question
-    has_many   :replies
+    has_many   :replies, dependent: :delete_all
 end
