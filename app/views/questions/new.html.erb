@@ -19,6 +19,7 @@
      Ivan Balingit 2/9/18 - Fix frontend for this view
      Luis Tan 2/9/18 - Added License
      Ivan Balingit 2/14/18 - Add error messages
+     Patricia Cajaljal 2/20/18 - Added frontend
 
      File created on: 1/26/18
      Developer: Ivan Balingit & Luis Tan
@@ -26,8 +27,7 @@
      IskoExchange is a platform for UP students to ask questions and share insights related to UP
 -->
 
-<h2>Ask a question</h2><hr>
-
+<h3>Ask a Question</h3><hr>
 <div class="row">
 	<div class="col-6 offset-3">
 	    <% if @question.errors.any? %>
@@ -40,7 +40,11 @@
 		  <%= f.hidden_field :user_id, value: current_user.id %>
 		  <%= f.label :title %><%= f.text_field :title, size: "81", class: "form-control" %><br>
 		  <%= f.label :content %><%= f.text_area :content, rows: "10", cols: "80", class: "form-control" %><br>
-		  <%= f.submit "Ask question", class: "btn btn-primary" %>
+		  <%= f.submit "Post Question", class: "btn btn-primary" %>
 		<% end %>		
 	</div>
+    <div class="bg_pic">
+    </div>
 </div>
+
+<%= stylesheet_link_tag "questions_new", media: "all" %>

@@ -18,6 +18,7 @@
      Ivan Balingit 2/2/18 - Initial Source Code and content. 
      Ivan Balingit 2/9/18 - Added License
      Ivan Balingit 2/14/18 - Add link to user
+     Patricia Cajaljal 2/22/18 - Edited frontend for home
 
      File created on: 1/26/18
      Developer: 
@@ -25,16 +26,18 @@
      IskoExchange is a platform for UP students to ask questions and share insights related to UP
 -->
 
+
 <div class="jumbotron">
   <h1 class="display-4"><strong>Welcome to IskoExchange!</strong></h1>
   <p class="lead">IskoExchange is a platform for UP students to ask questions and share insights related to UP. These topics can vary from academics to certain University processes, and many more. IskoExchange aims to connect UP students together and answer each other's concerns quickly and clearly.</p>
 </div>
 
+
 <h2>Latest questions</h2><hr>
 
 <% @questions.each do |question| %>
-    <h3><%= link_to question.title, question %></h3>
-    <div><%= link_to question.user.display_name, question.user %></div>
+    <h4 style="color:#000000;"><%= link_to question.title, question, {:style=>'color:#000000;'} %></h4>
+    <div><i>Asked by: </i><%= link_to question.user.display_name, question.user %></div>
     <div><%= question.created_at %></div>
     <hr>
 <% end %>
