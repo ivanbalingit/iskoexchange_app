@@ -14,6 +14,9 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see https://www.gnu.org/licenses/.
 
+     *CHANGELOG*
+    2/14/18 - Initial Source Code
+
      File created on: 2/14/18
      Developer: Luis Tan
      Client: UP Diliman Students
