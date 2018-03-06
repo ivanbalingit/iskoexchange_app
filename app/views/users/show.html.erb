@@ -16,7 +16,7 @@
 
      *CHANGELOG*
      Ivan Balingit 2/14/18 - Initial Source Code and content. 
-     Patricia Cajaljal - Added frontend for user profile
+     Patricia Cajaljal 3/6/18 - Added frontend for user profile
      File created on: 2/14/18
      Developer: 
      Client: UP Diliman Students
@@ -24,7 +24,7 @@
 -->
 <div class="row">
     <div class="col-2">
-        <div id="avatar"><img src="/man.png" alt="USER" style="width:128px;height:128px;"></div>
+        <div id="avatar"><img src="/man_shaggy.png" alt="USER" style="width:128px;height:128px;"></div>
     </div>
 
     <div class="col-8">
@@ -62,8 +62,9 @@
 
 <h3><strong>Questions by <%= @user.display_name %></strong></h3>
 <% @user.questions.each do |question| %>
+<i class="fas fa-angle-double-right" style="float:left"></i>
     <div class="offset-1">
-    <h5 style="color:#000000;"><%= link_to question.title, question, {:style=>'color:#000000;'} %></h5>
+        <h5 style="color:#000000;">  <%= link_to question.title, question, {:style=>'color:#000000;'} %></h5>
     </div>
 <% end %>
 
