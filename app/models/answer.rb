@@ -16,6 +16,7 @@
     
     *CHANGELOG*
      Ivan Balingit 2/21/18 - Add relation for replies
+     Ivan Balingit 3/7/18 - Add validation for answer content and length
     
      File created on: 2/14/18
      Developer: Luis Tan
@@ -27,4 +28,5 @@ class Answer < ApplicationRecord
     belongs_to :user
     belongs_to :question
     has_many   :replies, dependent: :delete_all
+    validates  :content, presence: true, length: { minimum: 16 }
 end
