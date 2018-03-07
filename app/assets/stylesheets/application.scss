@@ -45,7 +45,7 @@
 body {
   min-height: 100vh;
   background-color: #fafafa;
-  font-family: Hero; 
+  font-family: Hero, $font-family-base; 
 }
 
 form {
