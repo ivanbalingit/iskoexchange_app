@@ -97,3 +97,15 @@ nav {
          url('/assets/glyphicons-halflings-regular.ttf') format('truetype'),
          url('/assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
+
+.input-group.is-invalid {
+  ~ .invalid-feedback {
+    display: block;
+  }
+}
+
+.field_with_errors {
+  .form-control {
+    @extend .is-invalid;
+  }
+}
