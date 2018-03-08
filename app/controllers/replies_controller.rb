@@ -31,7 +31,7 @@ class RepliesController < ApplicationController
     if @answer.replies << @reply
       redirect_to @answer.question
     else
-      render "questions/:user_id"
+      redirect_to @answer.question
     end
   end
   
