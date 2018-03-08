@@ -19,6 +19,7 @@
      Ivan Balingit 2/17/18 - Add footer to site
      Patricia Cajaljal 2/8/18 - Add frontend for home, login; edited navibar
      Ivan Balingit 2/9/18 - Fix frontend code; add comments and license
+     Ivan Balingit 3/7/18 - Add styles for inline form errors
 
      File created on: 1/31/18
      Developer: Ivan Balingit
@@ -45,7 +46,7 @@
 body {
   min-height: 100vh;
   background-color: #fafafa;
-  font-family: Hero; 
+  font-family: Hero, $font-family-base; 
 }
 
 form {
@@ -96,4 +97,16 @@ nav {
          url('/assets/glyphicons-halflings-regular.woff') format('woff'),
          url('/assets/glyphicons-halflings-regular.ttf') format('truetype'),
          url('/assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+.input-group.is-invalid {
+  ~ .invalid-feedback {
+    display: block;
+  }
+}
+
+.field_with_errors {
+  .form-control {
+    @extend .is-invalid;
+  }
 }

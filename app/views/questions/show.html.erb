@@ -25,6 +25,7 @@
      Ivan Balingit 2/21/18 - Show replies for answers and reply form
      Patricia Cajaljal 2/22/18 - Added frontend for questions
      Patricia Cajaljal 3/5/18 - Edited frontend for threads
+     Ivan Balingit 3/7/18 - Make answer form errors inline
 
      File created on: 1/26/18
      Developer: Ivan Balingit & Luis Tan
@@ -178,15 +179,18 @@
 
 
 <% if current_user %>
-  <%= form_for(@answer) do |f| %>
+  <%= form_for @answer do |f| %>
     <%= f.hidden_field :user_id, value: current_user.id %>
     <%= f.hidden_field :question_id, value:  @question.id %>
-    <%= f.label :content  %><%= f.text_area :content, :placeholder => "Answer here" , rows: "7", cols: "80", class: "form-control" %><br>
+
+    <div class="form-group">
+      <%= f.label :content  %>
+      <div class="input-group is-invalid"><%= f.text_area :content, :placeholder => "Answer here", value: flash[:content], rows: "7", cols: "80", class: "form-control #{if flash[:error] then 'is-invalid' end}" %></div>  
+      <div class="invalid-feedback"><% if flash[:error] %><%= flash[:error]["content"][0] %><% end %></div>   
+    </div>
+
     <%= f.submit "Submit Answer", class: "btn btn-primary" %>
   <% end %>
 <% end %>
-
-
-
 
 <%= stylesheet_link_tag "questions_show", media: "all" %>
