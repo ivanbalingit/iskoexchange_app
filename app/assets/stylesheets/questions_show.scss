@@ -43,22 +43,24 @@
 	//background-color: #F0F0F0;
 	border-radius: 5px;
 	width: 100%;
+	margin: 0px 0px 10px 0px;
 }
 
 .answer-content {
 	display: inline-block;
 	padding: 5px 10px 0px 10px;
-	//background-color: yellow;
+	border-radius: 5px;
+	background-color: #f2f3f4;
 	width: 100%;
 }
 
 .reply-content {
 	//display: inline-block;
-	//background-color: #C4C5C6;
+	background-color: #f2f3f4;
 	border-radius: 5px;
-	padding: 0px 1px 1px 1px;
-	//margin: 10px 10px 10px 10px;
-	//width: 100%;
+	padding: 5px 10px 0px 10px;
+	margin: 0px 0px 10px 0px;
+	width: 100%;
 }
 
 #question_title {
@@ -85,5 +87,10 @@
 
 .bs-callout-success {
     border-left-color: #5cb85c;
+}
+
+.updownvote {
+	text-align: center;
+	float: right;
 }
 
