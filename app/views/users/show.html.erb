@@ -32,8 +32,8 @@
     <div class="col-8">
         <div>
             <h2><%= @user.display_name %></h2>
-            <% if @user.show_education %><div><%= @user.education_degree %> at <%= @user.education_school %></div><% end %>
-            <% if @user.show_employment %><div><%= @user.employment_position %> at <%= @user.employment_company %></div><% end %>
+            <% if @user.show_education && @user.education_degree != "" && @user.education_school != "" %><div><%= @user.education_degree %> at <%= @user.education_school %></div><% end %>
+            <% if @user.show_employment && @user.employment_position != "" && @user.employment_company != "" %><div><%= @user.employment_position %> at <%= @user.employment_company %></div><% end %>
         </div>
         <br>
         <div>
