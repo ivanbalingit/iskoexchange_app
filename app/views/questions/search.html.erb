@@ -17,6 +17,7 @@
      *CHANGELOG*
      Ivan Balingit 2/17/18 - Initial Source Code and content. 
      Patricia Cajaljal 2/22/18 - Edited frontend for search questions page
+     Patricia Cajaljal 3/8/18 - Added icon for questioner in search questions page
 
      File created on: 2/17/18
      Developer: 
@@ -24,15 +25,24 @@
      IskoExchange is a platform for UP students to ask questions and share insights related to UP
 -->
 
-<h2>Showing results for: <i><%= @term %></i></h2><hr>
+<h2>Showing results for: <b><i><%= @term %></i></b></h2><hr>
 
 <% if @questions.count != 0 %>
-    <% @questions.each do |question| %>
-        <h3 style="color:#000000;"><%= link_to question.title, question, {:style=>'color:#000000;'} %></h3>
-        <div><i>Asked by: </i><%= link_to question.user.display_name, question.user %></div>
+  <% @questions.each do |question| %>
+    <div class="row">
+      <div class="col-2" align="center">
+          <img src="/man_beard.png" alt="USER" style="padding: 0px; width:60%;height:70%;">
+          <div><b><%= link_to question.user.display_name, question.user, {:style=>'color:#8b0000;'} %></b></div>
+      </div>
+      <div class="col-10">
+    
+        <h4 style="color:#000000;"><b><%= link_to question.title, question, {:style=>'color:#000000;'} %></b></h4>
         <div><%= question.content.truncate(128) %></div>
-        <hr>
-    <% end %>
+      </div>
+    </div>
+    <hr>
+<% end %>
+
 <% else %>
-    <h3>No results found.</h3>
+  <h4><i>No results found.</i></h4>
 <% end %>

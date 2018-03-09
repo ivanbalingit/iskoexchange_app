@@ -26,6 +26,7 @@
      Patricia Cajaljal 2/22/18 - Added frontend for questions
      Patricia Cajaljal 3/5/18 - Edited frontend for threads
      Ivan Balingit 3/7/18 - Make answer form errors inline
+     Patricia Cajaljal 3/8/18 - Added arrows for upvote/ downvote on answers
 
      File created on: 1/26/18
      Developer: Ivan Balingit & Luis Tan
@@ -60,6 +61,7 @@
                     <%= link_to question_path, method: :delete, data: { confirm: 'Are you sure?' } do %>
                       <i class="fas fa-trash-alt" style="color:#b22222; font-size: 18px;"></i>
                     <% end %>
+                    
                   <% end %>
                 <% end %>
               </div>
@@ -87,11 +89,23 @@
 <% @question.answers.each do |answer| %>
 <div class="answer-container">
   <div class="row">
-    <div class="col-9" >
-        <div class="answer-content">
-          <div class="mb-1" ><%= answer.content %><br><i style="color: gray;font-size: 13px; float: right;">Posted <%= answer.created_at %></i><br></div>
-          <hr>
+    <div class="col-9">
+      <div class="row">
+        <div class="col-1">
+          <div class="updownvote">
+            <i class="fas fa-caret-up" style="color:green; font-size: 40px;"></i>
+          </div>
+          <div class="updownvote">
+            <i class="fas fa-caret-down" style="color:#c40233; font-size: 40px;"></i>
+          </div>
         </div>
+        <div class="col-11">
+          <div class="answer-content">
+            <div class="mb-1" ><%= answer.content %><br><i style="color: gray;font-size: 13px; float: right;">Posted <%= answer.created_at %></i><br></div>
+            <hr>
+          </div>
+        </div>
+      </div>
     </div>
     
     <div class="col-3" >
@@ -130,9 +144,13 @@
     <!-- Reply content -->
     <% answer.replies.each do |reply| %>
       <div class="row">
-        <div class="col-1"><i class="fas fa-angle-double-right" style="float:right"></i></div>
-        <div class="col-8">
-                <div class="reply-content">
+        <div class="col-9">
+          <div class="row">
+            <div class="col-2">
+              <div class="updownvote"><i class="fas fa-angle-double-right" style="font-size: 15px;"></i></div>
+            </div>
+            <div class="col-10">
+              <div class="reply-content">
                     <div class="by_string"> <%= link_to reply.user.display_name, reply.user %> replied:<br></div>
                     <%= reply.content %> 
                     <!--<%= reply.created_at %>-->
@@ -147,20 +165,22 @@
                       <% end %>
                     <% end %>
                   </div>
-                  <hr>
                 </div>
+            </div>
+          </div>
         </div>
         <div class="col-3"></div>
       </div>
     <% end %>
-    
   </div>
 
   <div class="row">
-    <div class="col-1"></div>
-    <div class="col-8">
-        <!-- Reply form only available when logged-in -->
-          <% if current_user %>
+    <div class="col-9" >
+        <div class="row">
+          <div class="col-2"></div>
+          <div class="col-10">
+            <!-- Reply form only available when logged-in -->
+            <% if current_user %>
               <%= form_for @reply, html: { class: "form-inline" } do |f| %>
                 <%= f.hidden_field :user_id, value: current_user.id %>
                 <%= f.hidden_field :answer_id, value: answer.id %>
@@ -169,9 +189,12 @@
                   <i class="fas fa-reply"></i>
                 <% end %>
               <% end %>
-          <% end %>
-    </div>
+            <% end %>
+          </div>
+        </div>
+    </div> 
   </div>
+
 
 <hr>
 <% end %>
