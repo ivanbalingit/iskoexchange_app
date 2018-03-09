@@ -17,6 +17,8 @@
      *CHANGELOG*
      Ivan Balingit 2/14/18 - Initial Source Code and content. 
      Patricia Cajaljal 3/6/18 - Added frontend for user profile
+     Ivan Balingit 3/9/18 - Fix profile layout
+
      File created on: 2/14/18
      Developer: 
      Client: UP Diliman Students
@@ -28,22 +30,15 @@
     </div>
 
     <div class="col-8">
-        <h2><%= @user.display_name %></h2>
         <div>
-            Description: <%= @user.description %>
+            <h2><%= @user.display_name %></h2>
+            <% if @user.show_education %><div><%= @user.education_degree %> at <%= @user.education_school %></div><% end %>
+            <% if @user.show_employment %><div><%= @user.employment_position %> at <%= @user.employment_company %></div><% end %>
         </div>
-
-        <% if @user.show_education %>
-            <div>
-                Education: <%= @user.education_degree %> at <%= @user.education_school %>
-            </div>
-        <% end %>
-
-        <% if @user.show_employment %>
-            <div>
-                Employment: <%= @user.employment_position %> at <%= @user.employment_company %>
-            </div>
-        <% end %>
+        <br>
+        <div>
+            <%= @user.description %>
+        </div>
     </div>
 
     <div class="col-2">
@@ -53,19 +48,16 @@
     </div>
 </div>
 
-
-<hr>
-
-
-
-<br>
+<hr><br>
 
 <h3><strong>Questions by <%= @user.display_name %></strong></h3>
 <% @user.questions.each do |question| %>
 <i class="fas fa-angle-double-right" style="float:left"></i>
     <div class="offset-1">
-        <h5 style="color:#000000;">  <%= link_to question.title, question, {:style=>'color:#000000;'} %></h5>
+        <h5 style="color:#000000;margin-bottom:0px;">  <%= link_to question.title, question, {:style=>'color:#000000;'} %></h5>
+        <div style="margin-bottom:8px;"><%= question.content.truncate(128) %></div>
     </div>
+
 <% end %>
 
 <%= stylesheet_link_tag "users", media: "all" %>
