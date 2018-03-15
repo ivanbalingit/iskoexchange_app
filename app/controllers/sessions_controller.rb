@@ -17,6 +17,7 @@
      *CHANGELOG*
      Ivan Balingit 2/2/18 - Initial Source Code and Generated all the methods. 
      Ivan Balingit 2/9/18 - Added License
+     Ivan Balingit 3/9/18 - Additional view variables for inline error messages
 
      File created on: 1/26/18
      Developer: 
@@ -34,6 +35,7 @@ class SessionsController < ApplicationController
   	user = User.find_by(email: params[:session][:email])
   	if !user
   	  # If the email does not exist in the database
+      @email_not_found = true
   	  @notice = "Email does not exist."
   	  render action: 'new'
   	elsif user.authenticate(params[:session][:password])
@@ -43,6 +45,7 @@ class SessionsController < ApplicationController
   	else
   	  # If the email exists but the password is incorrect
   	  @email = user.email
+      @wrong_password = true
   	  @notice = "Invalid password."
   	  render action: 'new'
   	end

@@ -23,82 +23,197 @@
      Ivan Balingit 2/14/18 - Hide answer form when not logged-in
      Luis Tan 2/19/18 - Modified the web page for the input form of Answers
      Ivan Balingit 2/21/18 - Show replies for answers and reply form
+     Patricia Cajaljal 2/22/18 - Added frontend for questions
+     Patricia Cajaljal 3/5/18 - Edited frontend for threads
+     Ivan Balingit 3/7/18 - Make answer form errors inline
+     Patricia Cajaljal 3/8/18 - Added arrows for upvote/ downvote on answers
 
      File created on: 1/26/18
      Developer: Ivan Balingit & Luis Tan
      Client: UP Diliman Students
      IskoExchange is a platform for UP students to ask questions and share insights related to UP
 -->
+<br>
+<h2 id="question_title"><%= @question.title %></h2>
 
-<h2><%= @question.title %></h2>
-<h5>Asked by <%= link_to @question.user.display_name, @question.user %> on <%= @question.created_at %>.</h5><hr>
-<div><%= @question.content %></div>
+<div class="row">
+    <div class="col-9">
+        <div class="question-content">
+          <!--<div class="bs-callout bs-callout-success">-->
+          <%= @question.content %><br>
+          <i style="color: gray;font-size: 13px; float:right;">Posted <%= @question.created_at %></i>
+          <br>
+          
+        <!--</div>-->
+        </div>
+
+    </div>
+
+    <div class="col-3">
+          <div class="questioner-profile">
+            <div class="row">
+              <div class="col-1">
+                <% if current_user %>
+                  <% if current_user.id == @question.user_id %> 
+                    <%= link_to edit_question_path do %>
+                      <i class="far fa-edit" ></i>
+                    <% end %>
+                    <%= link_to question_path, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                      <i class="fas fa-trash-alt" style="color:#b22222; font-size: 18px;"></i>
+                    <% end %>
+                    
+                  <% end %>
+                <% end %>
+              </div>
+
+              <div class="col-3" >
+                <img src="/man_shaggy.png" alt="USER" style="padding: 0px; width:160%;height:110%;">
+              </div>
+
+              <div class="col-7">
+                <div class="by_string">posted by:</div><%= link_to @question.user.display_name, @question.user %>
+              </div>
+            </div>
+
+          </div>
+      
+    </div>
+</div>
+
+
+
 <br>
 
-<% if current_user %>
-  <% if current_user.id == @question.user_id %> 
-    <%= link_to "Edit", edit_question_path %>
-    <%= link_to "Destroy", question_path, method: :delete, data: { confirm: 'Are you sure?' } %>
-  <% end %>
-<% end %>
-<br>
-<hr>
+<h4>Answers</h4><hr>
 
-<h4>Answers</h4>
 <% @question.answers.each do |answer| %>
-  <div><strong><%= link_to answer.user.display_name, answer.user %></strong></div>
-  
-  <!-- Answer contents-->
-  <div><%= answer.created_at %></div>
-  <div class="mb-1"><%= answer.content %></div>
-  
-  <!-- Answer is deleteable if it belongs to current user -->
-  <% if current_user %>
-    <% if current_user.id == answer.user_id %> 
-        <%= link_to "Edit", edit_answer_path(question_id: answer.question,answer_id: answer) %>
-        <%= link_to "Destroy", answer_path(question_id: answer.question,answer_id: answer), method: :delete, data: { confirm: 'Are you sure?' } %>
-    <% end %>
-  <% end %>
+<div class="answer-container">
+  <div class="row">
+    <div class="col-9">
+      <div class="row">
+        <div class="col-1">
+          <div class="updownvote">
+            <i class="fas fa-caret-up" style="color:green; font-size: 40px;"></i>
+          </div>
+          <div class="updownvote">
+            <i class="fas fa-caret-down" style="color:#c40233; font-size: 40px;"></i>
+          </div>
+        </div>
+        <div class="col-11">
+          <div class="answer-content">
+            <div class="mb-1" ><%= answer.content %><br><i style="color: gray;font-size: 13px; float: right;">Posted <%= answer.created_at %></i><br></div>
+            <hr>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-3" >
+        <div class="answerer-profile">
+            <div class="row">
+              <div class="col-1">
+                <!-- Answer is deleteable if it belongs to current user -->
+                  <% if current_user %>
+                    <% if current_user.id == answer.user_id %> 
+                      <%= link_to edit_answer_path(question_id: answer.question,answer_id: answer) do %>
+                        <i class="far fa-edit" ></i>
+                      <% end %>
+                      <%= link_to answer_path(question_id: answer.question,answer_id: answer), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                        <i class="fas fa-trash-alt" style="color:#b22222; font-size: 18px;"></i>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+              </div>
+
+              <div class="col-3" >
+                <img src="/dog.png" alt="USER" style="padding: 0px; width:160%;height:110%;">
+              </div>
+
+              <div class="col-7">
+                <div class="by_string">answered by:</div><%= link_to answer.user.display_name, answer.user %>
+              </div>
+            </div>
+
+        </div>
+    </div>
+  </div>
+</div>
   
   <!-- Replies for the answer -->
   <div>
     <!-- Reply content -->
     <% answer.replies.each do |reply| %>
-      <div class="row"><div class="offset-1"><%= link_to reply.user.display_name, reply.user %> replied:</div></div>
-      <div class="row"><div class="offset-1"><%= reply.created_at %></div></div>
-      <div class="row"><div class="offset-1"><%= reply.content %></div></div>
-      <!-- Reply is deleteable if it belongs to current user -->
-      <% if current_user && reply.user == current_user %>
-        <div class="row mb-1">
-          <div class="offset-1">
-            <%= link_to "Edit", edit_reply_path(reply) %>
-            <%= link_to "Destroy", reply_path(reply), method: :delete, data: { confirm: 'Are you sure?' } %>
+      <div class="row">
+        <div class="col-9">
+          <div class="row">
+            <div class="col-2">
+              <div class="updownvote"><i class="fas fa-angle-double-right" style="font-size: 15px;"></i></div>
+            </div>
+            <div class="col-10">
+              <div class="reply-content">
+                    <div class="by_string"> <%= link_to reply.user.display_name, reply.user %> replied:<br></div>
+                    <%= reply.content %> 
+                    <!--<%= reply.created_at %>-->
+                    <!-- Reply is deleteable if it belongs to current user -->
+                    <div style="float: right">
+                    <% if current_user && reply.user == current_user %>
+                      <%= link_to edit_reply_path(reply) do %>
+                        <i class="far fa-edit" ></i>
+                      <% end %>
+                      <%= link_to reply_path(reply), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                        <i class="fas fa-trash-alt" style="color:#b22222; font-size: 15px;"></i>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </div>
+            </div>
           </div>
         </div>
-      <% end %>
-    <% end %>
-    <!-- Reply form only available when logged-in -->
-    <% if current_user %>
-      <div class="row">
-        <div class="offset-1">
-          <%= form_for @reply, html: { class: "form-inline" } do |f| %>
-            <%= f.hidden_field :user_id, value: current_user.id %>
-            <%= f.hidden_field :answer_id, value: answer.id %>
-            <%= f.text_field :content, placeholder: "Reply here", size: "40", class: "form-control mb-2 mr-sm-2" %>
-            <%= f.submit "Reply", class: "btn btn-primary mb-2" %>
-          <% end %>
-        </div>
+        <div class="col-3"></div>
       </div>
     <% end %>
   </div>
+
+  <div class="row">
+    <div class="col-9" >
+        <div class="row">
+          <div class="col-2"></div>
+          <div class="col-10">
+            <!-- Reply form only available when logged-in -->
+            <% if current_user %>
+              <%= form_for @reply, html: { class: "form-inline" } do |f| %>
+                <%= f.hidden_field :user_id, value: current_user.id %>
+                <%= f.hidden_field :answer_id, value: answer.id %>
+                <%= f.text_field :content, placeholder: "Reply here", size: "40", class: "form-control mb-2 mr-sm-2" %>
+                <%= f.button :submit, class: "btn btn-link", style: "color:green" do %>
+                  <i class="fas fa-reply"></i>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+    </div> 
+  </div>
+
+
+<hr>
 <% end %>
-<br><br><br>
+<br>
+
 
 <% if current_user %>
-  <%= form_for(@answer) do |f| %>
+  <%= form_for @answer do |f| %>
     <%= f.hidden_field :user_id, value: current_user.id %>
     <%= f.hidden_field :question_id, value:  @question.id %>
-    <%= f.label :content  %><%= f.text_area :content, :placeholder => "Answer here", rows: "10", cols: "80", class: "form-control" %><br>
-    <%= f.submit "Answer question", class: "btn btn-primary" %>
+
+    <div class="form-group">
+      <%= f.label :content  %>
+      <div class="input-group is-invalid"><%= f.text_area :content, :placeholder => "Answer here", value: flash[:content], rows: "7", cols: "80", class: "form-control #{if flash[:error] then 'is-invalid' end}" %></div>  
+      <div class="invalid-feedback"><% if flash[:error] %><%= flash[:error]["content"][0] %><% end %></div>   
+    </div>
+
+    <%= f.submit "Submit Answer", class: "btn btn-primary" %>
   <% end %>
 <% end %>
+
+<%= stylesheet_link_tag "questions_show", media: "all" %>

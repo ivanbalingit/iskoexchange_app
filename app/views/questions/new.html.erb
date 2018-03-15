@@ -19,6 +19,8 @@
      Ivan Balingit 2/9/18 - Fix frontend for this view
      Luis Tan 2/9/18 - Added License
      Ivan Balingit 2/14/18 - Add error messages
+     Patricia Cajaljal 2/20/18 - Added frontend
+     Ivan Balingit 3/7/18 - Make form errors inline
 
      File created on: 1/26/18
      Developer: Ivan Balingit & Luis Tan
@@ -26,21 +28,26 @@
      IskoExchange is a platform for UP students to ask questions and share insights related to UP
 -->
 
-<h2>Ask a question</h2><hr>
-
+<h3>Ask a Question</h3><hr>
 <div class="row">
-	<div class="col-6 offset-3">
-	    <% if @question.errors.any? %>
-			<% @question.errors.messages.each do |err| %>
-				<div class="alert alert-danger"><%= err[0].to_s.gsub("_"," ").capitalize %> <%= err[1][0].to_s %>.</div>
-			<% end %>
-		<% end %>
-	    
-		<%= form_for(@question) do |f| %>
-		  <%= f.hidden_field :user_id, value: current_user.id %>
-		  <%= f.label :title %><%= f.text_field :title, size: "81", class: "form-control" %><br>
-		  <%= f.label :content %><%= f.text_area :content, rows: "10", cols: "80", class: "form-control" %><br>
-		  <%= f.submit "Ask question", class: "btn btn-primary" %>
+	<div class="col-6 offset-3">    
+		<%= form_for @question, class: "field_with_errors" do |f| %>
+		    <%= f.hidden_field :user_id, value: current_user.id %>
+		    <div class="form-group">
+                <%= f.label :title %>
+                <div class="input-group is-invalid"><%= f.text_field :title, size: "81", class: "form-control", id: "question_title" %></div>
+                <div class="invalid-feedback"><%= @question.errors[:title].first %></div>
+            </div>
+            <div class="form-group">
+                <%= f.label :content %>   
+                <div class="input-group is-invalid"><%= f.text_area :content, rows: "10", cols: "80", class: "form-control", id: "question_content" %></div> 
+                <div class="invalid-feedback"><%= @question.errors[:content].first %></div>
+            </div>
+		    <%= f.submit "Post Question", class: "btn btn-primary" %>
 		<% end %>		
 	</div>
+    <div class="bg_pic">
+    </div>
 </div>
+
+<%= stylesheet_link_tag "questions_new", media: "all" %>

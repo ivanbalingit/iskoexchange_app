@@ -14,6 +14,9 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see https://www.gnu.org/licenses/.
 
+    CHANGE LOG:
+    Patricia Cajaljal 2/22/18 - Added questions_show.scss
+
      File created on: 1/26/18
      Developer: Ivan Balingit
      Client: UP Diliman Students
@@ -34,3 +37,11 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
+Rails.application.config.assets.precompile += %w( answers.scss )
+Rails.application.config.assets.precompile += %w( home.scss )
+Rails.application.config.assets.precompile += %w( questions.scss )
+Rails.application.config.assets.precompile += %w( questions_new.scss )
+Rails.application.config.assets.precompile += %w( questions_show.scss )
+Rails.application.config.assets.precompile += %w( replies.scss )
+Rails.application.config.assets.precompile += %w( sessions.scss )
+Rails.application.config.assets.precompile += %w( users.scss )

@@ -16,38 +16,48 @@
 
      *CHANGELOG*
      Ivan Balingit 2/14/18 - Initial Source Code and content. 
+     Patricia Cajaljal 3/6/18 - Added frontend for user profile
+     Ivan Balingit 3/9/18 - Fix profile layout
 
      File created on: 2/14/18
      Developer: 
      Client: UP Diliman Students
      IskoExchange is a platform for UP students to ask questions and share insights related to UP
 -->
+<div class="row">
+    <div class="col-2">
+        <div id="avatar"><img src="/man_shaggy.png" alt="USER" style="width:128px;height:128px;"></div>
+    </div>
 
-<h2><%= @user.display_name %></h2>
-<% if @user == current_user %>
-    <%= link_to "Edit profile", edit_user_path(@user), class: "btn btn-primary" %>
-<% end %>
-<hr>
+    <div class="col-8">
+        <div>
+            <h2><%= @user.display_name %></h2>
+            <% if @user.show_education && @user.education_degree != "" && @user.education_school != "" %><div><%= @user.education_degree %> at <%= @user.education_school %></div><% end %>
+            <% if @user.show_employment && @user.employment_position != "" && @user.employment_company != "" %><div><%= @user.employment_position %> at <%= @user.employment_company %></div><% end %>
+        </div>
+        <br>
+        <div>
+            <%= @user.description %>
+        </div>
+    </div>
 
-<div>
-    Description: <%= @user.description %>
+    <div class="col-2">
+        <% if @user == current_user %>
+            <%= link_to "Edit Profile", edit_user_path(@user), class: "btn btn-primary" %>
+        <% end %>
+    </div>
 </div>
 
-<% if @user.show_education %>
-    <div>
-        Education: <%= @user.education_degree %> at <%= @user.education_school %>
-    </div>
-<% end %>
+<hr><br>
 
-<% if @user.show_employment %>
-    <div>
-        Employment: <%= @user.employment_position %> at <%= @user.employment_company %>
-    </div>
-<% end %>
-
-<br>
-
-<h3>Questions by <%= @user.display_name %></h3>
+<h3><strong>Questions by <%= @user.display_name %></strong></h3>
 <% @user.questions.each do |question| %>
-    <div><%= link_to question.title, question %></div>
+<i class="fas fa-angle-double-right" style="float:left"></i>
+    <div class="offset-1">
+        <h5 style="color:#000000;margin-bottom:0px;">  <%= link_to question.title, question, {:style=>'color:#000000;'} %></h5>
+        <div style="margin-bottom:8px;"><%= question.content.truncate(128) %></div>
+    </div>
+
 <% end %>
+
+<%= stylesheet_link_tag "users", media: "all" %>

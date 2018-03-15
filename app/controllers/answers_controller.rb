@@ -17,6 +17,7 @@
      *CHANGELOG*
     Luis Tan 2/14/18 - Initial Source Code with Create and New method
     Luis Tan 2/19/18 - Finished the CRUD functionality for Answer
+    Ivan Balingit 3/7/18 - Redirect with errors on invalid answer
     
      File created on: 2/14/18
      Developer: Luis Tan
@@ -38,7 +39,7 @@ class AnswersController < ApplicationController
     if @question.answers << @answer
       redirect_to @question
     else
-      render "questions/:user_id"
+      redirect_to @question, flash: { error: @answer.errors, content: @answer.content }
     end
   end
   # 2/19/18
