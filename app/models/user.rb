@@ -19,6 +19,7 @@
      Ivan Balingit 2/1/18 - Add sign-up validation message
      Luis Tan 2/2/18 - Add Questions controller
      Luis Tan 2/14/18 - Add create answer
+     Ivan Balingit 2/21/18 - Add relation for replies
 
      File created on: 1/31/18
      Developer: Ivan Balingit
@@ -29,6 +30,8 @@
 class User < ApplicationRecord
   has_many :questions, dependent: :destroy
   has_many :answers, dependent: :destroy
+  has_many :replies, dependent: :destroy
+  
   has_secure_password
   validates :email, :display_name, presence: true
   validates_email_format_of :email

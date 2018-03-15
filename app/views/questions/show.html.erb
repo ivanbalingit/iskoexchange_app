@@ -22,6 +22,7 @@
      Luis Tan 2/14/18 - Create Answer form
      Ivan Balingit 2/14/18 - Hide answer form when not logged-in
      Luis Tan 2/19/18 - Modified the web page for the input form of Answers
+     Ivan Balingit 2/21/18 - Show replies for answers and reply form
 
      File created on: 1/26/18
      Developer: Ivan Balingit & Luis Tan
@@ -33,6 +34,7 @@
 <h5>Asked by <%= link_to @question.user.display_name, @question.user %> on <%= @question.created_at %>.</h5><hr>
 <div><%= @question.content %></div>
 <br>
+
 <% if current_user %>
   <% if current_user.id == @question.user_id %> 
     <%= link_to "Edit", edit_question_path %>
@@ -41,19 +43,57 @@
 <% end %>
 <br>
 <hr>
+
 <h4>Answers</h4>
 <% @question.answers.each do |answer| %>
   <div><strong><%= link_to answer.user.display_name, answer.user %></strong></div>
+  
+  <!-- Answer contents-->
   <div><%= answer.created_at %></div>
-  <div><%= answer.content %></div>
+  <div class="mb-1"><%= answer.content %></div>
+  
+  <!-- Answer is deleteable if it belongs to current user -->
   <% if current_user %>
     <% if current_user.id == answer.user_id %> 
         <%= link_to "Edit", edit_answer_path(question_id: answer.question,answer_id: answer) %>
         <%= link_to "Destroy", answer_path(question_id: answer.question,answer_id: answer), method: :delete, data: { confirm: 'Are you sure?' } %>
     <% end %>
   <% end %>
+  
+  <!-- Replies for the answer -->
+  <div>
+    <!-- Reply content -->
+    <% answer.replies.each do |reply| %>
+      <div class="row"><div class="offset-1"><%= link_to reply.user.display_name, reply.user %> replied:</div></div>
+      <div class="row"><div class="offset-1"><%= reply.created_at %></div></div>
+      <div class="row"><div class="offset-1"><%= reply.content %></div></div>
+      <!-- Reply is deleteable if it belongs to current user -->
+      <% if current_user && reply.user == current_user %>
+        <div class="row mb-1">
+          <div class="offset-1">
+            <%= link_to "Edit", edit_reply_path(reply) %>
+            <%= link_to "Destroy", reply_path(reply), method: :delete, data: { confirm: 'Are you sure?' } %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    <!-- Reply form only available when logged-in -->
+    <% if current_user %>
+      <div class="row">
+        <div class="offset-1">
+          <%= form_for @reply, html: { class: "form-inline" } do |f| %>
+            <%= f.hidden_field :user_id, value: current_user.id %>
+            <%= f.hidden_field :answer_id, value: answer.id %>
+            <%= f.text_field :content, placeholder: "Reply here", size: "40", class: "form-control mb-2 mr-sm-2" %>
+            <%= f.submit "Reply", class: "btn btn-primary mb-2" %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 <% end %>
 <br><br><br>
+
 <% if current_user %>
   <%= form_for(@answer) do |f| %>
     <%= f.hidden_field :user_id, value: current_user.id %>

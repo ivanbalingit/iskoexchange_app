@@ -23,8 +23,31 @@
      IskoExchange is a platform for UP students to ask questions and share insights related to UP
 -->
 
-<h2><%= @user.display_name %></h2><hr>
-<h3>Questions by user</h3>
+<h2><%= @user.display_name %></h2>
+<% if @user == current_user %>
+    <%= link_to "Edit profile", edit_user_path(@user), class: "btn btn-primary" %>
+<% end %>
+<hr>
+
+<div>
+    Description: <%= @user.description %>
+</div>
+
+<% if @user.show_education %>
+    <div>
+        Education: <%= @user.education_degree %> at <%= @user.education_school %>
+    </div>
+<% end %>
+
+<% if @user.show_employment %>
+    <div>
+        Employment: <%= @user.employment_position %> at <%= @user.employment_company %>
+    </div>
+<% end %>
+
+<br>
+
+<h3>Questions by <%= @user.display_name %></h3>
 <% @user.questions.each do |question| %>
     <div><%= link_to question.title, question %></div>
 <% end %>

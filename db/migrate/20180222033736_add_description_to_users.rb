@@ -1,5 +1,5 @@
 =begin
-    Description : Ruby file for seeds
+    Description : Migration file for additional columns of the User Model
     Copyright (C) 2018  Ivan Balingit
 
     This is a course requirement for CS 192 Software Engineering II under the supervision of Asst. Prof. Ma. Rowena C. Solamo of the Department of Computer Science, College of Engineering, University of the Philippines, Diliman for the AY 2015-2016
@@ -15,18 +15,22 @@
     along with this program.  If not, see https://www.gnu.org/licenses/.
 
      **CHANGELOG**
-     Ivan Balingit 1/26/18 - Inital Source Code and Generated all current code 
+     Ivan Balingit 2/22/18 - Inital Source Code
 
-     File created on: 1/26/18
+     File created on: 2/22/18
      Developer: Ivan Balingit
      Client: UP Diliman Students
      IskoExchange is a platform for UP students to ask questions and share insights related to UP
 =end
 
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+class AddDescriptionToUsers < ActiveRecord::Migration[5.1]
+  def change
+    add_column :users, :description, :text
+    add_column :users, :education_degree, :string
+    add_column :users, :education_school, :string
+    add_column :users, :show_education, :boolean, default: true
+    add_column :users, :employment_position, :string
+    add_column :users, :employment_company, :string
+    add_column :users, :show_employment, :boolean, default: true
+  end
+end
