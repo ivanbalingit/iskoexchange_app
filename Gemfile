@@ -30,6 +30,8 @@ gem 'bootstrap', '~> 4.0.0'
 gem 'jquery-rails'
 # Use validates_email_format_of for validation of email
 gem 'validates_email_format_of'
+# Use Font Awesome for icons
+gem "font-awesome-rails"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

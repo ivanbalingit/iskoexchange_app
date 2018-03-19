@@ -56,10 +56,10 @@
                 <% if current_user %>
                   <% if current_user.id == @question.user_id %> 
                     <%= link_to edit_question_path do %>
-                      <i class="far fa-edit" ></i>
+                      <i class="fa fa-edit" ></i>
                     <% end %>
                     <%= link_to question_path, method: :delete, data: { confirm: 'Are you sure?' } do %>
-                      <i class="fas fa-trash-alt" style="color:#b22222; font-size: 18px;"></i>
+                      <i class="fa fa-trash" style="color:#b22222; font-size: 18px;"></i>
                     <% end %>
                     
                   <% end %>
@@ -93,10 +93,10 @@
       <div class="row">
         <div class="col-1">
           <div class="updownvote">
-            <i class="fas fa-caret-up" style="color:green; font-size: 40px;"></i>
+            <i class="fa fa-caret-up" style="color:green; font-size: 40px;"></i>
           </div>
           <div class="updownvote">
-            <i class="fas fa-caret-down" style="color:#c40233; font-size: 40px;"></i>
+            <i class="fa fa-caret-down" style="color:#c40233; font-size: 40px;"></i>
           </div>
         </div>
         <div class="col-11">
@@ -116,10 +116,10 @@
                   <% if current_user %>
                     <% if current_user.id == answer.user_id %> 
                       <%= link_to edit_answer_path(question_id: answer.question,answer_id: answer) do %>
-                        <i class="far fa-edit" ></i>
+                        <i class="fa fa-edit" ></i>
                       <% end %>
                       <%= link_to answer_path(question_id: answer.question,answer_id: answer), method: :delete, data: { confirm: 'Are you sure?' } do %>
-                        <i class="fas fa-trash-alt" style="color:#b22222; font-size: 18px;"></i>
+                        <i class="fa fa-trash" style="color:#b22222; font-size: 18px;"></i>
                       <% end %>
                     <% end %>
                   <% end %>
@@ -147,7 +147,7 @@
         <div class="col-9">
           <div class="row">
             <div class="col-2">
-              <div class="updownvote"><i class="fas fa-angle-double-right" style="font-size: 15px;"></i></div>
+              <div class="updownvote"><i class="fa fa-angle-double-right" style="font-size: 15px;"></i></div>
             </div>
             <div class="col-10">
               <div class="reply-content">
@@ -158,10 +158,10 @@
                     <div style="float: right">
                     <% if current_user && reply.user == current_user %>
                       <%= link_to edit_reply_path(reply) do %>
-                        <i class="far fa-edit" ></i>
+                        <i class="fa fa-edit" ></i>
                       <% end %>
                       <%= link_to reply_path(reply), method: :delete, data: { confirm: 'Are you sure?' } do %>
-                        <i class="fas fa-trash-alt" style="color:#b22222; font-size: 15px;"></i>
+                        <i class="fa fa-trash" style="color:#b22222; font-size: 15px;"></i>
                       <% end %>
                     <% end %>
                   </div>
@@ -186,7 +186,7 @@
                 <%= f.hidden_field :answer_id, value: answer.id %>
                 <%= f.text_field :content, placeholder: "Reply here", size: "40", class: "form-control mb-2 mr-sm-2" %>
                 <%= f.button :submit, class: "btn btn-link", style: "color:green" do %>
-                  <i class="fas fa-reply"></i>
+                  <i class="fa fa-reply"></i>
                 <% end %>
               <% end %>
             <% end %>
