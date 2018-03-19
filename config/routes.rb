@@ -34,6 +34,8 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :edit, :update]
   resources :replies
 
+  get '/questions/:id/report(.:format)' => 'answers#report', as: 'report_answer'
+
   get '/search' => 'questions#search'
 
   get  '/signup' => 'users#new'

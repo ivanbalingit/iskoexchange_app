@@ -83,10 +83,10 @@
 
 
 <br>
-
+  
 <h4>Answers</h4><hr>
 
-<% @question.answers.each do |answer| %>
+<% @question.answers.order(created_at: :desc).each do |answer| %>
 <div class="answer-container">
   <div class="row">
     <div class="col-9">
@@ -95,13 +95,22 @@
           <div class="updownvote">
             <i class="fas fa-caret-up" style="color:green; font-size: 40px;"></i>
           </div>
+          <% if answer.upvote >= answer.downvote %>
+            &nbsp;&nbsp;&nbsp;&nbsp;+<%= answer.upvote %>
+          <% else %>
+            &nbsp;&nbsp;&nbsp;&nbsp;-<%= answer.downvote %>
+          <% end %>
           <div class="updownvote">
             <i class="fas fa-caret-down" style="color:#c40233; font-size: 40px;"></i>
           </div>
         </div>
         <div class="col-11">
           <div class="answer-content">
-            <div class="mb-1" ><%= answer.content %><br><i style="color: gray;font-size: 13px; float: right;">Posted <%= answer.created_at %></i><br></div>
+            <% if answer.reported == false %>
+              <div class="mb-1" ><%= answer.content %><br><i style="color: gray;font-size: 13px; float: right;">Posted <%= answer.created_at %></i><br></div>
+            <% else %>
+              <div class="mb-1" ><i>The content has been removed by the Moderator</i><br></div>
+            <% end %>
             <hr>
           </div>
         </div>
@@ -114,17 +123,23 @@
               <div class="col-1">
                 <!-- Answer is deleteable if it belongs to current user -->
                   <% if current_user %>
-                    <% if current_user.id == answer.user_id %> 
-                      <%= link_to edit_answer_path(question_id: answer.question,answer_id: answer) do %>
-                        <i class="far fa-edit" ></i>
+                    <% if current_user.id == @question.user_id %>
+                      <%= link_to report_answer_path(question_id: answer.question,answer_id: answer) do %>
+                        FLAG
                       <% end %>
-                      <%= link_to answer_path(question_id: answer.question,answer_id: answer), method: :delete, data: { confirm: 'Are you sure?' } do %>
-                        <i class="fas fa-trash-alt" style="color:#b22222; font-size: 18px;"></i>
+                    <% end %>
+                    <% if answer.reported == false %>
+                      <% if current_user.id == answer.user_id %> 
+                        <%= link_to edit_answer_path(question_id: answer.question,answer_id: answer) do %>
+                          <i class="far fa-edit" ></i>
+                        <% end %>
+                        <%= link_to answer_path(question_id: answer.question,answer_id: answer), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                          <i class="fas fa-trash-alt" style="color:#b22222; font-size: 18px;"></i>
+                        <% end %>
                       <% end %>
                     <% end %>
                   <% end %>
               </div>
-
               <div class="col-3" >
                 <img src="/dog.png" alt="USER" style="padding: 0px; width:160%;height:110%;">
               </div>

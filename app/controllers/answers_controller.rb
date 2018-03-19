@@ -72,6 +72,19 @@ class AnswersController < ApplicationController
         render 'edit'
     end
   end
+
+  def report
+    @question = Question.find(params[:question_id])
+    if @question
+      if @question.user_id == current_user.id
+        x = @question.answers.find(params[:answer_id])
+        x.reported = !(x.reported) 
+        x.save
+      end
+    end
+    redirect_to @question 
+  end
+
   private
   # 2/14/18
   # For the parameters when finding the data

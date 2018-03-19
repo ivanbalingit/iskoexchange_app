@@ -13,20 +13,14 @@
     GNU General Public License for more details.
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see https://www.gnu.org/licenses/.
-<<<<<<< HEAD
 
      *CHANGELOG*
-    2/14/18 - Initial Source Code
-
-=======
-    
-    *CHANGELOG*
+     Luis Tan 2/14/18 - Initial Source Code
      Ivan Balingit 2/21/18 - Add relation for replies
      Ivan Balingit 3/7/18 - Add validation for answer content and length
     
->>>>>>> origin
      File created on: 2/14/18
-     Developer: Luis Tan
+     Developer: Luis Tan, Ivan Balingit
      Client: UP Diliman Students
      IskoExchange is a platform for UP students to ask questions and share insights related to UP
 =end
