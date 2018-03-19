@@ -35,6 +35,8 @@ class UsersController < ApplicationController
   # POST /signup
   def create
     @user = User.create(user_params)
+    @user.education_degree, @user.education_school = "", ""
+    @user.employment_position, @user.employment_company = "", ""    
     if @user.save
       redirect_to root_url
     else
