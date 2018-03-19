@@ -32,6 +32,8 @@ gem 'jquery-rails'
 gem 'validates_email_format_of'
 # Use Font Awesome for icons
 gem "font-awesome-rails"
+# Use paperclip for image uploads
+gem "paperclip", "~> 6.0.0"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

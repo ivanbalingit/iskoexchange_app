@@ -19,6 +19,7 @@
      Ivan Balingit 2/9/18 - Added License
      Ivan Balingit 2/14/18 - Add show method
      Ivan Balingit 2/22/18 - Add edit and update methods
+     Ivan Balingit 3/20/18 - Add avatar parameters
 
      File created on: 1/26/18
      Developer: 
@@ -73,6 +74,6 @@ class UsersController < ApplicationController
   private
     def user_params
       # Parameters required by the user: email, display_name, password, password_confirmation
-      params.require(:user).permit(:email, :display_name, :password, :password_confirmation, :description, :education_degree, :education_school, :show_education, :employment_position, :employment_company, :show_employment)
+      params.require(:user).permit(:email, :display_name, :password, :password_confirmation, :avatar, :description, :education_degree, :education_school, :show_education, :employment_position, :employment_company, :show_employment)
     end
 end

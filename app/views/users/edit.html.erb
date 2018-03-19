@@ -16,6 +16,7 @@
 
      *CHANGELOG*
 		 Ivan Balingit 2/22/18 - Initial Source Code and content
+		 Ivan Balingit 3/20/18 - Add user avatar field
 		 
      File created on: 2/22/18
      Developer: Ivan Balingit & Luis Tan
@@ -33,9 +34,11 @@
 			<% end %>
 		<% end %>
 	    
-		<%= form_for @user do |f| %>
+		<%= form_for @user, html: { multipart: true } do |f| %>
 		  <%= f.hidden_field :user_id, value: current_user.id %>
-		  
+
+		  <%= f.label :avatar %><br><%= f.file_field :avatar %><br><br>
+
 		  <%= f.label :description %><%= f.text_field :description, class: "form-control" %><br>
 		  
 		  <%= f.label :education %>

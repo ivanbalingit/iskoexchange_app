@@ -27,6 +27,7 @@
      Patricia Cajaljal 3/5/18 - Edited frontend for threads
      Ivan Balingit 3/7/18 - Make answer form errors inline
      Patricia Cajaljal 3/8/18 - Added arrows for upvote/ downvote on answers
+     Ivan Balingit 3/20/18 - Add user avatar
 
      File created on: 1/26/18
      Developer: Ivan Balingit & Luis Tan
@@ -67,7 +68,7 @@
               </div>
 
               <div class="col-3" >
-                <img src="/man_shaggy.png" alt="USER" style="padding: 0px; width:160%;height:110%;">
+                <%= image_tag @question.user.avatar.url(:thumb), style: "border-radius: 50%;", size: "60x60" %>
               </div>
 
               <div class="col-7">
@@ -126,7 +127,7 @@
               </div>
 
               <div class="col-3" >
-                <img src="/dog.png" alt="USER" style="padding: 0px; width:160%;height:110%;">
+                <%= image_tag answer.user.avatar.url(:thumb), style: "border-radius: 50%;", size: "60x60" %>
               </div>
 
               <div class="col-7">
