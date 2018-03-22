@@ -99,16 +99,17 @@
     <div class="col-9">
       <div class="row">
         <div class="col-1">
+          <!-- Calculate number of votes for answer -->
+          <% count = 0 %><% answer.votes.each do |vote| %><% count = count + vote.value %><% end %>
+          <!-- Upvote button -->
           <div class="updownvote">
             <%= link_to votes_upvote_path(answer_id: answer.id) do %>
               <i class="fa fa-caret-up" style="color:green; font-size: 40px;"></i>
             <% end %>
+            <!-- Total count -->
+            <div><%= count %></div>
           </div>
-            <% count = 0 %>
-            <% answer.votes.each do |vote| %>
-              <%count = count + vote.value%>
-            <%end%>
-            <%= count%>
+          <!-- Downvote button -->
           <div class="updownvote">
             <%= link_to votes_downvote_path(answer_id: answer.id) do %>
               <i class="fa fa-caret-down" style="color:#c40233; font-size: 40px;"></i>
@@ -135,12 +136,12 @@
                 <!-- Answer is deleteable if it belongs to current user -->
                   <% if current_user %>
                     <% if current_user.id == @question.user_id && answer.reported == false %>
-                      <%= link_to report_answer_path(question_id: answer.question,answer_id: answer) do %>
-                        Report
+                      <%= link_to report_answer_path(question_id: answer.question,answer_id: answer), title: "Report this answer" do %>
+                        <i class="fa fa-flag"></i>
                       <% end %>
                     <% elsif current_user.id == @question.user_id && answer.reported == true %>
-                      <%= link_to report_answer_path(question_id: answer.question,answer_id: answer) do %>
-                        Unreport
+                      <%= link_to report_answer_path(question_id: answer.question,answer_id: answer), title: "Unreport this answer" do %>
+                        <i class="fa fa-flag" ></i>
                       <% end %>                    
                     <% end %>
                     <% if answer.reported == false %>
