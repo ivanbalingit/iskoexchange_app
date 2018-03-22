@@ -20,6 +20,7 @@
      Ivan Balingit 2/14/18 - Add link to user
      Ivan Balingit 2/17/18 - Modify search form
      Patricia Cajaljal 3/5/18 - Added script for font awesome (line 39)
+     Ivan Balingit 3/22/18 - Edit search placeholder for tag search instructions
 
      File created on: 1/26/18
      Developer: 
@@ -36,7 +37,6 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag    params["controller"], media: 'all' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
@@ -62,7 +62,7 @@
 
           <!-- Search form -->
           <%= form_tag "/search", method: "get", class: "form-inline" do %>
-              <%= text_field_tag :q, nil, placeholder: "Search", class: "form-control mr-sm-2 form-search" %>
+              <%= text_field_tag :q, nil, placeholder: "Search (term or tag:tag_name)", size: 24, class: "form-control mr-sm-2 form-search" %>
           <% end %>
 
           <% if current_user %>

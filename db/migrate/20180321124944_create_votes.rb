@@ -1,4 +1,4 @@
-# Description : Ruby file for the reply model
+# Description : Migration file for the reply model
 # Copyright (C) 2018 Ivan Balingit
 
 # This is a course requirement for CS 192 Software Engineering II under the supervision of Asst. Prof. Ma. Rowena C. Solamo of the Department of Computer Science, College of Engineering, University of the Philippines, Diliman for the AY 2015-2016
@@ -14,15 +14,21 @@
 # along with this program.  If not, see https://www.gnu.org/licenses/.
 
 # *CHANGELOG*
-#     Ivan Balingit 2/21/18 - Initial Source Code and content.
+#     Luis Tan 3/22/18 - Initial Source Code and content.
 
-# File created on: 2/21/18
-# Developer: Ivan Balingit
+# File created on: 3/22/18
+# Developer: Luis Tan
 # Client: UP Diliman Students
 # IskoExchange is a platform for UP students to ask questions and share insights related to UP
 
-class Reply < ApplicationRecord
-  belongs_to :answer
-  belongs_to :user
-  validates  :content, presence: true, length: { minimum: 16 }
+class CreateVotes < ActiveRecord::Migration[5.1]
+  def change
+    create_table :votes do |t|
+      t.references :user, foreign_key: true
+      t.references :answer, foreign_key: true
+      t.integer :value
+
+      t.timestamps
+    end
+  end
 end
