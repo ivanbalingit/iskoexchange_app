@@ -13,13 +13,15 @@
     GNU General Public License for more details.
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see https://www.gnu.org/licenses/.
-    
-    *CHANGELOG*
+
+     *CHANGELOG*
+     Luis Tan 2/14/18 - Initial Source Code
      Ivan Balingit 2/21/18 - Add relation for replies
      Ivan Balingit 3/7/18 - Add validation for answer content and length
-    
+     Luis Tan 3/22/18 - Add relations with votes
+
      File created on: 2/14/18
-     Developer: Luis Tan
+     Developer: Luis Tan, Ivan Balingit
      Client: UP Diliman Students
      IskoExchange is a platform for UP students to ask questions and share insights related to UP
 =end
@@ -27,6 +29,8 @@
 class Answer < ApplicationRecord
     belongs_to :user
     belongs_to :question
+
+    has_many   :votes, dependent: :delete_all
     has_many   :replies, dependent: :delete_all
     validates  :content, presence: true, length: { minimum: 16 }
 end

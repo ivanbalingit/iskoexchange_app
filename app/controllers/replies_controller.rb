@@ -15,6 +15,7 @@
 
 # *CHANGELOG*
 #     Ivan Balingit 2/21/18 - Initial Source Code and content.
+#     Luis Tan 3/22/18 - Added Report Feature
 
 # File created on: 2/21/18
 # Developer: Ivan Balingit
@@ -61,7 +62,22 @@ class RepliesController < ApplicationController
       redirect_to @reply.answer.question # Include message
     end  
   end
+
+  # 3/22/18
+  # Added Report Feature
+  def report
+    @question = Question.find(params[:question_id])
+    if @question
+      if @question.user_id == current_user.id
+        x = Reply.find(params[:reply_id])
+        x.reported = !(x.reported) 
+        x.save
+      end
+    end
+    redirect_to @question 
+  end
   
+  # For the parameters when finding the data
   private
     def reply_params
       params.require(:reply).permit(:content, :answer_id, :user_id)

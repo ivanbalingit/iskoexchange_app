@@ -29,6 +29,7 @@
      Patricia Cajaljal 3/8/18 - Added arrows for upvote/ downvote on answers
      Ivan Balingit 3/20/18 - Add user avatar
      Ivan Balingit 3/22/18 - Add tags
+     Luis Tan 3/22/18 - Added Report and Vote feature related code
 
      File created on: 1/26/18
      Developer: Ivan Balingit & Luis Tan
@@ -89,25 +90,38 @@
 
 
 <br>
-
+  
 <h4>Answers</h4><hr>
 
-<% @question.answers.each do |answer| %>
+<% @question.answers.order(created_at: :asc).each do |answer| %>
 <div class="answer-container">
   <div class="row">
     <div class="col-9">
       <div class="row">
         <div class="col-1">
           <div class="updownvote">
-            <i class="fa fa-caret-up" style="color:green; font-size: 40px;"></i>
+            <%= link_to votes_upvote_path(answer_id: answer.id) do %>
+              <i class="fa fa-caret-up" style="color:green; font-size: 40px;"></i>
+            <% end %>
           </div>
+            <% count = 0 %>
+            <% answer.votes.each do |vote| %>
+              <%count = count + vote.value%>
+            <%end%>
+            <%= count%>
           <div class="updownvote">
-            <i class="fa fa-caret-down" style="color:#c40233; font-size: 40px;"></i>
+            <%= link_to votes_downvote_path(answer_id: answer.id) do %>
+              <i class="fa fa-caret-down" style="color:#c40233; font-size: 40px;"></i>
+            <% end %>
           </div>
         </div>
         <div class="col-11">
           <div class="answer-content">
-            <div class="mb-1" ><%= answer.content %><br><i style="color: gray;font-size: 13px; float: right;">Posted <%= answer.created_at %></i><br></div>
+            <% if answer.reported == false %>
+              <div class="mb-1" ><%= answer.content %><br><i style="color: gray;font-size: 13px; float: right;">Posted <%= answer.created_at %></i><br></div>
+            <% else %>
+              <div class="mb-1" ><i>The content has been removed by the Moderator</i><br></div>
+            <% end %>
             <hr>
           </div>
         </div>
@@ -120,17 +134,27 @@
               <div class="col-1">
                 <!-- Answer is deleteable if it belongs to current user -->
                   <% if current_user %>
-                    <% if current_user.id == answer.user_id %> 
-                      <%= link_to edit_answer_path(question_id: answer.question,answer_id: answer) do %>
-                        <i class="fa fa-edit" ></i>
+                    <% if current_user.id == @question.user_id && answer.reported == false %>
+                      <%= link_to report_answer_path(question_id: answer.question,answer_id: answer) do %>
+                        Report
                       <% end %>
-                      <%= link_to answer_path(question_id: answer.question,answer_id: answer), method: :delete, data: { confirm: 'Are you sure?' } do %>
-                        <i class="fa fa-trash" style="color:#b22222; font-size: 18px;"></i>
+                    <% elsif current_user.id == @question.user_id && answer.reported == true %>
+                      <%= link_to report_answer_path(question_id: answer.question,answer_id: answer) do %>
+                        Unreport
+                      <% end %>                    
+                    <% end %>
+                    <% if answer.reported == false %>
+                      <% if current_user.id == answer.user_id %> 
+                        <%= link_to edit_answer_path(question_id: answer.question,answer_id: answer) do %>
+                          <i class="fa fa-edit" ></i>
+                        <% end %>
+                        <%= link_to answer_path(question_id: answer.question,answer_id: answer), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                          <i class="fa fa-trash" style="color:#b22222; font-size: 18px;"></i>
+                        <% end %>
                       <% end %>
                     <% end %>
                   <% end %>
               </div>
-
               <div class="col-3" >
                 <%= image_tag answer.user.avatar.url(:thumb), style: "border-radius: 50%;", size: "60x60" %>
               </div>
@@ -148,7 +172,7 @@
   <!-- Replies for the answer -->
   <div>
     <!-- Reply content -->
-    <% answer.replies.each do |reply| %>
+    <% answer.replies.order(created_at: :asc).each do |reply| %>
       <div class="row">
         <div class="col-9">
           <div class="row">
@@ -157,17 +181,32 @@
             </div>
             <div class="col-10">
               <div class="reply-content">
-                    <div class="by_string"> <%= link_to reply.user.display_name, reply.user %> replied:<br></div>
+                <div class="by_string"> <%= link_to reply.user.display_name, reply.user %> replied:<br></div>
+                  <% if reply.reported == false %>
                     <%= reply.content %> 
+                  <% else %>
+                    <i>The content has been removed by the Moderator</i>
+                  <% end %>
                     <!--<%= reply.created_at %>-->
-                    <!-- Reply is deleteable if it belongs to current user -->
-                    <div style="float: right">
-                    <% if current_user && reply.user == current_user %>
-                      <%= link_to edit_reply_path(reply) do %>
-                        <i class="fa fa-edit" ></i>
+                  <!-- Reply is deleteable if it belongs to current user -->
+                  <div style="float: right">
+                    <% if current_user %>
+                      <% if current_user && reply.user == current_user && reply.reported == false %>
+                        <%= link_to edit_reply_path(reply) do %>
+                          <i class="fa fa-edit" ></i>
+                        <% end %>
+                        <%= link_to reply_path(reply), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                          <i class="fa fa-trash" style="color:#b22222; font-size: 15px;"></i>
+                        <% end %>
                       <% end %>
-                      <%= link_to reply_path(reply), method: :delete, data: { confirm: 'Are you sure?' } do %>
-                        <i class="fa fa-trash" style="color:#b22222; font-size: 15px;"></i>
+                      <% if current_user.id == @question.user_id && reply.reported == false %>
+                        <%= link_to report_reply_path(question_id: answer.question,reply_id:reply) do %>
+                          FLAG
+                        <% end %>
+                      <% elsif current_user.id == @question.user_id && reply.reported == true %>
+                        <%= link_to report_reply_path(question_id: answer.question,reply_id:reply) do %>
+                          UNFLAG
+                        <% end %>
                       <% end %>
                     <% end %>
                   </div>
