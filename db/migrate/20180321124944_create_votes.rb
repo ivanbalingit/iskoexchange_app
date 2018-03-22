@@ -14,15 +14,21 @@
 # along with this program.  If not, see https://www.gnu.org/licenses/.
 
 # *CHANGELOG*
-#     Luis Tan 3/20/18 - Initial Source Code and content.
+#     Luis Tan 3/22/18 - Initial Source Code and content.
 
-# File created on: 3/20/18
+# File created on: 3/22/18
 # Developer: Luis Tan
 # Client: UP Diliman Students
 # IskoExchange is a platform for UP students to ask questions and share insights related to UP
 
-class AddReportedToAnswers < ActiveRecord::Migration[5.1]
+class CreateVotes < ActiveRecord::Migration[5.1]
   def change
-    add_column :answers, :reported, :boolean, default: false
+    create_table :votes do |t|
+      t.references :user, foreign_key: true
+      t.references :answer, foreign_key: true
+      t.integer :value
+
+      t.timestamps
+    end
   end
 end

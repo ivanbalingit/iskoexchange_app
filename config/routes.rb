@@ -22,7 +22,8 @@
      Luis Tan 2/14/18 - Added routes for answer
      Ivan Balingit 2/21/18 - Add routes for replies
      Ivan Balingit 2/22/18 - Add routes for edit and update user
-    
+     Luis Tan 3/22/18 - Added links for report and vote features
+
      File created on: 1/26/18
      Developer: Ivan Balingit & Luis Tan
      Client: UP Diliman Students
@@ -34,7 +35,11 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :edit, :update]
   resources :replies
 
-  get '/questions/:id/report(.:format)' => 'answers#report', as: 'report_answer'
+  get '/answers/:id/report(.:format)' => 'answers#report', as: 'report_answer'
+  get '/replies/:id/report(.:format)' => 'replies#report', as: 'report_reply'
+
+  get '/answers/:id/upvote(.:format)', to: 'votes#upvote', as: 'votes_upvote'
+  get '/answers/:id/downvote(.:format)', to: 'votes#downvote', as: 'votes_downvote'
 
   get '/search' => 'questions#search'
 

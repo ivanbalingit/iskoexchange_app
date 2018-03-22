@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180318151818) do
+ActiveRecord::Schema.define(version: 20180321124944) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20180318151818) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "reported", default: false
     t.index ["answer_id"], name: "index_replies_on_answer_id"
     t.index ["user_id"], name: "index_replies_on_user_id"
   end
@@ -62,9 +63,21 @@ ActiveRecord::Schema.define(version: 20180318151818) do
     t.boolean "show_employment", default: true
   end
 
+  create_table "votes", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "answer_id"
+    t.integer "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["answer_id"], name: "index_votes_on_answer_id"
+    t.index ["user_id"], name: "index_votes_on_user_id"
+  end
+
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
   add_foreign_key "questions", "users"
   add_foreign_key "replies", "answers"
   add_foreign_key "replies", "users"
+  add_foreign_key "votes", "answers"
+  add_foreign_key "votes", "users"
 end

@@ -18,7 +18,8 @@
     Luis Tan 2/14/18 - Initial Source Code with Create and New method
     Luis Tan 2/19/18 - Finished the CRUD functionality for Answer
     Ivan Balingit 3/7/18 - Redirect with errors on invalid answer
-    
+    Luis Tan 3/20/18 - Added Report Features
+
      File created on: 2/14/18
      Developer: Luis Tan
      Client: UP Diliman Students
@@ -26,6 +27,7 @@
 =end
 
 class AnswersController < ApplicationController
+  before_action :logged_in_user, only: [:new, :create, :edit, :update, :upvote, :downvote]
   # 2/14/18
   # For the new view of Question
   def new
@@ -72,7 +74,8 @@ class AnswersController < ApplicationController
         render 'edit'
     end
   end
-
+  # 3/22/18
+  # For the report/unreport function of Answer
   def report
     @question = Question.find(params[:question_id])
     if @question
@@ -84,6 +87,7 @@ class AnswersController < ApplicationController
     end
     redirect_to @question 
   end
+
 
   private
   # 2/14/18
