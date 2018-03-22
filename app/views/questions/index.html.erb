@@ -20,6 +20,7 @@
      Ivan Balingit 2/14/18 - Add link to user
      Patricia Cajaljal 2/22/18 -Edited frontend at questions page
      Patricia Cajaljal 3/6/18 -Edited frontend at questions page
+     Ivan Balingit 3/20/18 - Add user avatar
 
      File created on: 1/26/18
      Developer: 
@@ -32,7 +33,7 @@
 <% @questions.each do |question| %>
 <div class="row">
     <div class="col-2" align="center">
-        <img src="/man_beard.png" alt="USER" style="padding: 0px; width:60%;height:70%;">
+        <%= image_tag question.user.avatar.url(:medium), style: "border-radius: 50%;", size: "100x100" %>
         <div><b><%= link_to question.user.display_name, question.user, {:style=>'color:#8b0000;'} %></b></div>
     </div>
     <div class="col-10">

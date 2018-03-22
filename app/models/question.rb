@@ -19,6 +19,7 @@
      Ivan Balingit 2/2/18 - Fix identations and newlines 
      Ivan Balingit 2/14/18 - Add question validation messages
      Luis Tan 2/14/18 - Add create answer
+     Ivan Balingit 3/22/18 - Add necessary method for tags
 
      File created on: 2/2/18
      Developer: Luis Tan
@@ -30,4 +31,5 @@ class Question < ApplicationRecord
   belongs_to :user
   has_many :answers, dependent: :destroy
   validates :title, :content, presence: true, length: { minimum: 16 }
+  acts_as_taggable_on :tags
 end

@@ -39,3 +39,6 @@
 /yarn-error.log
 
 .byebug_history
+
+# Ignore Paperclip image uploads
+/public/system/*
