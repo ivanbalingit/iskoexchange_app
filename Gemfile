@@ -34,6 +34,8 @@ gem 'validates_email_format_of'
 gem "font-awesome-rails"
 # Use paperclip for image uploads
 gem "paperclip", "~> 6.0.0"
+# Use ActsAsTaggableOn for question tags
+gem 'acts-as-taggable-on', '~> 5.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

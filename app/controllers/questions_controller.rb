@@ -20,6 +20,8 @@
      Ivan Balingit 2/17/18 - Add action for search questions
      Luis Tan 2/19/18 - Finished the CRUD functionalities for Question
      Ivan Balingit 2/21/18 - Modify show action for replies
+     Ivan Balingit 3/22/18 - Whitelist :tag_list on parameters
+     Ivan Balingit 3/22/18 - Redirect to tags#show if term contains "tag:"
 
      File created on: 1/26/18
      Developer: Luis Tan
@@ -75,7 +77,13 @@ class QuestionsController < ApplicationController
   # GET /search
   def search
     @term = params[:q]
-    @questions = Question.where("lower(title) LIKE lower(?)", "%#{@term}%")
+    if @term.split(':')[0] == "tag"
+      @tag = @term.split(':')[1]
+      @questions = Question.tagged_with(@tag)
+      redirect_to "/tags/#{@tag}"
+    else
+      @questions = Question.where("lower(title) LIKE lower(?)", "%#{@term}%")
+    end 
   end
 
   # 2/19/18
@@ -99,6 +107,6 @@ class QuestionsController < ApplicationController
     # 2/2/18
     # For the parameters when finding the data
     def question_params
-      params.require(:question).permit(:title, :content, :user_id)
+      params.require(:question).permit(:title, :content, :user_id, :tag_list)
     end
 end  

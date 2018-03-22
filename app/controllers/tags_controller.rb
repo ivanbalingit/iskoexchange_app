@@ -1,5 +1,5 @@
-<!--
-    Description: View template for search questions page
+=begin
+    Description: Controller functions for tags
     Copyright (C) 2018 Ivan Balingit
 
     This is a course requirement for CS 192 Software Engineering II under the supervision of Asst. Prof. Ma. Rowena C. Solamo of the Department of Computer Science, College of Engineering, University of the Philippines, Diliman for the AY 2015-2016
@@ -15,34 +15,17 @@
     along with this program.  If not, see https://www.gnu.org/licenses/.
 
      *CHANGELOG*
-     Ivan Balingit 2/17/18 - Initial Source Code and content. 
-     Patricia Cajaljal 2/22/18 - Edited frontend for search questions page
-     Patricia Cajaljal 3/8/18 - Added icon for questioner in search questions page
+     Ivan Balingit 3/22/18 - Initial Source Code and Generated all the methods. 
 
-     File created on: 2/17/18
+     File created on: 3/22/18
      Developer: 
      Client: UP Diliman Students
      IskoExchange is a platform for UP students to ask questions and share insights related to UP
--->
+=end
 
-<h2>Showing results for: <b><i><%= @term %></i></b></h2><hr>
-
-<% if @questions.count != 0 %>
-  <% @questions.each do |question| %>
-    <div class="row">
-      <div class="col-2" align="center">
-          <%= image_tag question.user.avatar.url(:medium), style: "border-radius: 50%;", size: "100x100" %>
-        <div><b><%= link_to question.user.display_name, question.user, {:style=>'color:#8b0000;'} %></b></div>
-      </div>
-      <div class="col-10">
-    
-        <h4 style="color:#000000;"><b><%= link_to question.title, question, {:style=>'color:#000000;'} %></b></h4>
-        <div><%= question.content.truncate(128) %></div>
-      </div>
-    </div>
-    <hr>
-<% end %>
-
-<% else %>
-  <h4><i>No results found.</i></h4>
-<% end %>
+class TagsController < ApplicationController
+  def show
+  	@tag = params[:tag]
+  	@questions = Question.tagged_with(@tag)
+  end
+end

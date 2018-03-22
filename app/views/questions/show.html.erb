@@ -28,6 +28,7 @@
      Ivan Balingit 3/7/18 - Make answer form errors inline
      Patricia Cajaljal 3/8/18 - Added arrows for upvote/ downvote on answers
      Ivan Balingit 3/20/18 - Add user avatar
+     Ivan Balingit 3/22/18 - Add tags
 
      File created on: 1/26/18
      Developer: Ivan Balingit & Luis Tan
@@ -40,14 +41,18 @@
 <div class="row">
     <div class="col-9">
         <div class="question-content">
-          <!--<div class="bs-callout bs-callout-success">-->
           <%= @question.content %><br>
           <i style="color: gray;font-size: 13px; float:right;">Posted <%= @question.created_at %></i>
           <br>
-          
-        <!--</div>-->
         </div>
 
+        <!-- Tags for the question -->
+        <div class="tag-list">
+          Tags: 
+          <% @question.tag_list.each do |tag| %>
+            <span class="tag"><%= link_to tag, "/tags/#{tag}" %></span>
+          <% end %> 
+        </div>
     </div>
 
     <div class="col-3">
