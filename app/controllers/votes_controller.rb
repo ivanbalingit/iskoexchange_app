@@ -28,10 +28,10 @@ class VotesController < ApplicationController
 
     #For the upvote feature for the Answer
     def upvote
-        @vote = Vote.find_by(answer_id: params[:id], user_id: current_user.id)
+        @vote = Vote.find_by(answer_id: params[:answer_id], user_id: current_user.id)
         
         if @vote == nil
-            @vote = Vote.new(user_id: current_user.id,answer_id: params[:id],value: 0)
+            @vote = Vote.new(user_id: current_user.id, answer_id: params[:answer_id], value: 0)
         end
         if @vote.value != 1
             @vote.value = 1
@@ -39,15 +39,15 @@ class VotesController < ApplicationController
             @vote.value = 0
         end
         @vote.save
-        redirect_back fallback_location: Question.find(Answer.find(params[:id]).question.id)
+        redirect_back fallback_location: Question.find(Answer.find(params[:answer_id]).question.id)
     end 
 
     #For the downvote feature for the Answer
     def downvote
-        @vote = Vote.find_by(answer_id: params[:id], user_id: current_user.id)
+        @vote = Vote.find_by(answer_id: params[:answer_id], user_id: current_user.id)
         
         if @vote == nil
-            @vote = Vote.new(user_id: current_user.id,answer_id: params[:id],value: 0)
+            @vote = Vote.new(user_id: current_user.id, answer_id: params[:answer_id], value: 0)
 
         end
         if @vote.value != -1
@@ -56,7 +56,7 @@ class VotesController < ApplicationController
             @vote.value = 0
         end
         @vote.save
-        redirect_back fallback_location: Question.find(Answer.find(params[:id]).question.id)
+        redirect_back fallback_location: Question.find(Answer.find(params[:answer_id]).question.id)
     end
     private
     # 2/14/18
