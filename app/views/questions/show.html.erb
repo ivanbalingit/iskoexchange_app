@@ -202,11 +202,11 @@
                       <% end %>
                       <% if current_user.id == @question.user_id && reply.reported == false %>
                         <%= link_to report_reply_path(question_id: answer.question,reply_id:reply) do %>
-                          FLAG
+                          <i class="fa fa-flag"></i>
                         <% end %>
                       <% elsif current_user.id == @question.user_id && reply.reported == true %>
                         <%= link_to report_reply_path(question_id: answer.question,reply_id:reply) do %>
-                          UNFLAG
+                          <i class="fa fa-flag"></i>
                         <% end %>
                       <% end %>
                     <% end %>
@@ -230,7 +230,7 @@
               <%= form_for @reply, html: { class: "form-inline" } do |f| %>
                 <%= f.hidden_field :user_id, value: current_user.id %>
                 <%= f.hidden_field :answer_id, value: answer.id %>
-                <%= f.text_field :content, placeholder: "Reply here", size: "40", class: "form-control mb-2 mr-sm-2" %>
+                <%= f.text_field :content, placeholder: "Reply here (16 characters minimum)", size: "40", class: "form-control mb-2 mr-sm-2" %>
                 <%= f.button :submit, class: "btn btn-link", style: "color:green" do %>
                   <i class="fa fa-reply"></i>
                 <% end %>
