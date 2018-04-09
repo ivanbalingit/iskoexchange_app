@@ -1,5 +1,5 @@
-=begin
-    Description: Helper methods for other controllers and views
+<!--
+    Description: View template for questions index page
     Copyright (C) 2018 Ivan Balingit
 
     This is a course requirement for CS 192 Software Engineering II under the supervision of Asst. Prof. Ma. Rowena C. Solamo of the Department of Computer Science, College of Engineering, University of the Philippines, Diliman for the AY 2015-2016
@@ -15,40 +15,35 @@
     along with this program.  If not, see https://www.gnu.org/licenses/.
 
      *CHANGELOG*
-     Ivan Balingit 2/2/18 - Initial Source Code and Generated all the methods. 
-     Ivan Balingit 2/9/18 - Added License
+     Luis Tan 4/9/18 - Initial Source code and All
 
-     File created on: 1/26/18
+     File created on: 4/9/18
      Developer: 
      Client: UP Diliman Students
      IskoExchange is a platform for UP students to ask questions and share insights related to UP
-=end
+-->
+<h2 style="color:#000000;">Notifications</h2><hr>
 
-class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
-  
-  helper_method :logged_in?, :current_user, :notifs_count
+<p align = "right"><%= link_to "Mark All as Read",notifications_read_all_path%></p>
 
-  # Helper method to determine if someone is logged-in
-  def logged_in?
-    !session[:email].nil?
-  end
-  
-  # Returns true if someone is logged-in, else redirects
-  # to the login page
-  def logged_in_user
-    unless logged_in?
-      redirect_to '/login'
-    end
-  end
-
-  # Helper method that returns the currently logged-in
-  # user as a User object
-  def current_user
-    User.where(email: session[:email]).first
-  end
-
-  def notifs_count
-    Notification.where(to_id: current_user.id,read: false).count
-  end
-end
+<% @notifications.order(created_at: :desc).each do |notif| %>
+<div class="row">
+    <div class="col-2" align="center">
+        <img src="/man_beard.png" alt="USER" style="padding: 0px; width:60%;height:70%;">
+    </div>
+    <div class="col-10">
+        <h5 style="color:#000000;">
+        <b><%= link_to notif.by.display_name, notif.by, {:style=>'color:#8b0000;'} %></b>
+        <% if notif.read %>
+            <%= link_to notif.action, notif.question, {:style=>'color:#000000;'} %>
+        <% else %>
+        <b><%= link_to notif.action, question_path(id: notif.question, notif_id: notif), {:style=>'color:#000000;'}%></b>
+        <% end %>
+        </h5>
+        <em><font size = "2" ><%= notif.created_at %> </font></em>
+        <br>
+        <div><%= notif.details %></div>
+    </div>
+</div>
+<hr>
+<% end %>   

@@ -22,6 +22,7 @@
      Ivan Balingit 2/21/18 - Add relation for replies
      Ivan Balingit 3/20/18 - Add methods and validations for image
      Luis Tan 3/22/18 - Add relation for votes
+     Luis Tan 4/9/18 - Add notfication-related features
 
      File created on: 1/31/18
      Developer: Ivan Balingit
@@ -34,6 +35,9 @@ class User < ApplicationRecord
   has_many :answers, dependent: :destroy
   has_many :replies, dependent: :destroy
   has_many :votes, dependent: :destroy
+  has_many :by_notif, :class_name => 'Notification', :foreign_key => 'by_id'
+  has_many :to_notif, :class_name => 'Notification', :foreign_key => 'to_id'
+
 
   has_secure_password
   validates :email, :display_name, presence: true
