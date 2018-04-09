@@ -39,6 +39,7 @@ Rails.application.routes.draw do
   get '/answers/:id/report(.:format)' => 'answers#report', as: 'report_answer'
   get '/replies/:id/report(.:format)' => 'replies#report', as: 'report_reply'
 
+  get '/notification/readAll' => 'notifications#readAll', as: 'notifications_read_all'
   get '/notification/' => 'notifications#index', as: 'notifications' 
 
   get '/answers/:id/upvote(.:format)', to: 'votes#upvote', as: 'votes_upvote'

@@ -1,20 +1,48 @@
-<h2 style="color:#000000;">Notifications for Isko</h2><hr>
+<!--
+    Description: View template for questions index page
+    Copyright (C) 2018 Ivan Balingit
 
-<% @notifications.each do |notif| %>
+    This is a course requirement for CS 192 Software Engineering II under the supervision of Asst. Prof. Ma. Rowena C. Solamo of the Department of Computer Science, College of Engineering, University of the Philippines, Diliman for the AY 2015-2016
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see https://www.gnu.org/licenses/.
+
+     *CHANGELOG*
+     Luis Tan 4/9/18 - Initial Source code and All
+
+     File created on: 4/9/18
+     Developer: 
+     Client: UP Diliman Students
+     IskoExchange is a platform for UP students to ask questions and share insights related to UP
+-->
+<h2 style="color:#000000;">Notifications</h2><hr>
+
+<p align = "right"><%= link_to "Mark All as Read",notifications_read_all_path%></p>
+
+<% @notifications.order(created_at: :desc).each do |notif| %>
 <div class="row">
     <div class="col-2" align="center">
         <img src="/man_beard.png" alt="USER" style="padding: 0px; width:60%;height:70%;">
     </div>
     <div class="col-10">
-        <h4 style="color:#000000;">
+        <h5 style="color:#000000;">
         <b><%= link_to notif.by.display_name, notif.by, {:style=>'color:#8b0000;'} %></b>
         <% if notif.read %>
             <%= link_to notif.action, notif.question, {:style=>'color:#000000;'} %>
         <% else %>
         <b><%= link_to notif.action, question_path(id: notif.question, notif_id: notif), {:style=>'color:#000000;'}%></b>
         <% end %>
-        </h4>
-        <div><%= notif.question.content.truncate(128) %></div>
+        </h5>
+        <em><font size = "2" ><%= notif.created_at %> </font></em>
+        <br>
+        <div><%= notif.details %></div>
     </div>
 </div>
 <hr>

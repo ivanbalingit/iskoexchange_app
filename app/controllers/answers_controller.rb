@@ -41,7 +41,7 @@ class AnswersController < ApplicationController
     @answer = Answer.new(answer_params)
     if @question.answers << @answer
       if current_user != @question.user_id
-        @notif = Notification.new(by_id: current_user.id, to_id: @question.user_id, question_id: @question, action: "has answered your Question.")
+        @notif = Notification.new(by_id: current_user.id, to_id: @question.user_id, question_id: @question, action: "has answered your Question.",details: @answer.content.truncate(128))
         @question.notifications << @notif
       end
       redirect_to @question
@@ -85,19 +85,19 @@ class AnswersController < ApplicationController
     @question = Question.find(params[:question_id])
     if @question
       if @question.user_id == current_user.id
-        x = @question.answers.find(params[:answer_id])
-        if current_user.id != x.user_id
-          if x.reported == false
-            @notif = Notification.new(by_id: current_user.id, to_id: x.user_id, question_id: @question, action: "has reported your Answer.")
+        @x = @question.answers.find(params[:answer_id])
+        if current_user.id != @x.user_id
+          if @x.reported == false
+            @notif = Notification.new(by_id: current_user.id, to_id: @x.user_id, question_id: @question, action: "has reported your Answer.",details: @x.content.truncate(256))
             @question.notifications << @notif
           else
-            if Notification.find_by(by_id: current_user.id, to_id: x.user_id, question_id: @question)
-              Notification.find_by(by_id: current_user.id, to_id: x.user_id, question_id: @question).destroy
+            if Notification.find_by(by_id: current_user.id, to_id: @x.user_id, question_id: @question)
+              Notification.find_by(by_id: current_user.id, to_id: @x.user_id, question_id: @question).destroy
             end
           end
         end
-        x.reported = !(x.reported) 
-        x.save
+        @x.reported = !(@x.reported) 
+        @x.save
       end
     end
     redirect_to @question 
