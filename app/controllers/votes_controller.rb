@@ -40,7 +40,7 @@ class VotesController < ApplicationController
         if @vote.value != 1
             @vote.value = 1
             @notif = Notification.new(by_id: current_user.id, to_id: @vote.answer.user, question_id: @question, action: "has upvoted your Answer.")
-            @question.notifications << @notif
+            @vote.answer.question.notifications << @notif
         else
             @vote.value = 0
         end
