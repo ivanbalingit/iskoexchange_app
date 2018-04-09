@@ -27,7 +27,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   
-  helper_method :logged_in?, :current_user
+  helper_method :logged_in?, :current_user, :notifs_count
 
   # Helper method to determine if someone is logged-in
   def logged_in?
@@ -46,5 +46,9 @@ class ApplicationController < ActionController::Base
   # user as a User object
   def current_user
     User.where(email: session[:email]).first
+  end
+
+  def notifs_count
+    Notification.where(to_id: current_user.id,read: false).count
   end
 end

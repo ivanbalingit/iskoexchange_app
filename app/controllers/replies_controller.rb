@@ -30,6 +30,8 @@ class RepliesController < ApplicationController
     @answer = Answer.find(params[:reply][:answer_id])
     @reply = Reply.new(reply_params)
     if @answer.replies << @reply
+      @notif = Notification.new(by_id: current_user.id, to_id: @answer.user_id, question_id: @answer.question, action: "has replied to your Answer.")
+      @answer.question.notifications << @notif
       redirect_to @answer.question
     else
       redirect_to @answer.question
@@ -70,6 +72,8 @@ class RepliesController < ApplicationController
     if @question
       if @question.user_id == current_user.id
         x = Reply.find(params[:reply_id])
+        @notif = Notification.new(by_id: current_user.id, to_id: x.user_id, question_id: @question, action: "has reported your Reply.")
+        @question.notifications << @notif
         x.reported = !(x.reported) 
         x.save
       end

@@ -16,6 +16,7 @@
 #    
 #    **CHANGELOG**
 #    Luis Tan 3/22/18 - Initial Source Code and Added all the Methods
+#    Luis Tan 4/9/18 - Remove Downvote
 #
 #    File created on: 3/22/18
 #     Developer: Luis Tan
@@ -28,36 +29,28 @@ class VotesController < ApplicationController
 
     #For the upvote feature for the Answer
     def upvote
-        @vote = Vote.find_by(answer_id: params[:id], user_id: current_user.id)
+        @vote = Vote.find_by(answer_id: params[:answer_id], user_id: current_user.id)
+        print("WEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEET")
+        print(@vote)
+        print("WEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEET")
         
         if @vote == nil
-            @vote = Vote.new(user_id: current_user.id,answer_id: params[:id],value: 0)
+            @vote = Vote.new(user_id: current_user.id,answer_id: params[:answer_id],value: 0)
         end
         if @vote.value != 1
             @vote.value = 1
+            @notif = Notification.new(by_id: current_user.id, to_id: @vote.answer.user, question_id: @question, action: "has upvoted your Answer.")
+            @question.notifications << @notif
         else
             @vote.value = 0
         end
         @vote.save
+        print("WAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT")
+        print(@vote.answer.user.display_name)
+        print("WAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT")
         redirect_back fallback_location: Question.find(Answer.find(params[:id]).question.id)
     end 
 
-    #For the downvote feature for the Answer
-    def downvote
-        @vote = Vote.find_by(answer_id: params[:id], user_id: current_user.id)
-        
-        if @vote == nil
-            @vote = Vote.new(user_id: current_user.id,answer_id: params[:id],value: 0)
-
-        end
-        if @vote.value != -1
-            @vote.value = -1
-        else
-            @vote.value = 0
-        end
-        @vote.save
-        redirect_back fallback_location: Question.find(Answer.find(params[:id]).question.id)
-    end
     private
     # 2/14/18
     # For the parameters when finding the data

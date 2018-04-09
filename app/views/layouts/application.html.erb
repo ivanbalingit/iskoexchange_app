@@ -64,8 +64,9 @@
           <%= form_tag "/search", method: "get", class: "form-inline" do %>
               <%= text_field_tag :q, nil, placeholder: "Search", class: "form-control mr-sm-2 form-search" %>
           <% end %>
-
           <% if current_user %>
+          <!--INSERT IMAGE HERE FOR NOTIFS-->
+            <%= link_to notifs_count, notifications_url, style: 'color:red'%>
             <!-- When logged in -->
             &nbsp;&nbsp;
             <span class="navbar-text text-white">Logged in as: <strong><%= link_to current_user.display_name, current_user %></strong>.</span>

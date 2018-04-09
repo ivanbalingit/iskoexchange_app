@@ -38,8 +38,9 @@ Rails.application.routes.draw do
   get '/answers/:id/report(.:format)' => 'answers#report', as: 'report_answer'
   get '/replies/:id/report(.:format)' => 'replies#report', as: 'report_reply'
 
+  get '/notification/' => 'notifications#index', as: 'notifications' 
+
   get '/answers/:id/upvote(.:format)', to: 'votes#upvote', as: 'votes_upvote'
-  get '/answers/:id/downvote(.:format)', to: 'votes#downvote', as: 'votes_downvote'
 
   get '/search' => 'questions#search'
 

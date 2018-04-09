@@ -1,0 +1,21 @@
+<h2 style="color:#000000;">Notifications for Isko</h2><hr>
+
+<% @notifications.each do |notif| %>
+<div class="row">
+    <div class="col-2" align="center">
+        <img src="/man_beard.png" alt="USER" style="padding: 0px; width:60%;height:70%;">
+    </div>
+    <div class="col-10">
+        <h4 style="color:#000000;">
+        <b><%= link_to notif.by.display_name, notif.by, {:style=>'color:#8b0000;'} %></b>
+        <% if notif.read %>
+            <%= link_to notif.action, notif.question, {:style=>'color:#000000;'} %>
+        <% else %>
+            <b><%= link_to notif.action, notif.question, {:style=>'color:#000000;'} %></b>
+        <% end %>
+        </h4>
+        <div><%= notif.question.content.truncate(128) %></div>
+    </div>
+</div>
+<hr>
+<% end %>

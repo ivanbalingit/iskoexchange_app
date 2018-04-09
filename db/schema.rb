@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180321124944) do
+ActiveRecord::Schema.define(version: 20180409091919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,9 +23,21 @@ ActiveRecord::Schema.define(version: 20180321124944) do
     t.datetime "updated_at", null: false
     t.boolean "reported", default: false
     t.integer "upvote", default: 0
-    t.integer "downvote", default: 0
     t.index ["question_id"], name: "index_answers_on_question_id"
     t.index ["user_id"], name: "index_answers_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "by_id"
+    t.bigint "to_id"
+    t.string "action"
+    t.bigint "question_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "read", default: false
+    t.index ["by_id"], name: "index_notifications_on_by_id"
+    t.index ["question_id"], name: "index_notifications_on_question_id"
+    t.index ["to_id"], name: "index_notifications_on_to_id"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -75,6 +87,7 @@ ActiveRecord::Schema.define(version: 20180321124944) do
 
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
+  add_foreign_key "notifications", "questions"
   add_foreign_key "questions", "users"
   add_foreign_key "replies", "answers"
   add_foreign_key "replies", "users"

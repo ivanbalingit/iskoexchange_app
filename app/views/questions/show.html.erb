@@ -28,6 +28,7 @@
      Ivan Balingit 3/7/18 - Make answer form errors inline
      Patricia Cajaljal 3/8/18 - Added arrows for upvote/ downvote on answers
      Luis Tan 3/22/18 - Added Report and Vote feature related code
+     Luis Tan 4/9/18 - Removed Downvote
 
      File created on: 1/26/18
      Developer: Ivan Balingit & Luis Tan
@@ -103,11 +104,6 @@
               <%count = count + vote.value%>
             <%end%>
             <%= count%>
-          <div class="updownvote">
-            <%= link_to votes_downvote_path(answer_id: answer.id) do %>
-              <i class="fas fa-caret-down" style="color:#c40233; font-size: 40px;"></i>
-            <% end %>
-          </div>
         </div>
         <div class="col-11">
           <div class="answer-content">
