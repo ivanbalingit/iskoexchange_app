@@ -36,9 +36,16 @@ class VotesController < ApplicationController
         end
         if @vote.value != 1
             @vote.value = 1
-            @notif = Notification.new(by_id: current_user.id, to_id: @vote.answer.user, question_id: @question, action: "has upvoted your Answer.")
-            @vote.answer.question.notifications << @notif
+            if current_user.id != @vote.answer.user_id
+                @notif = Notification.new(by_id: current_user.id, to_id: @vote.answer.user_id, question_id: @vote.answer.question, action: "has upvoted your Answer.")
+                @vote.answer.question.notifications << @notif
+            end
         else
+            if current_user.id != @vote.answer.user_id
+                if Notification.find_by(by_id: current_user.id, to_id: @vote.answer.user_id, question_id: @vote.answer.question) 
+                    Notification.find_by(by_id: current_user.id, to_id: @vote.answer.user_id, question_id: @vote.answer.question).destroy
+                end
+            end
             @vote.value = 0
         end
         @vote.save

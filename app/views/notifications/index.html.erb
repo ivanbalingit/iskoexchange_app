@@ -11,11 +11,11 @@
         <% if notif.read %>
             <%= link_to notif.action, notif.question, {:style=>'color:#000000;'} %>
         <% else %>
-            <b><%= link_to notif.action, notif.question, {:style=>'color:#000000;'} %></b>
+        <b><%= link_to notif.action, question_path(id: notif.question, notif_id: notif), {:style=>'color:#000000;'}%></b>
         <% end %>
         </h4>
         <div><%= notif.question.content.truncate(128) %></div>
     </div>
 </div>
 <hr>
-<% end %>
+<% end %>   

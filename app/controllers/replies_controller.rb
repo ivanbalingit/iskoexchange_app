@@ -30,8 +30,10 @@ class RepliesController < ApplicationController
     @answer = Answer.find(params[:reply][:answer_id])
     @reply = Reply.new(reply_params)
     if @answer.replies << @reply
-      @notif = Notification.new(by_id: current_user.id, to_id: @answer.user_id, question_id: @answer.question, action: "has replied to your Answer.")
-      @answer.question.notifications << @notif
+      if current_user.id != @answer.user_id
+        @notif = Notification.new(by_id: current_user.id, to_id: @answer.user_id, question_id: @answer.question, action: "has replied to your Answer.")
+        @answer.question.notifications << @notif
+      end
       redirect_to @answer.question
     else
       redirect_to @answer.question
@@ -72,8 +74,16 @@ class RepliesController < ApplicationController
     if @question
       if @question.user_id == current_user.id
         x = Reply.find(params[:reply_id])
-        @notif = Notification.new(by_id: current_user.id, to_id: x.user_id, question_id: @question, action: "has reported your Reply.")
-        @question.notifications << @notif
+        if current_user.id != x.user_id
+          if x.reported == false
+            @notif = Notification.new(by_id: current_user.id, to_id: x.user_id, question_id: @question, action: "has reported your Reply.")
+            @question.notifications << @notif
+          else
+            if Notification.find_by(by_id: current_user.id, to_id: x.user_id, question_id: @question)
+              Notification.find_by(by_id: current_user.id, to_id: x.user_id, question_id: @question).destroy
+            end
+          end
+        end
         x.reported = !(x.reported) 
         x.save
       end

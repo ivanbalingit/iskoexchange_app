@@ -50,6 +50,11 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id])
     @answer = Answer.new
     @reply = Reply.new
+    if params[:notif_id]
+      if Notification.find_by(id: params[:notif_id]) 
+        Notification.find_by(id: params[:notif_id]).update(read: true)
+      end
+    end
   end
   
   # 2/2/18
