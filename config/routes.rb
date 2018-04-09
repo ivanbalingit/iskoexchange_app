@@ -22,6 +22,7 @@
      Luis Tan 2/14/18 - Added routes for answer
      Ivan Balingit 2/21/18 - Add routes for replies
      Ivan Balingit 2/22/18 - Add routes for edit and update user
+     Ivan Balingit 3/22/18 - Add routes for tag searching
      Luis Tan 3/22/18 - Added links for report and vote features
 
      File created on: 1/26/18
@@ -50,6 +51,8 @@ Rails.application.routes.draw do
   get    '/login',  to: 'sessions#new'
   post   '/login',  to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+
+  get 'tags/:tag', to: 'tags#show'
 
   root 'home#index'
 end

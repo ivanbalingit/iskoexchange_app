@@ -31,8 +31,8 @@
   <% @questions.each do |question| %>
     <div class="row">
       <div class="col-2" align="center">
-          <img src="/man_beard.png" alt="USER" style="padding: 0px; width:60%;height:70%;">
-          <div><b><%= link_to question.user.display_name, question.user, {:style=>'color:#8b0000;'} %></b></div>
+          <%= image_tag question.user.avatar.url(:medium), style: "border-radius: 50%;", size: "100x100" %>
+        <div><b><%= link_to question.user.display_name, question.user, {:style=>'color:#8b0000;'} %></b></div>
       </div>
       <div class="col-10">
     

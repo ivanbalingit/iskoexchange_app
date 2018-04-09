@@ -20,6 +20,7 @@
      Luis Tan 2/2/18 - Add Questions controller
      Luis Tan 2/14/18 - Add create answer
      Ivan Balingit 2/21/18 - Add relation for replies
+     Ivan Balingit 3/20/18 - Add methods and validations for image
      Luis Tan 3/22/18 - Add relation for votes
      Luis Tan 4/9/18 - Add notfication-related features
 
@@ -41,4 +42,7 @@ class User < ApplicationRecord
   has_secure_password
   validates :email, :display_name, presence: true
   validates_email_format_of :email
+
+  has_attached_file :avatar, styles: { medium: "160x160#", thumb: "60x60#" }, default_url: "/man_shaggy.png"
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
 end
