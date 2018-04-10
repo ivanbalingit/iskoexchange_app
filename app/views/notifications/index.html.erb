@@ -28,8 +28,10 @@
 
 <% @notifications.order(created_at: :desc).each do |notif| %>
 <div class="row">
+  
     <div class="col-2" align="center">
-        <img src="/man_beard.png" alt="USER" style="padding: 0px; width:60%;height:70%;">
+        <%= image_tag notif.by.avatar.url(:medium), style: "border-radius: 50%;", size: "100x100" %>
+        <div><b><%= link_to notif.by.display_name, notif.by, {:style=>'color:#8b0000;'} %></b></div>
     </div>
     <div class="col-10">
         <h5 style="color:#000000;">
