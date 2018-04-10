@@ -43,7 +43,7 @@
 <div class="row">
     <div class="col-9">
         <div class="question-content">
-          <%= @question.content %><br>
+          <%= auto_link(@question.content) %><br>
           <i style="color: gray;font-size: 13px; float:right;">Posted <%= @question.created_at %></i>
           <br>
         </div>
@@ -118,7 +118,7 @@
         <div class="col-11">
           <div class="answer-content">
             <% if answer.reported == false %>
-              <div class="mb-1" ><%= answer.content %><br><i style="color: gray;font-size: 13px; float: right;">Posted <%= answer.created_at %></i><br></div>
+              <div class="mb-1" ><%= auto_link(answer.content) %><br><i style="color: gray;font-size: 13px; float: right;">Posted <%= answer.created_at %></i><br></div>
             <% else %>
               <div class="mb-1" ><i>The content has been removed by the Moderator</i><br></div>
             <% end %>
@@ -183,7 +183,7 @@
               <div class="reply-content">
                 <div class="by_string"> <%= link_to reply.user.display_name, reply.user %> replied:<br></div>
                   <% if reply.reported == false %>
-                    <%= reply.content %> 
+                    <%= auto_link(reply.content) %> 
                   <% else %>
                     <i>The content has been removed by the Moderator</i>
                   <% end %>
