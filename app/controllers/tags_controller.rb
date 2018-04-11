@@ -24,6 +24,8 @@
 =end
 
 class TagsController < ApplicationController
+  #3/22/18
+  #For the show features of the tags
   def show
   	@tag = params[:tag]
   	@questions = Question.tagged_with(@tag)

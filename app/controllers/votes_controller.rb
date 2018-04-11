@@ -17,6 +17,7 @@
 #    **CHANGELOG**
 #    Luis Tan 3/22/18 - Initial Source Code and Added all the Methods
 #    Luis Tan 4/9/18 - Remove Downvote
+#    Luis Tan 4/9/18 - Added Notification Feature
 #
 #    File created on: 3/22/18
 #     Developer: Luis Tan
