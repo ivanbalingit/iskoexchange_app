@@ -23,10 +23,13 @@
      IskoExchange is a platform for UP students to ask questions and share insights related to UP
 =end
 class NotificationsController < ApplicationController
+    #4/9/18
+    #For the index view
     def index
         @notifications = Notification.where(to_id: current_user.id)
     end
-
+    #4/9/18
+    #For the read all view
     def readAll
         @notifications = Notification.all
         @notifications.each do |notif|
