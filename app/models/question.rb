@@ -21,6 +21,7 @@
      Luis Tan 2/14/18 - Add create answer
      Ivan Balingit 3/22/18 - Add necessary method for tags
      Ivan Balingit 4/12/18 - Add images
+     Ivan Balingit 4/12/18 - Add interaction count method
 
      File created on: 2/2/18
      Developer: Luis Tan
@@ -37,4 +38,10 @@ class Question < ApplicationRecord
 
   has_attached_file :image, styles: { medium: "300x300>", thumb: "60x60>" }
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
+
+  define_attribute_method :interaction_count
+
+  def interaction_count
+    return self.answers.count
+  end
 end
