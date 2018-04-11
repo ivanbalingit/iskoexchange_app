@@ -19,6 +19,7 @@
      Ivan Balingit 2/21/18 - Add relation for replies
      Ivan Balingit 3/7/18 - Add validation for answer content and length
      Luis Tan 3/22/18 - Add relations with votes
+     Ivan Balingit 4/12/18 - Add images
 
      File created on: 2/14/18
      Developer: Luis Tan, Ivan Balingit
@@ -33,4 +34,7 @@ class Answer < ApplicationRecord
     has_many   :votes, dependent: :delete_all
     has_many   :replies, dependent: :delete_all
     validates  :content, presence: true, length: { minimum: 16 }
+
+    has_attached_file :image, styles: { medium: "300x300>", thumb: "60x60>" }
+    validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 end

@@ -1,6 +1,6 @@
-<!--
-    Description : View file for edit answer
-    Copyright (C) 2018 Luis Tan
+=begin
+    Description : Migration file for image column on answers
+    Copyright (C) 2018  Ivan Balingit
 
     This is a course requirement for CS 192 Software Engineering II under the supervision of Asst. Prof. Ma. Rowena C. Solamo of the Department of Computer Science, College of Engineering, University of the Philippines, Diliman for the AY 2015-2016
     This program is free software: you can redistribute it and/or modify
@@ -14,29 +14,21 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see https://www.gnu.org/licenses/.
 
-     *CHANGELOG*
-     Luis Tan 2/19/18 - Initial Source Code and content.
-     Ivan Balingit 4/12/18 - Add image field
+     **CHANGELOG**
+     Ivan Balingit 4/12/18 - Initial migration
 
-     File created on: 2/19/18
-     Developer: Ivan Balingit & Luis Tan
+     File created on: 4/12/18
+     Developer: Ivan Balingit
      Client: UP Diliman Students
      IskoExchange is a platform for UP students to ask questions and share insights related to UP
--->
+=end
 
-<h2><%= @question.title %></h2>
-<h5>Asked by <%= link_to @question.user.display_name, @question.user %> on <%= @question.created_at %>.</h5><hr>
-<div><%= @question.content %></div>
-<br>
-<br>
-<hr>
-<h4>Edit Answer</h4>
-<%= form_for(@answer) do |f| %>
-    <%= f.hidden_field :user_id, value: current_user.id %>
-    <%= f.hidden_field :question_id, value:  @question.id %>
-    <%= f.label :content  %><%= f.text_area :content, value: @answer.content, rows: "10", cols: "80", class: "form-control" %><br>
-    <%= f.label :image, "Attach image: " %><%= f.file_field :image %><br>
-    <%= f.submit "Update answer", class: "btn btn-primary" %>
-<% end %>
-<br><br><br>
+class AddImageColumnsToAnswers < ActiveRecord::Migration[5.1]
+  def up
+    add_attachment :answers, :image
+  end
 
+  def down
+    remove_attachment :answers, :image
+  end
+end

@@ -20,6 +20,7 @@
     Ivan Balingit 3/7/18 - Redirect with errors on invalid answer
     Luis Tan 3/20/18 - Added Report Features
     Luis Tan 4/9/18 - Removed Downvote Features
+    Ivan Balingit 4/12/18 - Whitelist :image on parameters
 
      File created on: 2/14/18
      Developer: Luis Tan
@@ -108,6 +109,6 @@ class AnswersController < ApplicationController
   # 2/14/18
   # For the parameters when finding the data
   def answer_params
-    params.require(:answer).permit(:content, :user_id, :question_id)
+    params.require(:answer).permit(:content, :user_id, :question_id, :image)
   end
 end
