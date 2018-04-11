@@ -16,6 +16,7 @@
 #    
 #    **CHANGELOG**
 #    Luis Tan 3/22/18 - Initial Source Code and Added all the Methods
+#    Luis Tan 4/9/18 - Remove Downvote
 #
 #    File created on: 3/22/18
 #     Developer: Luis Tan
@@ -35,29 +36,22 @@ class VotesController < ApplicationController
         end
         if @vote.value != 1
             @vote.value = 1
+            if current_user.id != @vote.answer.user_id
+                @notif = Notification.new(by_id: current_user.id, to_id: @vote.answer.user_id, question_id: @vote.answer.question, action: "has upvoted your Answer.",details: @vote.answer.content.truncate(128))
+                @vote.answer.question.notifications << @notif
+            end
         else
+            if current_user.id != @vote.answer.user_id
+                if Notification.find_by(by_id: current_user.id, to_id: @vote.answer.user_id, question_id: @vote.answer.question) 
+                    Notification.find_by(by_id: current_user.id, to_id: @vote.answer.user_id, question_id: @vote.answer.question).destroy
+                end
+            end
             @vote.value = 0
         end
         @vote.save
-        redirect_back fallback_location: Question.find(Answer.find(params[:answer_id]).question.id)
+        redirect_back fallback_location: Question.find(Answer.find(params[:id]).question.id)
     end 
 
-    #For the downvote feature for the Answer
-    def downvote
-        @vote = Vote.find_by(answer_id: params[:answer_id], user_id: current_user.id)
-        
-        if @vote == nil
-            @vote = Vote.new(user_id: current_user.id, answer_id: params[:answer_id], value: 0)
-
-        end
-        if @vote.value != -1
-            @vote.value = -1
-        else
-            @vote.value = 0
-        end
-        @vote.save
-        redirect_back fallback_location: Question.find(Answer.find(params[:answer_id]).question.id)
-    end
     private
     # 2/14/18
     # For the parameters when finding the data

@@ -16,6 +16,7 @@
 # *CHANGELOG*
 #     Ivan Balingit 2/21/18 - Initial Source Code and content.
 #     Luis Tan 3/22/18 - Added Report Feature
+#     Luis Tan 4/9/18 - Added Notification Feature
 
 # File created on: 2/21/18
 # Developer: Ivan Balingit
@@ -30,6 +31,10 @@ class RepliesController < ApplicationController
     @answer = Answer.find(params[:reply][:answer_id])
     @reply = Reply.new(reply_params)
     if @answer.replies << @reply
+      if current_user.id != @answer.user_id
+        @notif = Notification.new(by_id: current_user.id, to_id: @answer.user_id, question_id: @answer.question, action: "has replied to your Answer.",details: "\""+@reply.content.truncate(128)+"\"")
+        @answer.question.notifications << @notif
+      end
       redirect_to @answer.question
     else
       redirect_to @answer.question
@@ -69,9 +74,19 @@ class RepliesController < ApplicationController
     @question = Question.find(params[:question_id])
     if @question
       if @question.user_id == current_user.id
-        x = Reply.find(params[:reply_id])
-        x.reported = !(x.reported) 
-        x.save
+        @x = Reply.find(params[:reply_id])
+        if current_user.id != @x.user_id
+          if @x.reported == false
+            @notif = Notification.new(by_id: current_user.id, to_id: @x.user_id, question_id: @question, action: "has reported your Reply.",details: @x.content.truncate(256))
+            @question.notifications << @notif
+          else
+            if Notification.find_by(by_id: current_user.id, to_id: @x.user_id, question_id: @question)
+              Notification.find_by(by_id: current_user.id, to_id: @x.user_id, question_id: @question).destroy
+            end
+          end
+        end
+        @x.reported = !(@x.reported) 
+        @x.save
       end
     end
     redirect_to @question 
