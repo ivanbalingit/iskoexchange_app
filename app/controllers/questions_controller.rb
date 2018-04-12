@@ -22,6 +22,8 @@
      Ivan Balingit 2/21/18 - Modify show action for replies
      Ivan Balingit 3/22/18 - Whitelist :tag_list on parameters
      Ivan Balingit 3/22/18 - Redirect to tags#show if term contains "tag:"
+     Ivan Balingit 4/12/18 - Whitelist :image on parameters
+     Ivan Balingit 4/12/18 - Sort questions by newest or trending
 
      File created on: 1/26/18
      Developer: Luis Tan
@@ -36,6 +38,11 @@ class QuestionsController < ApplicationController
   # For the index view of Question
   def index
     @questions = Question.all
+    if    params[:s] == "n"
+      @questions = @questions.sort_by(&:created_at).reverse
+    elsif params[:s] == "t"
+      @questions = @questions.sort_by(&:interaction_count).reverse
+    end
   end
   
   # 2/2/18
@@ -112,6 +119,6 @@ class QuestionsController < ApplicationController
     # 2/2/18
     # For the parameters when finding the data
     def question_params
-      params.require(:question).permit(:title, :content, :user_id, :tag_list)
+      params.require(:question).permit(:title, :content, :user_id, :tag_list, :image)
     end
 end  

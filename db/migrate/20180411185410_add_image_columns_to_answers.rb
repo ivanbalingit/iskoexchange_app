@@ -1,5 +1,5 @@
 =begin
-    Description : Migration file for the removal of downvote feature
+    Description : Migration file for image column on answers
     Copyright (C) 2018  Ivan Balingit
 
     This is a course requirement for CS 192 Software Engineering II under the supervision of Asst. Prof. Ma. Rowena C. Solamo of the Department of Computer Science, College of Engineering, University of the Philippines, Diliman for the AY 2015-2016
@@ -15,16 +15,20 @@
     along with this program.  If not, see https://www.gnu.org/licenses/.
 
      **CHANGELOG**
-     Luis Tan 4/9/18 - Inital Source Code and Generated all current code 
+     Ivan Balingit 4/12/18 - Initial migration
 
-     File created on: 4/9/18
-     Developer: Luis Tan
+     File created on: 4/12/18
+     Developer: Ivan Balingit
      Client: UP Diliman Students
      IskoExchange is a platform for UP students to ask questions and share insights related to UP
 =end
 
-class RemoveDownvote < ActiveRecord::Migration[5.1]
-  def change
-    remove_column :answers, :downvote
+class AddImageColumnsToAnswers < ActiveRecord::Migration[5.1]
+  def up
+    add_attachment :answers, :image
+  end
+
+  def down
+    remove_attachment :answers, :image
   end
 end

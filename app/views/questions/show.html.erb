@@ -32,6 +32,7 @@
      Luis Tan 3/22/18 - Added Report and Vote feature related code
      Luis Tan 4/9/18 - Removed Downvote
      Ivan Balingit 4/11/18 - Render links on question, answer, and reply content
+     Ivan Balingit 4/12/18 - Add image field on answer form
 
      File created on: 1/26/18
      Developer: Ivan Balingit & Luis Tan
@@ -45,6 +46,7 @@
     <div class="col-9">
         <div class="question-content">
           <%= auto_link(@question.content) %><br>
+          <%= if @question.image.file? then image_tag @question.image.url(:medium) end %><br>
           <i style="color: gray;font-size: 13px; float:right;">Posted <%= @question.created_at %></i>
           <br>
         </div>
@@ -119,7 +121,9 @@
         <div class="col-11">
           <div class="answer-content">
             <% if answer.reported == false %>
-              <div class="mb-1" ><%= auto_link(answer.content) %><br><i style="color: gray;font-size: 13px; float: right;">Posted <%= answer.created_at %></i><br></div>
+              <div class="mb-1" ><%= auto_link(answer.content) %><br>
+                <%= if answer.image.file? then image_tag answer.image.url(:medium) end %><br>
+                <i style="color: gray;font-size: 13px; float: right;">Posted <%= answer.created_at %></i><br></div>
             <% else %>
               <div class="mb-1" ><i>The content has been removed by the Moderator</i><br></div>
             <% end %>
@@ -256,6 +260,10 @@
       <%= f.label :content  %>
       <div class="input-group is-invalid"><%= f.text_area :content, :placeholder => "Answer here", value: flash[:content], rows: "7", cols: "80", class: "form-control #{if flash[:error] then 'is-invalid' end}" %></div>  
       <div class="invalid-feedback"><% if flash[:error] %><%= flash[:error]["content"][0] %><% end %></div>   
+    </div>
+
+    <div class="form-group">
+      <%= f.label :image, "Attach image: " %> <%= f.file_field :image %>
     </div>
 
     <%= f.submit "Submit Answer", class: "btn btn-primary" %>

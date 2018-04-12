@@ -13,7 +13,8 @@
     GNU General Public License for more details.
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see https://www.gnu.org/licenses/.
-
+    **CHANGELOG**
+    Luis Tan 2/2/18 - Initial Source Code
 
      File created on: 2/2/18
      Developer: Luis Tan

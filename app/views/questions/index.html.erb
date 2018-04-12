@@ -21,6 +21,7 @@
      Patricia Cajaljal 2/22/18 -Edited frontend at questions page
      Patricia Cajaljal 3/6/18 -Edited frontend at questions page
      Ivan Balingit 3/20/18 - Add user avatar
+     Ivan Balingit 4/12/18 - Sort questions by newest or trending
 
      File created on: 1/26/18
      Developer: 
@@ -28,7 +29,11 @@
      IskoExchange is a platform for UP students to ask questions and share insights related to UP
 -->
 
-<h2 style="color:#000000;">Questions for Isko</h2><hr>
+<h2 style="color:#000000;">Questions for Isko</h2>
+Sort by: 
+    <%= link_to "Newest", questions_path(s: "n"), class: "btn btn-#{ if params[:s]=='n' then 'primary' else 'secondary' end }" %>
+    <%= link_to "Trending", questions_path(s: "t"), class: "btn btn-#{ if params[:s]=='t' then 'primary' else 'secondary' end }" %>
+<hr>
 
 <% @questions.each do |question| %>
 <div class="row">
