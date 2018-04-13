@@ -22,6 +22,7 @@
      Patricia Cajaljal 3/6/18 -Edited frontend at questions page
      Ivan Balingit 3/20/18 - Add user avatar
      Ivan Balingit 4/12/18 - Sort questions by newest or trending
+     Ivan Balingit 4/13/18 - Add pagination
 
      File created on: 1/26/18
      Developer: 
@@ -32,7 +33,8 @@
 <h2 style="color:#000000;">Questions for Isko</h2>
 Sort by: 
     <%= link_to "Newest", questions_path(s: "n"), class: "btn btn-#{ if params[:s]=='n' then 'primary' else 'secondary' end }" %>
-    <%= link_to "Trending", questions_path(s: "t"), class: "btn btn-#{ if params[:s]=='t' then 'primary' else 'secondary' end }" %>
+    <%= link_to "Trending", questions_path(s: "t"), class: "btn btn-#{ if params[:s]=='t' then 'primary' else 'secondary' end }" %><br><br>
+    <%= paginate @questions %>
 <hr>
 
 <% @questions.each do |question| %>

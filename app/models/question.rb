@@ -22,6 +22,7 @@
      Ivan Balingit 3/22/18 - Add necessary method for tags
      Ivan Balingit 4/12/18 - Add images
      Ivan Balingit 4/12/18 - Add interaction count method
+     Ivan Balingit 4/13/18 - Add pagination
 
      File created on: 2/2/18
      Developer: Luis Tan
@@ -40,6 +41,8 @@ class Question < ApplicationRecord
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
   define_attribute_method :interaction_count
+
+  paginates_per 5
 
   def interaction_count
     return self.answers.count

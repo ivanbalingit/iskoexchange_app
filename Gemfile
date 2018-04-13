@@ -38,6 +38,8 @@ gem "paperclip", "~> 6.0.0"
 gem 'acts-as-taggable-on', '~> 5.0'
 # Use rails_autolink gem for link rendering
 gem 'rails_autolink'
+# Use kaminari for pagination
+gem 'kaminari'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

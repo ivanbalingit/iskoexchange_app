@@ -24,6 +24,7 @@
      Ivan Balingit 3/22/18 - Redirect to tags#show if term contains "tag:"
      Ivan Balingit 4/12/18 - Whitelist :image on parameters
      Ivan Balingit 4/12/18 - Sort questions by newest or trending
+     Ivan Balingit 4/13/18 - Add pagination
 
      File created on: 1/26/18
      Developer: Luis Tan
@@ -39,9 +40,11 @@ class QuestionsController < ApplicationController
   def index
     @questions = Question.all
     if    params[:s] == "n"
-      @questions = @questions.sort_by(&:created_at).reverse
+      @questions = @questions.sort_by(&:created_at).reverse.page(params[:page])
     elsif params[:s] == "t"
-      @questions = @questions.sort_by(&:interaction_count).reverse
+      @questions = @questions.sort_by(&:interaction_count).reverse.page(params[:page])
+    else
+      @questions = @questions.page(params[:page])
     end
   end
   
