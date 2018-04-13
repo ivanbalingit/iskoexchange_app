@@ -116,7 +116,7 @@ nav {
 .notifs {
   width: 35px;
   height: 35px;
-  padding-top:5px;
+  padding-top:10px;
   //background-color: yellow;
   position: relative;
 }
@@ -125,21 +125,25 @@ i.fa-bell {
   //background-color: green;
   text-align: center;
   position: relative;
-  font-size: 1.6em;
+  font-size: 1.4em;
   color: white;
   cursor: pointer;
   display: inline-block;
 }
 
-span.notif_count {
-  width: 18px;
-  height: 18px;
+.notif_count {
+  width: 16px;
+  height: 16px;
   background-color: red;
   position: absolute;
   text-align: center;
   font-size: 0.8em;
   border-radius: 60px;
   border: solid black;
-  top: 1px;
+  top: 2.5px;
   right: 2px;
+}
+
+#notif_num {
+  position: absolute; top: 2.5px; right: 2px; width: 16px; length:16px; color:white; font-size: 8px; background-color: red; border: solid black; border-radius: 60px;
 }

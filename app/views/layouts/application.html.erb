@@ -63,22 +63,25 @@
 
           <!-- Search form -->
           <%= form_tag "/search", method: "get", class: "form-inline" do %>
-              <span class="font-size: 15px;"><%= text_field_tag :q, nil, placeholder: "Search (term or tag:tag_name)", size: 24, class: "form-control mr-sm-2 form-search"%></span>
+              <span class="font-size: 20px;"><%= text_field_tag :q, nil, placeholder: "Search (term or tag:tag_name)", size: 24, class: "form-control mr-sm-2 form-search"%></span>
           <% end %>
           <% if current_user %>
           <!--INSERT IMAGE HERE FOR NOTIFS-->
           <div class="notifs" style="text-align: center">
             <%= link_to notifications_url do %>
               <i class="fa fa-bell"></i>
-      
             <% end %>
-            <span class="notif_count"> <%= link_to notifs_count, notifications_url, style:"color:white; font-size: 10px;"%></span>
-              
+            <% if notifs_count == 0%>
+
+
+            <% else %>
+              <p id="notif_num"> <%= link_to notifs_count, notifications_url, style: 'color: white; '%><p>
+            <%end%>
           </div>
     
             
             <!-- When logged in -->
-            &nbsp;&nbsp;
+            &nbsp;
             <span class="navbar-text text-white">Logged in as: <strong><%= link_to current_user.display_name, current_user %></strong></span>
             &nbsp;&nbsp;
             <%= link_to "Log Out", logout_url, method: :delete, class: "btn btn-outline-danger" %>
