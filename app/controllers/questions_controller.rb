@@ -40,9 +40,9 @@ class QuestionsController < ApplicationController
   def index
     @questions = Question.all
     if    params[:s] == "n"
-      @questions = @questions.sort_by(&:created_at).reverse.page(params[:page])
+      @questions = Kaminari.paginate_array(@questions.sort_by(&:created_at).reverse).page(params[:page]).per(5)
     elsif params[:s] == "t"
-      @questions = @questions.sort_by(&:interaction_count).reverse.page(params[:page])
+      @questions = Kaminari.paginate_array(@questions.sort_by(&:interaction_count).reverse).page(params[:page]).per(5)
     else
       @questions = @questions.page(params[:page])
     end
