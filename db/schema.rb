@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20180411185410) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "reported", default: false
-    t.integer "upvote"
+    t.integer "upvote", default: 0
     t.string "image_file_name"
     t.string "image_content_type"
     t.integer "image_file_size"
