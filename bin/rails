@@ -20,7 +20,7 @@
 #     IskoExchange is a platform for UP students to ask questions and share insights related to UP
 #end
 
-#!/usr/bin/env ruby
+#!/usr/bin/env ruby.exe
 begin
   load File.expand_path('../spring', __FILE__)
 rescue LoadError => e
