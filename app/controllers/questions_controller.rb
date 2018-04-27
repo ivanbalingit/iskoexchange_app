@@ -124,4 +124,4 @@ class QuestionsController < ApplicationController
     def question_params
       params.require(:question).permit(:title, :content, :user_id, :tag_list, :image)
     end
-end  
+end 
