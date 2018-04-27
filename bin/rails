@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 #begin
 #    Description : rails
 #    Copyright (C) 2018 Ivan Balingit
@@ -20,7 +22,6 @@
 #     IskoExchange is a platform for UP students to ask questions and share insights related to UP
 #end
 
-#!/usr/bin/env ruby.exe
 begin
   load File.expand_path('../spring', __FILE__)
 rescue LoadError => e
