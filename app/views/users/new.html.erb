@@ -1,18 +1,65 @@
-<h1>Signup form</h1>
+<!--
+    Description: View template for user registration page
+    Copyright (C) 2018 Ivan Balingit
 
-<% if @user.errors.any? %>
-	<ul>
-	  <% @user.errors.messages.each do |err| %>
-	    <li><%= err[0].to_s.gsub("_"," ").capitalize %> <%= err[1][0].to_s %>.</li>
-	  <% end %>
-	</ul>
-<% end %>
+    This is a course requirement for CS 192 Software Engineering II under the supervision of Asst. Prof. Ma. Rowena C. Solamo of the Department of Computer Science, College of Engineering, University of the Philippines, Diliman for the AY 2015-2016
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see https://www.gnu.org/licenses/.
 
-<%= form_for @user, url: signup_path do |f| %>
-	<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-	Email: <%= f.text_field :email %><br>
-	Display name: <%= f.text_field :display_name %><br>
-	Password: <%= f.password_field :password %><br>
-	Confirm password: <%= f.password_field :password_confirmation %><br>
-	<%= f.submit %>
-<% end %>
+     *CHANGELOG*
+     Ivan Balingit 2/2/18 - Initial Source Code and content. 
+     Ivan Balingit 2/9/18 - Added License
+     Ivan Balingit 3/9/18 - Make form errors inline
+
+     File created on: 1/26/18
+     Developer: 
+     Client: UP Diliman Students
+     IskoExchange is a platform for UP students to ask questions and share insights related to UP
+-->
+
+<h1 class="text-center">
+	Create your own IskoExchange account for free.
+</h1><br>
+
+<div class="row">
+	<div class="col-6 offset-3">
+		<%= form_for @user, url: signup_path do |f| %>
+			<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+            <div class="form-group">
+                <%= f.label :email %>
+                <div class="is-invalid"><%= f.text_field :email, class: "form-control", value: @user.email || "" %></div>    
+                <div class="invalid-feedback" style="display: block;"><%= @user.errors[:email].first %></div>
+            </div>
+
+            <div class="form-group">
+                <%= f.label :display_name %>
+                <div class="is-invalid"><%= f.text_field :display_name, class: "form-control", value: @user.display_name || "" %></div>    
+                <div class="invalid-feedback" style="display: block;"><%= @user.errors[:display_name].first %></div>
+            </div>
+
+            <div class="form-group">
+                <%= f.label :password %>    
+                <div class="is-invalid"><%= f.password_field :password, class: "form-control" %></div>
+                <div class="invalid-feedback" style="display: block;"><%= @user.errors[:password].first %></div>
+            </div>
+            
+            <div class="form-group">
+                <%= f.label :password_confirmation %>
+                <div class="is-invalid"><%= f.password_field :password_confirmation, class: "form-control" %></div>    
+                <div class="invalid-feedback" style="display: block;"><%= @user.errors[:password_confirmation].first %></div>
+            </div>
+			
+			<%= f.submit "Register", class: "btn btn-primary" %>
+		<% end %>		
+	</div>
+</div>
+

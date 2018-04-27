@@ -17,6 +17,13 @@
      **CHANGELOG**
      Luis Tan 2/2/18 - Added routes for questions 
      Luis Tan 2/9/18 - Added License
+     Ivan Balingit 2/14/18 - Add routes for showing user profiles
+     Ivan Balingit 2/17/18 - Add route for searching questions
+     Luis Tan 2/14/18 - Added routes for answer
+     Ivan Balingit 2/21/18 - Add routes for replies
+     Ivan Balingit 2/22/18 - Add routes for edit and update user
+     Ivan Balingit 3/22/18 - Add routes for tag searching
+     Luis Tan 3/22/18 - Added links for report and vote features
 
      File created on: 1/26/18
      Developer: Ivan Balingit & Luis Tan
@@ -24,14 +31,29 @@
      IskoExchange is a platform for UP students to ask questions and share insights related to UP
 =end
 Rails.application.routes.draw do
+  resources :questions
+  resources :answers
+  resources :users, only: [:show, :edit, :update]
+  resources :replies
+
+  get '/answers/:id/report(.:format)' => 'answers#report', as: 'report_answer'
+  get '/replies/:id/report(.:format)' => 'replies#report', as: 'report_reply'
+
+  get '/notification/readAll' => 'notifications#readAll', as: 'notifications_read_all'
+  get '/notification/' => 'notifications#index', as: 'notifications' 
+
+  get '/answers/:id/upvote(.:format)', to: 'votes#upvote', as: 'votes_upvote'
+
+  get '/search' => 'questions#search'
+
   get  '/signup' => 'users#new'
   post '/signup' => 'users#create'
-  
+
   get    '/login',  to: 'sessions#new'
   post   '/login',  to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
-  root 'home#index'
+  get 'tags/:tag', to: 'tags#show'
 
-  resources :questions
+  root 'home#index'
 end

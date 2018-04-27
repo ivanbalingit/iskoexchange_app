@@ -30,6 +30,16 @@ gem 'bootstrap', '~> 4.0.0'
 gem 'jquery-rails'
 # Use validates_email_format_of for validation of email
 gem 'validates_email_format_of'
+# Use Font Awesome for icons
+gem "font-awesome-rails"
+# Use paperclip for image uploads
+gem "paperclip", "~> 6.0.0"
+# Use ActsAsTaggableOn for question tags
+gem 'acts-as-taggable-on', '~> 5.0'
+# Use rails_autolink gem for link rendering
+gem 'rails_autolink'
+# Use kaminari for pagination
+gem 'kaminari'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -50,3 +60,7 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# Avoid polling on Windows
+gem 'wdm', '>= 0.1.0', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+#gem 'bcrypt', platforms: :ruby

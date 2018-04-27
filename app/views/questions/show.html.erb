@@ -14,26 +14,261 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see https://www.gnu.org/licenses/.
 
-     **CHANGELOG**
-     Luis Tan 2/2/18 - Inital Source Code and Generated all current code 
+     *CHANGELOG*
+     Luis Tan 2/2/18 - Initial Source Code and content. 
+     Ivan Balingit 2/9/18 - Fix frontend for this view
      Luis Tan 2/9/18 - Added License
+     Ivan Balingit 2/14/18 - Add link to user
+     Luis Tan 2/14/18 - Create Answer form
+     Ivan Balingit 2/14/18 - Hide answer form when not logged-in
+     Luis Tan 2/19/18 - Modified the web page for the input form of Answers
+     Ivan Balingit 2/21/18 - Show replies for answers and reply form
+     Patricia Cajaljal 2/22/18 - Added frontend for questions
+     Patricia Cajaljal 3/5/18 - Edited frontend for threads
+     Ivan Balingit 3/7/18 - Make answer form errors inline
+     Patricia Cajaljal 3/8/18 - Added arrows for upvote/ downvote on answers
+     Ivan Balingit 3/20/18 - Add user avatar
+     Ivan Balingit 3/22/18 - Add tags
+     Luis Tan 3/22/18 - Added Report and Vote feature related code
+     Luis Tan 4/9/18 - Removed Downvote
+     Ivan Balingit 4/11/18 - Render links on question, answer, and reply content
+     Ivan Balingit 4/12/18 - Add image field on answer form
 
      File created on: 1/26/18
-     Developer: Luis Tan
+     Developer: Ivan Balingit & Luis Tan
      Client: UP Diliman Students
      IskoExchange is a platform for UP students to ask questions and share insights related to UP
 -->
+<br>
+<h2 id="question_title"><%= @question.title %></h2>
 
-<h4>Title</h4>
-<br />
-<%= @question.title %>
-<br />
-<h4>Content</h4>
-<br />
-<%= @question.content%>
-<br />
-<h4>User : </h4>
-<%= @question.user.display_name %>
-<br />
-<h4>Date Posted : </h4>
-<%= @question.created_at %>
+<div class="row">
+    <div class="col-9">
+        <div class="question-content">
+          <%= auto_link(@question.content) %><br>
+          <%= if @question.image.file? then image_tag @question.image.url(:medium) end %><br>
+          <i style="color: gray;font-size: 13px; float:right;">Posted <%= @question.created_at %></i>
+          <br>
+        </div>
+
+        <!-- Tags for the question -->
+        <div class="tag-list">
+          Tags: 
+          <% @question.tag_list.each do |tag| %>
+            <span class="tag"><%= link_to tag, "/tags/#{tag}" %></span>
+          <% end %> 
+        </div>
+    </div>
+
+    <div class="col-3">
+          <div class="questioner-profile">
+            <div class="row">
+              <div class="col-1">
+                <% if current_user %>
+                  <% if current_user.id == @question.user_id %> 
+                    <%= link_to edit_question_path do %>
+                      <i class="fa fa-edit" ></i>
+                    <% end %>
+                    <%= link_to question_path, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                      <i class="fa fa-trash" style="color:#b22222; font-size: 18px;"></i>
+                    <% end %>
+                    
+                  <% end %>
+                <% end %>
+              </div>
+
+              <div class="col-3" >
+                <%= image_tag @question.user.avatar.url(:thumb), style: "border-radius: 50%;", size: "60x60" %>
+              </div>
+
+              <div class="col-7">
+                <div class="by_string">posted by:</div><%= link_to @question.user.display_name, @question.user %>
+              </div>
+            </div>
+
+          </div>
+      
+    </div>
+</div>
+
+
+
+<br>
+  
+<h4>Answers</h4><hr>
+
+<% @question.answers.order(created_at: :asc).each do |answer| %>
+<div class="answer-container">
+  <div class="row">
+    <div class="col-9">
+      <div class="row">
+        <div class="col-1">
+          <div>
+            <%if !answer.reported %>
+              <!-- Calculate number of votes for answer -->
+              <% count = 0 %><% answer.votes.each do |vote| %><% count = count + vote.value %><% end %>
+              <!-- Upvote button -->
+              <div class="updownvote">
+                <%= link_to votes_upvote_path(answer_id: answer.id) do %>
+                  <i class="fa fa-caret-up" style="color:green; font-size: 40px;"></i>
+                <% end %>
+                <!-- Total count -->
+                <div><%= count %></div>
+              </div>
+            <%end%>
+          </div>
+        </div>
+        <div class="col-11">
+          <div class="answer-content">
+            <% if answer.reported == false %>
+              <div class="mb-1" ><%= auto_link(answer.content) %><br>
+                <%= if answer.image.file? then image_tag answer.image.url(:medium) end %><br>
+                <i style="color: gray;font-size: 13px; float: right;">Posted <%= answer.created_at %></i><br></div>
+            <% else %>
+              <div class="mb-1" ><i>The content has been removed by the Moderator</i><br></div>
+            <% end %>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-3" >
+        <div class="answerer-profile">
+            <div class="row">
+              <div class="col-1">
+                <!-- Answer is deleteable if it belongs to current user -->
+                  <% if current_user %>
+                    <% if current_user.id == @question.user_id && answer.reported == false %>
+                      <%= link_to report_answer_path(question_id: answer.question,answer_id: answer), title: "Report this answer" do %>
+                        <i class="fa fa-flag"></i>
+                      <% end %>
+                    <% elsif current_user.id == @question.user_id && answer.reported == true %>
+                      <%= link_to report_answer_path(question_id: answer.question,answer_id: answer), title: "Unreport this answer" do %>
+                        <i class="fa fa-flag" ></i>
+                      <% end %>                    
+                    <% end %>
+                    <% if answer.reported == false %>
+                      <% if current_user.id == answer.user_id %> 
+                        <%= link_to edit_answer_path(question_id: answer.question,answer_id: answer) do %>
+                          <i class="fa fa-edit" ></i>
+                        <% end %>
+                        <%= link_to answer_path(question_id: answer.question,answer_id: answer), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                          <i class="fa fa-trash" style="color:#b22222; font-size: 18px;"></i>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+              </div>
+              <div class="col-3" >
+                <%= image_tag answer.user.avatar.url(:thumb), style: "border-radius: 50%;", size: "60x60" %>
+              </div>
+
+              <div class="col-7">
+                <div class="by_string">answered by:</div><%= link_to answer.user.display_name, answer.user %>
+              </div>
+            </div>
+
+        </div>
+    </div>
+  </div>
+</div>
+  
+  <!-- Replies for the answer -->
+  <div>
+    <!-- Reply content -->
+    <% answer.replies.order(created_at: :asc).each do |reply| %>
+      <div class="row">
+        <div class="col-9">
+          <div class="row">
+            <div class="col-2">
+              <div class="updownvote"><i class="fa fa-angle-double-right" style="font-size: 15px;"></i></div>
+            </div>
+            <div class="col-10">
+              <div class="reply-content">
+                <div class="by_string"> <%= link_to reply.user.display_name, reply.user %> replied:<br></div>
+                  <% if reply.reported == false %>
+                    <%= auto_link(reply.content) %> 
+                  <% else %>
+                    <i>The content has been removed by the Moderator</i>
+                  <% end %>
+                    <!--<%= reply.created_at %>-->
+                  <!-- Reply is deleteable if it belongs to current user -->
+                  <div style="float: right">
+                    <% if current_user %>
+                      <% if current_user && reply.user == current_user && reply.reported == false %>
+                        <%= link_to edit_reply_path(reply) do %>
+                          <i class="fa fa-edit" ></i>
+                        <% end %>
+                        <%= link_to reply_path(reply), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                          <i class="fa fa-trash" style="color:#b22222; font-size: 15px;"></i>
+                        <% end %>
+                      <% end %>
+                      <% if current_user.id == @question.user_id && reply.reported == false %>
+                        <%= link_to report_reply_path(question_id: answer.question,reply_id:reply) do %>
+                          <i class="fa fa-flag"></i>
+                        <% end %>
+                      <% elsif current_user.id == @question.user_id && reply.reported == true %>
+                        <%= link_to report_reply_path(question_id: answer.question,reply_id:reply) do %>
+                          <i class="fa fa-flag"></i>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-3"></div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <div class="col-9" >
+        <div class="row">
+          <div class="col-2"></div>
+          <div class="col-10">
+            <!-- Reply form only available when logged-in -->
+            <% if current_user %>
+              <%= form_for @reply, html: { class: "form-inline" } do |f| %>
+                <%= f.hidden_field :user_id, value: current_user.id %>
+                <%= f.hidden_field :answer_id, value: answer.id %>
+                <%= f.text_field :content, placeholder: "Reply here (16 characters minimum)", size: "40", class: "form-control mb-2 mr-sm-2" %>
+                <%= f.button :submit, class: "btn btn-link", style: "color:green" do %>
+                  <i class="fa fa-reply"></i>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+    </div> 
+  </div>
+
+
+<hr>
+<% end %>
+<br>
+
+
+<% if current_user %>
+  <%= form_for @answer do |f| %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.hidden_field :question_id, value:  @question.id %>
+
+    <div class="form-group">
+      <%= f.label :content  %>
+      <div class="input-group is-invalid"><%= f.text_area :content, :placeholder => "Answer here", value: flash[:content], rows: "7", cols: "80", class: "form-control #{if flash[:error] then 'is-invalid' end}" %></div>  
+      <div class="invalid-feedback"><% if flash[:error] and flash[:error]["content"] %><%= flash[:error]["content"][0] %><% end %></div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :image, "Attach image: " %> <%= f.file_field :image %>
+      <div class="text-danger"><% if flash[:error] and flash[:error]["image"] %>File uploaded <%= flash[:error]["image"][0] %>.<% end %></div>
+    </div>
+
+    <%= f.submit "Submit Answer", class: "btn btn-primary" %>
+  <% end %>
+<% end %>
+
+<%= stylesheet_link_tag "questions_show", media: "all" %>

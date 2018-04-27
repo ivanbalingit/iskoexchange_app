@@ -1,0 +1,53 @@
+<!--
+    Description: View template for questions index page
+    Copyright (C) 2018 Ivan Balingit
+
+    This is a course requirement for CS 192 Software Engineering II under the supervision of Asst. Prof. Ma. Rowena C. Solamo of the Department of Computer Science, College of Engineering, University of the Philippines, Diliman for the AY 2015-2016
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see https://www.gnu.org/licenses/.
+
+     *CHANGELOG*
+     Ivan Balingit 2/2/18 - Initial Source Code and content. 
+     Ivan Balingit 2/9/18 - Added License
+     Ivan Balingit 2/14/18 - Add link to user
+     Patricia Cajaljal 2/22/18 -Edited frontend at questions page
+     Patricia Cajaljal 3/6/18 -Edited frontend at questions page
+     Ivan Balingit 3/20/18 - Add user avatar
+     Ivan Balingit 4/12/18 - Sort questions by newest or trending
+     Ivan Balingit 4/13/18 - Add pagination
+
+     File created on: 1/26/18
+     Developer: 
+     Client: UP Diliman Students
+     IskoExchange is a platform for UP students to ask questions and share insights related to UP
+-->
+
+<h2 style="color:#000000;">Questions for Isko</h2>
+Sort by: 
+    <%= link_to "Newest", questions_path(s: "n"), class: "btn btn-#{ if params[:s]=='n' then 'primary' else 'secondary' end }" %>
+    <%= link_to "Trending", questions_path(s: "t"), class: "btn btn-#{ if params[:s]=='t' then 'primary' else 'secondary' end }" %><br><br>
+    <%= paginate @questions %>
+<hr>
+
+<% @questions.each do |question| %>
+<div class="row">
+    <div class="col-2" align="center">
+        <%= image_tag question.user.avatar.url(:medium), style: "border-radius: 50%;", size: "100x100" %>
+        <div><b><%= link_to question.user.display_name, question.user, {:style=>'color:#8b0000;'} %></b></div>
+    </div>
+    <div class="col-10">
+        <h4 style="color:#000000;"><b><%= link_to question.title, question, {:style=>'color:#000000;'} %></b></h4>
+        <i style="color: gray;font-size: 13px; float:left;"><%= pluralize(question.answers.count, "answer") %> | Posted <%= question.created_at %></i><br>
+        <div><%= question.content.truncate(128) %></div>
+    </div>
+</div>
+<hr>
+<% end %>

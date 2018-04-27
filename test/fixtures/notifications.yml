@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  by: one
+  to: one
+  action: MyString
+  question: one
+
+two:
+  by: two
+  to: two
+  action: MyString
+  question: two

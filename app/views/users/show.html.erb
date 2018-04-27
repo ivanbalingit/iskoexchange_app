@@ -1,0 +1,64 @@
+<!--
+    Description: View template for user profile page
+    Copyright (C) 2018 Ivan Balingit
+
+    This is a course requirement for CS 192 Software Engineering II under the supervision of Asst. Prof. Ma. Rowena C. Solamo of the Department of Computer Science, College of Engineering, University of the Philippines, Diliman for the AY 2015-2016
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see https://www.gnu.org/licenses/.
+
+     *CHANGELOG*
+     Ivan Balingit 2/14/18 - Initial Source Code and content. 
+     Patricia Cajaljal 3/6/18 - Added frontend for user profile
+     Ivan Balingit 3/9/18 - Fix profile layout
+     Ivan Balingit 3/20/18 - Add user avatar
+
+     File created on: 2/14/18
+     Developer: 
+     Client: UP Diliman Students
+     IskoExchange is a platform for UP students to ask questions and share insights related to UP
+-->
+<div class="row">
+    <div class="col-2">
+        <div id="avatar"><%= image_tag @user.avatar.url(:medium), style: "border-radius: 50%;", size: "160x160" %></div>
+    </div>
+
+    <div class="col-8">
+        <div>
+            <h2><%= @user.display_name %></h2>
+            <% if @user.show_education && @user.education_degree != "" && @user.education_school != "" %><div><%= @user.education_degree %> at <%= @user.education_school %></div><% end %>
+            <% if @user.show_employment && @user.employment_position != "" && @user.employment_company != "" %><div><%= @user.employment_position %> at <%= @user.employment_company %></div><% end %>
+        </div>
+        <br>
+        <div>
+            <%= @user.description %>
+        </div>
+    </div>
+
+    <div class="col-2">
+        <% if @user == current_user %>
+            <%= link_to "Edit Profile", edit_user_path(@user), class: "btn btn-primary" %>
+        <% end %>
+    </div>
+</div>
+
+<hr><br>
+
+<h3><strong>Questions by <%= @user.display_name %></strong></h3>
+<% @user.questions.each do |question| %>
+<i class="fa fa-angle-double-right" style="float:left"></i>
+    <div class="offset-1">
+        <h5 style="color:#000000;margin-bottom:0px;">  <%= link_to question.title, question, {:style=>'color:#000000;'} %></h5>
+        <div style="margin-bottom:8px;"><%= question.content.truncate(128) %></div>
+    </div>
+
+<% end %>
+
+<%= stylesheet_link_tag "users", media: "all" %>

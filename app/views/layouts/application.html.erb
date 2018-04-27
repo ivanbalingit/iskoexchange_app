@@ -1,74 +1,119 @@
+<!--
+    Description: View template for the application layout
+    Copyright (C) 2018 Ivan Balingit
+
+    This is a course requirement for CS 192 Software Engineering II under the supervision of Asst. Prof. Ma. Rowena C. Solamo of the Department of Computer Science, College of Engineering, University of the Philippines, Diliman for the AY 2015-2016
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see https://www.gnu.org/licenses/.
+
+     *CHANGELOG*
+     Ivan Balingit 2/2/18 - Initial Source Code and content. 
+     Ivan Balingit 2/9/18 - Added License
+     Ivan Balingit 2/14/18 - Add link to user
+     Ivan Balingit 2/17/18 - Modify search form
+     Patricia Cajaljal 3/5/18 - Added script for font awesome (line 39)
+     Ivan Balingit 3/22/18 - Edit search placeholder for tag search instructions
+     Patricia Cajaljal 3/12/18 - Edited frontend for notifs
+
+     File created on: 1/26/18
+     Developer: 
+     Client: UP Diliman Students
+     IskoExchange is a platform for UP students to ask questions and share insights related to UP
+-->
+
 <!DOCTYPE html>
 <html>
   <head>
-    <title>IskoexchangeApp</title>
+    <title>IskoExchange</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    params["controller"], media: 'all' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
 
-  <body>
+  <body class="d-flex flex-column">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <!-- Navbar brand -->
-      <%= link_to "IskoExchange", root_url, class: "navbar-brand" %>
-      <!-- Collapse toggle button -->
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <!-- Links -->
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <!-- Left side -->
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Questions</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-        </ul>
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+      <div class="container">
+        <!-- Navbar brand -->
+        <%= link_to image_tag("/logos/iskoexchange_logo.png", id: "iskoexchange-logo"), root_url, class: "navbar-brand" %>
+
         <!-- Right side -->
-        <ul class="navbar-nav">
+        <ul class="navbar-nav ml-auto">
+          <!--Questions-->
+          <li class="nav-item">
+            <%= link_to "Questions", questions_url, style: 'color: #FFFFFF', class: "nav-link" %>
+          </li>
+
           <!-- Ask a Question -->
-            <li class="nav-item">
-                <%= link_to "Ask a Question", new_question_url, class: " btn btn-outline-secondary" %>
-            </li>
+          <li class="nav-item">
+            <%= link_to "Ask a Question", new_question_url, style: 'color: #ED1C24', class: "nav-link" %>
+          </li>&nbsp;
+
           <!-- Search form -->
-          <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
+          <%= form_tag "/search", method: "get", class: "form-inline" do %>
+              <span class="font-size: 20px;"><%= text_field_tag :q, nil, placeholder: "Search (term or tag:tag_name)", size: 24, class: "form-control mr-sm-2 form-search"%></span>
+          <% end %>
           <% if current_user %>
+          <!--INSERT IMAGE HERE FOR NOTIFS-->
+          <div class="notifs" style="text-align: center">
+            <%= link_to notifications_url do %>
+              <i class="fa fa-bell"></i>
+            <% end %>
+            <% if notifs_count == 0%>
+
+
+            <% else %>
+              <p id="notif_num"> <%= link_to notifs_count, notifications_url, style: 'color: white; '%><p>
+            <%end%>
+          </div>
+    
+            
             <!-- When logged in -->
-            &nbsp;&nbsp;
-            <span class="navbar-text">Logged in as: <strong><%= current_user.display_name %></strong>.</span>
+            &nbsp;
+            <span class="navbar-text text-white">Logged in as: <strong><%= link_to current_user.display_name, current_user %></strong></span>
             &nbsp;&nbsp;
             <%= link_to "Log Out", logout_url, method: :delete, class: "btn btn-outline-danger" %>
           <% else %>
             <!-- If no one is logged in -->
             &nbsp;
             <li class="nav-item">
-              <%= link_to "Log In", login_url, class: "btn btn-outline-secondary" %>
+              <%= link_to "Log In", login_url, :style=>"float:right", class: "btn btn-outline-secondary" %>
             </li>
             &nbsp;
             <li class="nav-item">
-              <%= link_to "Sign Up", signup_url, class: "btn btn-outline-primary" %>
+              <%= link_to "Sign Up", signup_url, class: "btn btn-outline-primary"%>
             </li>
           <% end -%>
-        </ul>
+        </ul> 
       </div>
     </nav>
     
     <!-- Main content -->
-    <div class="container">
-      <br><%= yield %>  
+    <div class="container flex-grow" id="main-content">
+      <br><br><br><br><%= yield %>  
     </div>
     
+    <!-- Footer -->
+    <footer class="bg-dark text-white mt-4">
+        <div class="container py-3">
+            <div class="row">
+                <div class="col-12">
+                  <h5>IskoExchange.</h5>
+                </div>
+            </div>
+        </div>
+    </footer>
   </body>
 </html>

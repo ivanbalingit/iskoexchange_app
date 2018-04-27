@@ -1,3 +1,33 @@
+/*begin
+    Description: SCSS file for the Application controller
+    Copyright (C) 2018 Ivan Balingit
+
+    This is a course requirement for CS 192 Software Engineering II under the supervision of Asst. Prof. Ma. Rowena C. Solamo of the Department of Computer Science, College of Engineering, University of the Philippines, Diliman for the AY 2015-2016
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see https://www.gnu.org/licenses/.
+
+     *CHANGELOG*
+     Ivan Balingit 1/31/18 - Initial Source Code and Add Bootstrap fro front-end
+     Ivan Balingit 2/17/18 - Add footer to site
+     Patricia Cajaljal 2/8/18 - Add frontend for home, login; edited navibar
+     Ivan Balingit 2/9/18 - Fix frontend code; add comments and license
+     Ivan Balingit 3/7/18 - Add styles for inline form errors
+     Patricia Cajaljal 4/12/18 - Edit frontend for notifs
+
+     File created on: 1/31/18
+     Developer: Ivan Balingit
+     Client: UP Diliman Students
+     IskoExchange is a platform for UP students to ask questions and share insights related to UP
+=end*/
+
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
@@ -11,4 +41,109 @@
  * It is generally better to create a new file per style scope.
  *
  */
+
 @import "bootstrap";
+@import "font-awesome";
+
+body {
+  min-height: 100vh;
+  background-color: #fafafa;
+  font-family: Hero, $font-family-base; 
+}
+
+form {
+  position: relative;
+  display: block;
+  margin-top: 0em;
+}
+
+input {
+  outline: none;
+}
+
+.form-search {
+  background: #ededed url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
+  border: solid 1px #ccc;
+  padding: 5px 6px 5px 32px;
+  width: 45px;
+	
+  -webkit-border-radius: 10em;
+  -moz-border-radius: 10em;
+  border-radius: 10em;
+	
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  transition: all .5s;
+}
+
+.navbar-brand { font-color: #FFF444; }
+
+.nav-item{ color: #FFFFFF; }
+
+nav {
+	background-color: #000000;
+	font-color: #FFFFFF;
+}
+
+.flex-grow { flex: 1; }
+
+#iskoexchange-logo {
+	width: 180px;
+	height: 30px;
+}
+
+@font-face {
+    font-family: 'Glyphicons Halflings';
+    src: url('/assets/glyphicons-halflings-regular.eot');
+    src: url('/assets/glyphicons-halflings-regular.eot?iefix') format('eot'),
+         url('/assets/glyphicons-halflings-regular.woff') format('woff'),
+         url('/assets/glyphicons-halflings-regular.ttf') format('truetype'),
+         url('/assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+.input-group.is-invalid {
+  ~ .invalid-feedback {
+    display: block;
+  }
+}
+
+.field_with_errors {
+  .form-control {
+    @extend .is-invalid;
+  }
+}
+
+.notifs {
+  width: 35px;
+  height: 35px;
+  padding-top:10px;
+  //background-color: yellow;
+  position: relative;
+}
+
+i.fa-bell {
+  //background-color: green;
+  text-align: center;
+  position: relative;
+  font-size: 1.4em;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.notif_count {
+  width: 16px;
+  height: 16px;
+  background-color: red;
+  position: absolute;
+  text-align: center;
+  font-size: 0.8em;
+  border-radius: 60px;
+  border: solid black;
+  top: 2.5px;
+  right: 2px;
+}
+
+#notif_num {
+  position: absolute; top: 2.5px; right: 2px; width: 16px; length:16px; color:white; font-size: 8px; background-color: red; border: solid black; border-radius: 60px;
+}
