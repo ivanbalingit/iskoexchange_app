@@ -147,3 +147,7 @@ i.fa-bell {
 #notif_num {
   position: absolute; top: 2.5px; right: 2px; width: 16px; length:16px; color:white; font-size: 8px; background-color: red; border: solid black; border-radius: 60px;
 }
+
+.question-title {
+  word-wrap: break-word;
+}
