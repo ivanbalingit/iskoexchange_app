@@ -259,11 +259,12 @@
     <div class="form-group">
       <%= f.label :content  %>
       <div class="input-group is-invalid"><%= f.text_area :content, :placeholder => "Answer here", value: flash[:content], rows: "7", cols: "80", class: "form-control #{if flash[:error] then 'is-invalid' end}" %></div>  
-      <div class="invalid-feedback"><% if flash[:error] %><%= flash[:error]["content"][0] %><% end %></div>   
+      <div class="invalid-feedback"><% if flash[:error] and flash[:error]["content"] %><%= flash[:error]["content"][0] %><% end %></div>
     </div>
 
     <div class="form-group">
       <%= f.label :image, "Attach image: " %> <%= f.file_field :image %>
+      <div class="text-danger"><% if flash[:error] and flash[:error]["image"] %>File uploaded <%= flash[:error]["image"][0] %>.<% end %></div>
     </div>
 
     <%= f.submit "Submit Answer", class: "btn btn-primary" %>

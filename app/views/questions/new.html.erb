@@ -53,6 +53,7 @@
             <div class="form-group">
                 <%= f.label :image, "Attach image: " %>
                 <%= f.file_field :image %>
+                <div class="text-danger"><% if @question.errors[:image].any? %>File uploaded <%= @question.errors[:image].first %>.<% end %></div>
             </div>
 		    <%= f.submit "Post Question", class: "btn btn-primary" %>
 		<% end %>		

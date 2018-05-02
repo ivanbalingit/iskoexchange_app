@@ -45,6 +45,7 @@ Sort by:
     </div>
     <div class="col-10">
         <h4 style="color:#000000;"><b><%= link_to question.title, question, {:style=>'color:#000000;'} %></b></h4>
+        <i style="color: gray;font-size: 13px; float:left;"><%= pluralize(question.answers.count, "answer") %> | Posted <%= question.created_at %></i><br>
         <div><%= question.content.truncate(128) %></div>
     </div>
 </div>
