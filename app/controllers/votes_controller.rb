@@ -13,7 +13,7 @@
 #    GNU General Public License for more details.
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see https://www.gnu.org/licenses/.
-#    
+#
 #    **CHANGELOG**
 #    Luis Tan 3/22/18 - Initial Source Code and Added all the Methods
 #    Luis Tan 4/9/18 - Remove Downvote
@@ -31,7 +31,7 @@ class VotesController < ApplicationController
     #For the upvote feature for the Answer
     def upvote
         @vote = Vote.find_by(answer_id: params[:answer_id], user_id: current_user.id)
-        
+
         if @vote == nil
             @vote = Vote.new(user_id: current_user.id, answer_id: params[:answer_id], value: 0)
         end
@@ -43,15 +43,15 @@ class VotesController < ApplicationController
             end
         else
             if current_user.id != @vote.answer.user_id
-                if Notification.find_by(by_id: current_user.id, to_id: @vote.answer.user_id, question_id: @vote.answer.question) 
+                if Notification.find_by(by_id: current_user.id, to_id: @vote.answer.user_id, question_id: @vote.answer.question)
                     Notification.find_by(by_id: current_user.id, to_id: @vote.answer.user_id, question_id: @vote.answer.question).destroy
                 end
             end
             @vote.value = 0
         end
         @vote.save
-        redirect_back fallback_location: Question.find(Answer.find(params[:id]).question.id)
-    end 
+        redirect_back fallback_location: Question.find(Answer.find(params[:answer_id]).question.id)
+    end
 
     private
     # 2/14/18
