@@ -36,7 +36,7 @@
 <h2>Latest questions</h2><hr>
 
 <% @questions.each do |question| %>
-    <h4 style="color:#000000;"><%= link_to question.title, question, {:style=>'color:#000000;'} %></h4>
+    <h4 style="color:#000000;" class="question-title"><%= link_to question.title, question, {:style=>'color:#000000;'} %></h4>
     <div><i>Asked by: </i><%= link_to question.user.display_name, question.user %></div>
     <div><%= question.created_at %></div>
     <hr>
