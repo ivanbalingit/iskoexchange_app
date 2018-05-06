@@ -38,9 +38,9 @@ class User < ApplicationRecord
   has_many :by_notif, :class_name => 'Notification', :foreign_key => 'by_id'
   has_many :to_notif, :class_name => 'Notification', :foreign_key => 'to_id'
 
-
   has_secure_password
   validates :email, :display_name, presence: true
+  validates :email, uniqueness: true
   validates_email_format_of :email
 
   has_attached_file :avatar, styles: { medium: "160x160#", thumb: "60x60#" }, default_url: "/man_shaggy.png"
