@@ -234,7 +234,7 @@
               <%= form_for @reply, html: { class: "form-inline" } do |f| %>
                 <%= f.hidden_field :user_id, value: current_user.id %>
                 <%= f.hidden_field :answer_id, value: answer.id %>
-                <%= f.text_field :content, placeholder: "Reply here (16 characters minimum)", size: "40", class: "form-control mb-2 mr-sm-2" %>
+                <%= f.text_field :content, placeholder: "Reply here (4 characters minimum)", size: "40", class: "form-control mb-2 mr-sm-2" %>
                 <%= f.button :submit, class: "btn btn-link", style: "color:green" do %>
                   <i class="fa fa-reply"></i>
                 <% end %>

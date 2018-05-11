@@ -34,7 +34,7 @@ class Question < ApplicationRecord
   belongs_to :user
   has_many :answers, dependent: :destroy
   has_many :notifications, dependent: :destroy
-  validates :title, :content, presence: true, length: { minimum: 16 }
+  validates :title, :content, presence: true, length: { minimum: 4 }
   acts_as_taggable_on :tags
 
   has_attached_file :image, styles: { medium: "300x300>", thumb: "60x60>" }

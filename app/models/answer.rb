@@ -33,7 +33,7 @@ class Answer < ApplicationRecord
 
     has_many   :votes, dependent: :delete_all
     has_many   :replies, dependent: :delete_all
-    validates  :content, presence: true, length: { minimum: 16 }
+    validates  :content, presence: true, length: { minimum: 4 }
 
     has_attached_file :image, styles: { medium: "300x300>", thumb: "60x60>" }
     validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
